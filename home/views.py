@@ -8,5 +8,9 @@ from django.contrib import messages
 
 
 def index(request):
-    return render(request,"home.html")
+    data = Berita.objects.all()
+    return render(request,"home.html", {'data':data})
 
+def detail_view(request, id):
+    data = Berita.objects.filter(id_berita=id)
+    return render(request,"detail_berita.html", {'data':data})

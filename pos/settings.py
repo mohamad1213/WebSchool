@@ -40,10 +40,8 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'rest_framework',
     'crispy_forms',
-    'barang',
     'home',
-    'customer',
-    'transaksi',
+    'admin1',
     'account'
 ]
 

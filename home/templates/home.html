@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "frontend/base.html" %}
 {% load static %}
 
 {% block content %}
@@ -489,157 +489,94 @@
             color: #007854;
         }
 
-        .portfolio .portfolio-item {
-            margin-bottom: 30px;
-        }
-
-        .portfolio #portfolio-flters {
-            padding: 0;
-            margin: 0 auto 35px auto;
-            list-style: none;
-            text-align: center;
-            border-radius: 50px;
-            padding: 2px 15px;
-        }
-
-        .portfolio #portfolio-flters li {
-            cursor: pointer;
-            display: inline-block;
-            padding: 10px 15px 8px 15px;
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 1;
-            text-transform: uppercase;
-            color: #444444;
-            margin-bottom: 5px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .portfolio #portfolio-flters li:hover,
-        .portfolio #portfolio-flters li.filter-active {
-            color: #2487ce;
-        }
-
-        .portfolio #portfolio-flters li:last-child {
-            margin-right: 0;
-        }
-
-        .portfolio .portfolio-wrap {
-            transition: 0.3s;
-            position: relative;
+        .berita .testimonials-carousel,
+        .berita .testimonials-slider {
             overflow: hidden;
-            z-index: 1;
         }
 
-        .portfolio .portfolio-wrap::before {
-            content: "";
-            background: rgba(36, 135, 206, 0.6);
-            position: absolute;
-            left: 30px;
-            right: 30px;
-            top: 30px;
-            bottom: 30px;
-            transition: all ease-in-out 0.3s;
-            z-index: 2;
-            opacity: 0;
-        }
-
-        .portfolio .portfolio-wrap .portfolio-info {
-            opacity: 0;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+        .berita .testimonial-item {
+            box-sizing: content-box;
             text-align: center;
-            z-index: 3;
-            transition: all ease-in-out 0.3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            min-height: 320px;
         }
 
-        .portfolio .portfolio-wrap .portfolio-info::before {
-            display: block;
-            content: "";
-            width: 48px;
-            height: 48px;
-            position: absolute;
-            top: 35px;
-            left: 35px;
-            border-top: 3px solid #fff;
-            border-left: 3px solid #fff;
-            transition: all 0.5s ease 0s;
-            z-index: 9994;
+        .berita .testimonial-img {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
         }
 
-        .portfolio .portfolio-wrap .portfolio-info::after {
-            display: block;
-            content: "";
-            width: 48px;
-            height: 48px;
-            position: absolute;
-            bottom: 35px;
-            right: 35px;
-            border-bottom: 3px solid #fff;
-            border-right: 3px solid #fff;
-            transition: all 0.5s ease 0s;
-            z-index: 9994;
+        .berita .testimonial-item h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0 5px 0;
+            color: #111;
         }
 
-        .portfolio .portfolio-wrap .portfolio-info h4 {
-            font-size: 20px;
-            color: #fff;
-            font-weight: 600;
-        }
-
-        .portfolio .portfolio-wrap .portfolio-info p {
-            color: #ffffff;
+        .berita .testimonial-item h4 {
             font-size: 14px;
-            text-transform: uppercase;
-            padding: 0;
+            color: #999;
             margin: 0;
         }
 
-        .portfolio .portfolio-wrap .portfolio-links {
-            text-align: center;
-            z-index: 4;
+        .berita .testimonial-item .quote-icon-left,
+        .berita .testimonial-item .quote-icon-right {
+            color: #c9e3f5;
+            font-size: 26px;
         }
 
-        .portfolio .portfolio-wrap .portfolio-links a {
-            color: rgba(255, 255, 255, 0.6);
-            margin: 0 2px;
-            font-size: 28px;
+        .berita .testimonial-item .quote-icon-left {
             display: inline-block;
-            transition: 0.3s;
+            left: -5px;
+            position: relative;
         }
 
-        .portfolio .portfolio-wrap .portfolio-links a:hover {
-            color: #fff;
+        .berita .testimonial-item .quote-icon-right {
+            display: inline-block;
+            right: -5px;
+            position: relative;
+            top: 10px;
         }
 
-        .portfolio .portfolio-wrap:hover::before {
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+        .berita .testimonial-item p {
+            font-style: italic;
+            margin: 0 15px 15px 15px;
+            padding: 20px;
+            background: #f3f9fd;
+            position: relative;
+            margin-bottom: 35px;
+            border-radius: 6px;
+        }
+
+        .berita .testimonial-item p::after {
+            content: "";
+            width: 0;
+            height: 0;
+            border-top: 20px solid #f3f9fd;
+            border-right: 20px solid transparent;
+            border-left: 20px solid transparent;
+            position: absolute;
+            bottom: -20px;
+            left: calc(50% - 20px);
+        }
+
+        .berita .swiper-pagination {
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .berita .swiper-pagination .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background-color: #fff;
             opacity: 1;
+            border: 1px solid #2487ce;
         }
 
-        .portfolio .portfolio-wrap:hover .portfolio-info {
-            opacity: 1;
+        .berita .swiper-pagination .swiper-pagination-bullet-active {
+            background-color: #2487ce;
         }
 
-        .portfolio .portfolio-wrap:hover .portfolio-info::before {
-            top: 15px;
-            left: 15px;
-        }
-
-        .portfolio .portfolio-wrap:hover .portfolio-info::after {
-            bottom: 15px;
-            right: 15px;
-        }
 
         /*--------------------------------------------------------------
 # Portfolio Details
@@ -856,48 +793,6 @@
     </section> -->
     <!-- End About Video Section -->
 
-
-    <!-- ======= Clients Section ======= -->
-    <section id="clients" class="clients section-bg">
-        <div class="container">
-
-            <div class="row">
-
-                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
-                    data-aos="zoom-in">
-                    <img src="assets/img/clients/client-1.png" class="img-fluid" alt="">
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
-                    data-aos="zoom-in">
-                    <img src="assets/img/clients/client-2.png" class="img-fluid" alt="">
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
-                    data-aos="zoom-in">
-                    <img src="assets/img/clients/client-3.png" class="img-fluid" alt="">
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
-                    data-aos="zoom-in">
-                    <img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
-                    data-aos="zoom-in">
-                    <img src="assets/img/clients/client-5.png" class="img-fluid" alt="">
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center"
-                    data-aos="zoom-in">
-                    <img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
-                </div>
-
-            </div>
-
-        </div>
-    </section><!-- End Clients Section -->
-
     <!-- ======= Testimonials Section ======= -->
     <section id="galeri" class="testimonials">
         <div class="container" data-aos="fade-up">
@@ -967,7 +862,8 @@
                 </div>
 
             </div>
-    </section><!-- End Testimonials Section -->
+    </section>
+    <!-- End Testimonials Section -->
 
     <!-- ======= ukm Section ======= -->
     <section id="ukm" class="services section-bg">
@@ -1036,7 +932,7 @@
                 </div>
 
                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box iconbox-teal">
+                    <div class="icon-box ">
                         <div class="icon">
                             <button type="button" class="btn btn-circle btn-xl"> <i class='bx bxs-network-chart'></i>
                             </button>
@@ -1046,7 +942,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box iconbox-teal">
+                    <div class="icon-box ">
                         <div class="icon">
                             <button type="button" class="btn btn-circle btn-xl"> <i class='bx bx-plus-medical'></i>
                             </button>
@@ -1056,7 +952,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box iconbox-teal">
+                    <div class="icon-box ">
                         <div class="icon">
                             <button type="button" class="btn btn-circle btn-xl"> <i class='bx bx-football'></i>
                             </button>
@@ -1072,9 +968,103 @@
     </section><!-- End Sevices Section -->
 
     <!-- ======= Portfolio Section ======= -->
-    <section id="berita" class="portfolio">
+    <section id="berita" class="testimonials">
+        {% for u in data %}
         <div class="container" data-aos="fade-up">
+            <a type="button" class="btn" href="berita/{{u.id}}/" style="float: right; background-color: #007854; color: #fff;">Lihat Selengkapnya</a>
+            
+            <div class="section-title">
+                <h2 class="ml-2">Berita Terkini</h2>
+            </div>
 
+            <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-1.jpg' %}"
+                            class="testimonial-img" alt="">
+                        <div class="testimonial-item">
+                            <p>
+                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                ajg lu
+                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                            </p>
+                            <h3>Saul Goodman</h3>
+                            <h4>Ceo &amp; Founder</h4>
+                        </div>
+                    </div><!-- End testimonial item -->
+
+                    <div class="swiper-slide">
+                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-2.jpg' %}"
+                            class="testimonial-img" alt="">
+                        <div class="testimonial-item">
+                            <p>
+                                Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid
+                                cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet
+                                legam anim culpa.
+                            </p>
+                            <h3>Sara Wilsson</h3>
+                            <h4>Designer</h4>
+                        </div>
+                    </div><!-- End testimonial item -->
+
+                    <div class="swiper-slide">
+                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-3.jpg' %}"
+                            class="testimonial-img" alt="">
+                        <div class="testimonial-item">
+                            <p>
+                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam
+                                duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                            </p>
+                            <h3>Jena Karlis</h3>
+                            <h4>Store Owner</h4>
+                        </div>
+                    </div><!-- End testimonial item -->
+                    
+                    <div class="swiper-slide">
+                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-4.jpg' %}"
+                            class="testimonial-img" alt="">
+                        <div class="testimonial-item">
+                            <p>
+                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat
+                                minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore
+                                labore illum veniam.
+                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                            </p>
+                            <h3>Matt Brandon</h3>
+                            <h4>Freelancer</h4>
+                        </div>
+                    </div><!-- End testimonial item -->
+
+                    <div class="swiper-slide">
+                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-5.jpg' %}"
+                            class="testimonial-img" alt="">
+                            <div class="testimonial-item">
+                            <p>
+                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster
+                                veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam
+                                culpa fore nisi cillum quid.
+                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                            </p>
+                            <h3>John Larson</h3>
+                            <h4>Entrepreneur</h4>
+                        </div>
+                    </div><!-- End testimonial item -->
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </section>
+    <!-- <section id="berita" class="portfolio">
+        <div class="container" data-aos="fade-up">
+            
             <div class="section-title">
                 <h2>Berita</h2>
                 <p> Info terkini dari dunia pondok</p>
@@ -1084,7 +1074,7 @@
 
                 <div class="col-lg-2 col-md-6 portfolio-item">
                     <div class="portfolio-wrap">
-                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-1.jpg' %}" class="img-fluid"
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-1.jpg' %}" class="d-block w-100"
                             alt="">
                         <div class="portfolio-info">
                             <div class="portfolio-links">
@@ -1101,7 +1091,7 @@
 
                 <div class="col-lg-2 col-md-6 portfolio-item">
                     <div class="portfolio-wrap">
-                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-2.jpg' %}" class="img-fluid"
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-2.jpg' %}" class="d-block w-100"
                             alt="">
                         <div class="portfolio-info">
                             <div class="portfolio-links">
@@ -1119,7 +1109,7 @@
 
                 <div class="col-lg-2 col-md-6 portfolio-item">
                     <div class="portfolio-wrap">
-                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-3.jpg' %}" class="img-fluid"
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-3.jpg' %}" class="d-block w-100"
                             alt="">
                         <div class="portfolio-info">
                             <div class="portfolio-links">
@@ -1137,7 +1127,7 @@
 
                 <div class="col-lg-2 col-md-6 portfolio-item">
                     <div class="portfolio-wrap">
-                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-4.jpg' %}" class="img-fluid"
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-4.jpg' %}" class="d-block w-100"
                             alt="">
                         <div class="portfolio-info">
                             <div class="portfolio-links">
@@ -1155,7 +1145,7 @@
 
                 <div class="col-lg-2 col-md-6 portfolio-item ">
                     <div class="portfolio-wrap">
-                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-5.jpg' %}" class="img-fluid"
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-5.jpg' %}" class="d-block w-100"
                             alt="">
                         <div class="portfolio-info">
                             <div class="portfolio-links">
@@ -1173,7 +1163,7 @@
 
                 <div class="col-lg-2 col-md-6 portfolio-item">
                     <div class="portfolio-wrap">
-                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-6.jpg' %}" class="img-fluid"
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-6.jpg' %}" class="d-block w-100"
                             alt="">
                         <div class="portfolio-info">
                             <div class="portfolio-links">
@@ -1191,7 +1181,7 @@
 
                 <div class="col-lg-2 col-md-6 portfolio-item">
                     <div class="portfolio-wrap">
-                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-7.jpg' %}" class="img-fluid"
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-7.jpg' %}" class="d-block w-100"
                             alt="">
                         <div class="portfolio-info">
                             <div class="portfolio-links">
@@ -1209,7 +1199,7 @@
 
                 <div class="col-lg-2 col-md-6 portfolio-item">
                     <div class="portfolio-wrap">
-                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-8.jpg' %}" class="img-fluid"
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-8.jpg' %}" class="d-block w-100"
                             alt="">
                         <div class="portfolio-info">
                             <div class="portfolio-links">
@@ -1227,7 +1217,7 @@
 
                 <div class="col-lg-2 col-md-6 portfolio-item ">
                     <div class="portfolio-wrap">
-                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-9.jpg' %}" class="img-fluid"
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-9.jpg' %}" class="d-block w-100"
                             alt="">
                         <div class="portfolio-info">
                             <div class="portfolio-links">
@@ -1243,8 +1233,9 @@
                     </p>
                 </div>
             </div>
-        </div>
-    </section><!-- End Portfolio Section -->
+        </div> -->
+    <!-- </section> -->
+    <!-- End Portfolio Section -->
 
 
     <!-- ======= Prestasi Section ======= -->
