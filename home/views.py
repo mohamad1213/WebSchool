@@ -14,3 +14,10 @@ def index(request):
 def detail_view(request, id):
     data = Berita.objects.filter(id_berita=id)
     return render(request,"detail_berita.html", {'data':data})
+
+def mi(request):
+    return render(request,"mi.html")
+def mts(request):
+    return render(request,"mts.html")
+def ma(request):
+    return render(request,"ma.html")

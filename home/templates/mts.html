@@ -4,17 +4,185 @@
 {% block content %}
 <main id="main">
     <style>
+        .portfolio .portfolio-item {
+            margin-bottom: 30px;
+        }
+
+        .portfolio #portfolio-flters {
+            padding: 0;
+            margin: 0 auto 35px auto;
+            list-style: none;
+            text-align: center;
+            border-radius: 50px;
+            padding: 2px 15px;
+        }
+
+        .portfolio #portfolio-flters li {
+            cursor: pointer;
+            display: inline-block;
+            padding: 10px 15px 8px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1;
+            text-transform: uppercase;
+            color: #444444;
+            margin-bottom: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .portfolio #portfolio-flters li:hover,
+        .portfolio #portfolio-flters li.filter-active {
+            color: #2487ce;
+        }
+
+        .portfolio #portfolio-flters li:last-child {
+            margin-right: 0;
+        }
+
+        .portfolio .portfolio-wrap {
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .portfolio .portfolio-wrap::after {
+            content: '';
+            display: block;
+            padding-top: 100%;
+        }
+
+        .portfolio img {
+            width: auto;
+            height: 100%;
+            max-width: none;
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+        }
+
+        .portfolio .portfolio-wrap::before {
+            content: "";
+            background: rgba(36, 135, 206, 0.6);
+            position: absolute;
+            left: 30px;
+            right: 30px;
+            top: 30px;
+            bottom: 30px;
+            transition: all ease-in-out 0.3s;
+            z-index: 2;
+            opacity: 0;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-info {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            text-align: center;
+            z-index: 3;
+            transition: all ease-in-out 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-info::before {
+            display: block;
+            content: "";
+            width: 48px;
+            height: 48px;
+            position: absolute;
+            top: 35px;
+            left: 35px;
+            border-top: 3px solid #fff;
+            border-left: 3px solid #fff;
+            transition: all 0.5s ease 0s;
+            z-index: 9994;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-info::after {
+            display: block;
+            content: "";
+            width: 48px;
+            height: 48px;
+            position: absolute;
+            bottom: 35px;
+            right: 35px;
+            border-bottom: 3px solid #fff;
+            border-right: 3px solid #fff;
+            transition: all 0.5s ease 0s;
+            z-index: 9994;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-info h4 {
+            font-size: 20px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-info p {
+            color: #ffffff;
+            font-size: 14px;
+            text-transform: uppercase;
+            padding: 0;
+            margin: 0;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-links {
+            text-align: center;
+            z-index: 4;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-links a {
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0 2px;
+            font-size: 28px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-links a:hover {
+            color: #fff;
+        }
+
+        .portfolio .portfolio-wrap:hover::before {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 1;
+        }
+
+        .portfolio .portfolio-wrap:hover .portfolio-info {
+            opacity: 1;
+        }
+
+        .portfolio .portfolio-wrap:hover .portfolio-info::before {
+            top: 15px;
+            left: 15px;
+        }
+
+        .portfolio .portfolio-wrap:hover .portfolio-info::after {
+            bottom: 15px;
+            right: 15px;
+        }
+
         #hero {
             width: 100%;
             height: 100vh;
             position: relative;
-            background: url("../img/santri.jpeg") top center;
+            background: url("/static/frontend/assets/img/santri.jpeg") top center;
             background-size: cover;
         }
 
         #hero:before {
             content: "";
-            background: linear-gradient(180deg, rgba(89, 178, 30, 0.93) 0%, rgba(196, 191, 41, 0.62) 100%);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
             position: absolute;
             bottom: 0;
             top: 0;
@@ -37,19 +205,19 @@
             font-size: 60px;
             font-weight: 700;
             line-height: 72px;
-            color: #fff;
+            color: #000;
             margin-bottom: 10px;
             font-family: "Poppins", sans-serif;
         }
 
         #hero h2 {
-            color: #fff;
+            color: #000;
             margin: 10px 0 0 0;
             font-size: 22px;
         }
 
         #hero p {
-            color: #fff;
+            color: #000;
             margin: 10px 0 0 0;
             font-size: 22px;
         }
@@ -64,13 +232,13 @@
             border-radius: 10px;
             transition: 0.5s;
             margin-top: 30px;
-            color: #fff;
+            color: #000;
             background: #007854;
             ;
         }
 
         #hero .btn-get-started:hover {
-            background: #fff;
+            background: #000;
             color: #007854;
         }
 
@@ -642,23 +810,40 @@
         .portfolio-details .portfolio-description p {
             padding: 0;
         }
+
+        .wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wrapper:after {
+            content: '';
+            display: block;
+            padding-top: 100%;
+        }
+
+        .wrapper img {
+            width: auto;
+            height: 100%;
+            max-width: none;
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+        }
     </style>
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="d-flex align-items-center"
-        style="background-image: url('./static/frontend/assets/img/santri.jpeg');">
+        style="background-image: url('/static/frontend/assets/img/santri.jpeg');">
         <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
                     <img src="{% static 'frontend/assets/img/logo1.png' %}" alt="" srcset="">
                     <h1>SELAMAT DATANG</h1>
-                    <h3 class="text-white">Pondok Pesantren Luthful Ulum</h3>
+                    <h3 class="text-black">MTS Luthful Ulum</h3>
                     <p>Ds. Pasuncen RT.04/Rw. 08 Kec, Trangkil, Kab. Pati, Jawa Tengah</p>
                     <p>(0821) 3666 1012</p>
                 </div>
-            </div>
-            <div class="text-center">
-                <br><br><br>
-                <a href="#about" class="btn-get-started scrollto">Daftar Sekarang</a>
             </div>
 
             <div class="row icon-boxes">
@@ -679,22 +864,17 @@
                 <div class="col-lg-6 content align-self-baseline" data-aos="fade-right" data-aos-delay="100">
                     <img src="{% static 'frontend/assets/img/pengasuh.jpg' %}" class="img-fluid" alt="">
                     <br><br>
-                    <h4 class="text-center" style="font-size: 16px;"> <strong>Pengasuh Pondok Pesantren Luthful Ulum.
+                    <h4 class="text-center" style="font-size: 16px;"> <strong>Kepala Sekolah MTS Luthful Ulum.
                             KH. ISMA’EL, AG</strong></h4>
                 </div>
 
                 <div class="col-lg-6 pt-3 pt-lg-0 content">
+                    <h4 class="text-black display-6"> <b>Membudayakan perilaku cerdas, berkarakter qur’ani.</b></h4>
                     <p class="text-black"
                         style="line-height:2.5em; font-weight: 500;font-size: 16px; text-align: justify; margin-top: 0;">
-
-                        Pondok Pesantren Luthful Ulum didirikan oleh KH. ISMA’EL, AG, bertempat di Gandong, Pasucen,
-                        Trangkil, Pati, Jawa Tengah. PPM Luthful Ulum dengan
-                        kurikulum andalan menghafalkan al-qurán dengan urutan ayat secara
-                        acak beserta artinya siap mewarnai dunia pendidikan di Pati pada khususnya dan di
-                        Indonesia pada umumnya. Kami bertekad mewujudkan generasi Qur’ani yang berilmu dan berakhlak
-                        mulia dengan menyelenggarakan pendidikan Tahsin, Tahfidz, Tafsir dan Ulumul Qur’an.
-                        Mengintegrasikan pendidikan amaliyah dan diniyah dan mengembangkan serta mengamalkan Akhlak
-                        Qur’an yang diteladankan Salafunas Shaleh.
+                        MTS Luthful Ulum merupakan lembaga format milik PP. Luthful Ulum yang merupakan Lembaga
+                        profesional dengan basis iman, ilmu pengetahuan dan teknologi dengan Mengembangkan pendidikan
+                        dengan pelatihan ilmiah dan amaliah dan Membudayakan prilaku cerdas, berkarakter qur’ani
                     </p>
                 </div>
             </div>
@@ -706,7 +886,7 @@
         <div class="container" data-aos="fade-up">
             <div class="section-title">
                 <h2>Visi & Misi Pesantren</h2>
-                <h6>Sebagai Pesatren Modern, PP. Luthful Ulum siap untuk mewujudkan generasi Qur’ani serta lembaga
+                <h6>MTS Luthful Ulum mempunyai visi dan misi untuk mewujudkan generasi Qur’ani serta lembaga
                     pendidikan dan sosial berbasis lingkungan yang profesional, mandiri, dan islami. </h6>
             </div>
             <div class="row icon-boxes">
@@ -714,8 +894,8 @@
                     data-aos-delay="200">
                     <div class="icon-box">
                         <div class="icon"><i class="ri-stack-line"></i></div>
-                        <h4 class="title description"><a href="">Terwujudnya lembaga pendidikan dan sosial berbasis
-                                lingkungan yang profesional, mandiri, dan islami.</a></h4>
+                        <h4 class="title description"><a href="">Lembaga pilihan pencetak generasi intelektual khoiru
+                                ummah</a></h4>
                     </div>
                 </div>
 
@@ -723,8 +903,8 @@
                     data-aos-delay="300">
                     <div class="icon-box">
                         <div class="icon"><i class="ri-palette-line"></i></div>
-                        <h4 class="title description"><a href="">Terselenggaranya pendidikan ilmiah, amaliyah, dan
-                                diniyah yang terintegrasi.</a></h4>
+                        <h4 class="title description"><a href="">Lembaga profesional berbasis iman, ilmu pengetahuan,
+                                dan teknologi</a></h4>
                     </div>
                 </div>
 
@@ -732,382 +912,263 @@
                     data-aos-delay="400">
                     <div class="icon-box">
                         <div class="icon"><i class="ri-command-line"></i></div>
-                        <h4 class="title description"><a href="">Tersalurkannya beasiswa bagi yatim, dhuafa, dan siswa
-                                yang berprestasi.</a></h4>
+                        <h4 class="title description"><a href="">Mengembangkan pendidikan dengan pelatihan ilmiah dan
+                                amaliah</a></h4>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in"
                     data-aos-delay="500">
                     <div class="icon-box">
                         <div class="icon"><i class="ri-fingerprint-line"></i></div>
-                        <h4 class="title description"><a href="">Terwujudnya lembaga yang memiliki tata kelola
-                                terstandarisasi</a></h4>
+                        <h4 class="title description"><a href="">Membudayakan perilaku cerdas, berkarakter Qur’ani.</a>
+                        </h4>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- End Visi Section -->
-    <!-- !-- ======= Tentang Kami Section ======= -->
-    <!-- <section id="tentangkami" class="about-video">
-        <div class="container" data-aos="fade-up">
-
-            <div class="row">
-
-                <div class="col-lg-6 video-box align-self-baseline" data-aos="fade-right" data-aos-delay="100">
-                    <img src="assets/img/about-video.jpg" class="img-fluid" alt="">
-                    <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox play-btn mb-4"
-                        data-vbtype="video" data-autoplay="true"></a>
-                </div>
-
-                <div class="col-lg-6 pt-3 pt-lg-0 content" data-aos="fade-left" data-aos-delay="100">
-                    <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
-                    <p class="fst-italic">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore
-                        magna aliqua.
-                    </p>
-                    <ul>
-                        <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        </li>
-                        <li><i class="bx bx-check-double"></i> Duis aute irure dolor in reprehenderit in voluptate
-                            velit.</li>
-                        <li><i class="bx bx-check-double"></i> Voluptate repellendus pariatur reprehenderit corporis
-                            sint.</li>
-                        <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
-                            fugiat nulla pariatur.</li>
-                    </ul>
-                    <p>
-                        Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                        in voluptate
-                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in
-                        culpa qui officia deserunt mollit anim id est laborum
-                    </p>
-                </div>
-
-            </div>
-
-        </div>
-    </section> -->
-    <!-- End About Video Section -->
-
-    <!-- ======= Testimonials Section ======= -->
-    <section id="galeri" class="testimonials">
-        <div class="container" data-aos="fade-up">
-            <div class="container" data-aos="fade-up">
-
-                <div class="section-title">
-                    <h2>Galeri</h2>
-                    <p>Kumpulan kegiatan santriwan santriwati</p>
-                </div>
-
-                <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-                    <div class="swiper-wrapper">
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <p>
-                                    <img src="{% static 'frontend/assets/img/testimonials/testimonials-3.jpg' %}"
-                                        class="img-fluid" alt="">
-                                </p>
-                                <h3>Lihat Anu</h3>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <p>
-                                    <img src="{% static 'frontend/assets/img/testimonials/testimonials-3.jpg' %}"
-                                        class="img-fluid" alt="">
-                                </p>
-                                <h3>Lorem Epsum</h3>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <p>
-                                    <img src="{% static 'frontend/assets/img/testimonials/testimonials-3.jpg' %}"
-                                        class="img-fluid" alt="">
-                                </p>
-                                <h3>Jena Karlis</h3>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <p>
-                                    <img src="{% static 'frontend/assets/img/testimonials/testimonials-3.jpg' %}"
-                                        class="img-fluid" alt="">
-                                </p>
-                                <h3>Jena Karlis</h3>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <p>
-                                    <img src="{% static 'frontend/assets/img/testimonials/testimonials-3.jpg' %}"
-                                        class="img-fluid" alt="">
-                                </p>
-                                <h3>Makan Makan</h3>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-
-            </div>
-    </section>
-    <!-- End Testimonials Section -->
-
-    <!-- ======= ukm Section ======= -->
-    <section id="ukm" class="services section-bg">
-        <div class="container" data-aos="fade-up">
-
-            <div class="section-title">
-                <h2>Ekstrakulikuler</h2>
-                <p>Dalam menunjang pembelajaran santri serta mengembangkan lifeskill santri, kami menggelar beberapa
-                    kegiatan ekstrakurikuler sebagai penyalur bakat minat santri.</p>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="icon-box">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bxs-volume-full'></i>
-                            </button>
-                        </div>
-                        <h4>Hadrah</h4>
-                        <p>Para siswa ikut serta dalam menjaga tradisi budaya tetap terjaga.</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="icon-box">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bxs-book-reader'></i>
-                            </button>
-                        </div>
-                        <h4>Qira'atul Qur'an</h4>
-                        <p>Para siswa akan belajar bagaimana menjadi seorang Qari dan Qari’ah yang baik dan benar</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bxs-user'></i>
-                            </button>
-                        </div>
-                        <h4>Da'i</h4>
-                        <p>Para siswa akan belajar bagaimana menjadi seorang Qari dan Qari’ah yang baik dan benar</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="icon-box">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bxs-bar-chart-alt-2'></i>
-                            </button>
-                        </div>
-                        <h4>Entrepreneur</h4>
-                        <p>Para santri akan dibekali wawasan dan skill tentang enterpreanurship</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="icon-box">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bxs-pen'></i>
-                            </button>
-                        </div>
-                        <h4>Kaligrafi</h4>
-                        <p>Para siswa akan dibekali keterampilan dalam menulis arab dengan cantik dan baik</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box ">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bxs-network-chart'></i>
-                            </button>
-                        </div>
-                        <h4>Kepramukaan</h4>
-                        <p>Santri akan dibekali dasar-dasar kepramukaan hingga mahir</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box ">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bx-plus-medical'></i>
-                            </button>
-                        </div>
-                        <h4>Palang Merah Remaja (PMR)</h4>
-                        <p>Para santri akan dibekali wawasan dan skill untuk menjadi PMR yang tangguh</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box ">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bx-football'></i>
-                            </button>
-                        </div>
-                        <h4>Sepak Bola</h4>
-                        <p>Sebagai wadah bagi para santri yang ingin mengasah bakat tentang bermain sepak bola</p>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </section><!-- End Sevices Section -->
-
     <!-- ======= Portfolio Section ======= -->
-    <section id="berita" class="testimonials">
+    <section id="portfolio" class="portfolio">
         <div class="container" data-aos="fade-up">
-            <a type="button" class="btn" href="#" style="float: right; background-color: #007854; color: #fff;">Lihat Selengkapnya</a>
-            
-            <div class="section-title">
-                <h2 class="ml-2">Berita Terkini</h2>
-            </div>
+            <div class="row">
+                <div class="col-8">
 
-            <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-                <div class="swiper-wrapper">
-
-                    <div class="swiper-slide">
-                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-1.jpg' %}"
-                            class="testimonial-img" alt="">
-                        <div class="testimonial-item">
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                ajg lu
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            </p>
-                            <h3>Saul Goodman</h3>
-                            <h4>Ceo &amp; Founder</h4>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-2.jpg' %}"
-                            class="testimonial-img" alt="">
-                        <div class="testimonial-item">
-                            <p>
-                                Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid
-                                cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet
-                                legam anim culpa.
-                            </p>
-                            <h3>Sara Wilsson</h3>
-                            <h4>Designer</h4>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-3.jpg' %}"
-                            class="testimonial-img" alt="">
-                        <div class="testimonial-item">
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam
-                                duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            </p>
-                            <h3>Jena Karlis</h3>
-                            <h4>Store Owner</h4>
-                        </div>
-                    </div><!-- End testimonial item -->
-                    
-                    <div class="swiper-slide">
-                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-4.jpg' %}"
-                            class="testimonial-img" alt="">
-                        <div class="testimonial-item">
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat
-                                minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore
-                                labore illum veniam.
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            </p>
-                            <h3>Matt Brandon</h3>
-                            <h4>Freelancer</h4>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-5.jpg' %}"
-                            class="testimonial-img" alt="">
-                            <div class="testimonial-item">
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster
-                                veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam
-                                culpa fore nisi cillum quid.
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            </p>
-                            <h3>John Larson</h3>
-                            <h4>Entrepreneur</h4>
-                        </div>
-                    </div><!-- End testimonial item -->
-
+                    <h2 class="display-5"><b>Galeri Kegiatan MTS Luthful Ulum</b></h2>
+                    <p class="text-black mt-2">Sebagai lembaga profesional dengan basis iman, ilmu pengetahuan dan
+                        teknologi yang mengembangkan
+                        pendidikan dengan pelatihan ilmiah dan amaliah dan Membudayakan prilaku cerdas, berkarakter
+                        qur’ani,
+                        MTS Luthful Ulum Senantiasa menyelenggarakan kegiatan-kegiatan berkarakter bagi siswanya.</p>
                 </div>
-                <div class="swiper-pagination"></div>
+                <div class="col-4">
+                    <img src="{% static 'frontend/assets/img/logo1.png' %}" alt="" height="300px" width="300px"
+                        srcset="">
+                </div>
+            </div>
+            <br>
+
+            <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="300">
+
+                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                    <div class="portfolio-wrap">
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-1.jpg' %}" class="img-fluid"
+                            alt="">
+                        <div class="portfolio-info">
+                            <div class="portfolio-links">
+                                <a href="{% static 'frontend/assets/img/portfolio/portfolio-1.jpg' %}"
+                                    data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i
+                                        class="bx bx-plus"></i></a>
+                                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+                    <div class="portfolio-wrap">
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-2.jpg' %}" class="img-fluid"
+                            alt="">
+                        <div class="portfolio-info">
+                            <h4>Web 3</h4>
+                            <p>Web</p>
+                            <div class="portfolio-links">
+                                <a href="{% static 'frontend/assets/img/portfolio/portfolio-2.jpg' %}"
+                                    data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i
+                                        class="bx bx-plus"></i></a>
+                                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                    <div class="portfolio-wrap">
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-3.jpg' %}" class="img-fluid"
+                            alt="">
+                        <div class="portfolio-info">
+                            <h4>App 2</h4>
+                            <p>App</p>
+                            <div class="portfolio-links">
+                                <a href="{% static 'frontend/assets/img/portfolio/portfolio-3.jpg' %}"
+                                    data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 2"><i
+                                        class="bx bx-plus"></i></a>
+                                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+                    <div class="portfolio-wrap">
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-4.jpg' %}" class="img-fluid"
+                            alt="">
+                        <div class="portfolio-info">
+                            <h4>Card 2</h4>
+                            <p>Card</p>
+                            <div class="portfolio-links">
+                                <a href="{% static 'frontend/assets/img/portfolio/portfolio-4.jpg' %}"
+                                    data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 2"><i
+                                        class="bx bx-plus"></i></a>
+                                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+                    <div class="portfolio-wrap">
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-5.jpg' %}" class="img-fluid"
+                            alt="">
+                        <div class="portfolio-info">
+                            <h4>Web 2</h4>
+                            <p>Web</p>
+                            <div class="portfolio-links">
+                                <a href="{% static 'frontend/assets/img/portfolio/portfolio-5.jpg' %}"
+                                    data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 2"><i
+                                        class="bx bx-plus"></i></a>
+                                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                    <div class="portfolio-wrap">
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-6.jpg' %}" class="img-fluid"
+                            alt="">
+                        <div class="portfolio-info">
+                            <h4>App 3</h4>
+                            <p>App</p>
+                            <div class="portfolio-links">
+                                <a href="{% static 'frontend/assets/img/portfolio/portfolio-6.jpg' %}"
+                                    data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 3"><i
+                                        class="bx bx-plus"></i></a>
+                                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+                    <div class="portfolio-wrap">
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-7.jpg' %}" class="img-fluid"
+                            alt="">
+                        <div class="portfolio-info">
+                            <h4>Card 1</h4>
+                            <p>Card</p>
+                            <div class="portfolio-links">
+                                <a href="{% static 'frontend/assets/img/portfolio/portfolio-7.jpg' %}"
+                                    data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 1"><i
+                                        class="bx bx-plus"></i></a>
+                                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+                    <div class="portfolio-wrap">
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-8.jpg' %}" class="img-fluid"
+                            alt="">
+                        <div class="portfolio-info">
+                            <h4>Card 3</h4>
+                            <p>Card</p>
+                            <div class="portfolio-links">
+                                <a href="{% static 'frontend/assets/img/portfolio/portfolio-8.jpg' %}"
+                                    data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"><i
+                                        class="bx bx-plus"></i></a>
+                                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+                    <div class="portfolio-wrap">
+                        <img src="{% static 'frontend/assets/img/portfolio/portfolio-9.jpg' %}" class="img-fluid"
+                            alt="">
+                        <div class="portfolio-info">
+                            <h4>Web 3</h4>
+                            <p>Web</p>
+                            <div class="portfolio-links">
+                                <a href="{% static 'frontend/assets/img/portfolio/portfolio-9.jpg' %}"
+                                    data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i
+                                        class="bx bx-plus"></i></a>
+                                <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
+        </div>
+    </section><!-- End Portfolio Section -->
+    <section class="section-bg">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 class="text-black"><b>Profil Lulusan MTS Luthful Ulum</b></h1>
+                            <p>Lembaga profesional dengan basis iman, ilmu pengetahuan dan teknologi. <br><br>
+                                Mengembangkan pendidikan dengan pelatihan ilmiah dan amaliah dan Membudayakan prilaku
+                                cerdas, berkarakter qur’ani</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="box">
+                                        <h4 class="title">Beriman & Bertaqwa</h4>
+                                        <p class="description">Menjadi makhluk yang senantiasa beriman dan bertaqwa
+                                            kepada Allah SWT.</p>
+                                    </div>
+                                    <br><br>
+                                    <div class="box">
+                                        <h4 class="title">Berkepribadian Mulia</h4>
+                                        <p class="description">Memiliki kepribadian, kejujuran, kedisiplinan, tanggung jawab sosial dan jiwa kepemimpinan.</p>
+                                    </div>
+                                    <br><br>
+
+                                    <div class="box">
+                                        <h4 class="title">Berwawasan Luas</h4>
+                                        <p class="description">Lulusan memiliki bekal pengetahuan dan wawasan luas yang berguna untuk terjun ke masyarakat.</p>
+                                    </div>
+                                    <br><br>
+
+                                </div>
+                                <div class="col-6">
+                                    <div class="box">
+                                        <h4 class="title">Komunikasi Baik</h4>
+                                        <p class="description">Memiliki kemampuan berkomunikasi dalam bahasa arab dan inggris dalam kehidupan sehari hari.</p>
+                                    </div>
+                                    <br><br>
+
+                                    <div class="box">
+                                        <h4 class="title">Sarat Lifeskill</h4>
+                                        <p class="description">Memiliki kemampuan lifeskill yang ditunjukkan dengan kemandirian dalam hidup</p>
+                                    </div>
+                                    <br><br>
+
+                                    <div class="box">
+                                        <h4 class="title">Lain-lain</h4>
+                                        <p class="description">Banyak poin plus menjadi lulusan MTS Luthful Ulum Muncar dengan bekal yang banyak.</p>
+                                    </div>
+                                    <br><br>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
-
-
-    <!-- ======= Prestasi Section ======= -->
-    <section id="prestasi" class="faq section-bg">
-        <div class="container" data-aos="fade-up">
-
-            <div class="section-title">
-                <h2>Prestasi</h2>
-                <p>Prestasi membanggakan senantiasa ditorehkan oleh para santriwan dan satriwati di setiap kejuaaraan
-                    yang diikuti.</p>
-            </div>
-
-            <div class="faq-list">
-                <ul>
-                    <li data-aos="fade-up">
-                        <p>
-                            1. Juara Harapan 2 Pidato tingkat Provinsi Jawa Timur dalam Pentas PAI tahun 2017
-                        </p>
-                    </li>
-                    <li data-aos="fade-up">
-                        <p>
-                            2. Juara 1 Bahasa Arab tingkat Kabupaten dalam Kompetisi Sains Madrasah (KSM) tahun
-                            2017/2018
-                        </p>
-                    </li>
-                    <li data-aos="fade-up">
-                        <p>
-                            3. Juara 1 Pidato tingkat kabupaten dalam pentas PAIS tahun 2016
-                        </p>
-                    </li>
-                    <li data-aos="fade-up">
-                        <p>
-                            4. Juara 1 Pidato tingkat Kabupaten dalam Olimpiade Sains & Agama (OSAMA) di Pondok
-                            Pesantren Darussalam Blok Agung tahun 2017
-                        </p>
-                    </li>
-                    <li data-aos="fade-up">
-                        <p>
-                            5. Juara 2 MHQ tingkat Kabupaten dalam Kompetisi Sains Madrasah (KSM) tahun 2016/2017
-                        </p>
-                    </li>
-
-
-                </ul>
-            </div>
-
-        </div>
-    </section><!-- End Prestasi Section -->
 
     <!-- ======= Cta Section ======= -->
     <section id="form" class="cta">
