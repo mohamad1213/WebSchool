@@ -1,0 +1,22 @@
+{% extends 'administration/base.html' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"> Edit Prestasi</h4>
+        <div class="card">
+            <div class="card-header">
+                <form class="form form-vertical" method="post" enctype="multipart/form-data">
+                    {% load crispy_forms_tags %}
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <br>
+                    <div class="col-12 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>
+                        <button type="reset" class="btn btn-secondary me-1 mb-1">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

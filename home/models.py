@@ -27,6 +27,7 @@ class Home(models.Model):
     updated_at = models.DateField(auto_now=True)
 
 class TentangKami(models.Model):
+    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='tentang')
     id_tentangkami = models.AutoField(primary_key=True)
     image = models.FileField( upload_to='media/images/',blank=True, null=True)
     desc = models.TextField()
@@ -35,6 +36,7 @@ class TentangKami(models.Model):
     updated_at = models.DateField(auto_now=True)
 
 class Visimisi(models.Model):
+    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='visi')
     id_visimisi = models.AutoField(primary_key=True)
     desc = models.CharField(max_length=100)
     visimisi = models.CharField(max_length=100)
@@ -42,6 +44,7 @@ class Visimisi(models.Model):
     updated_at = models.DateField(auto_now=True)
 
 class Galeri(models.Model):
+    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='galeri')
     id_galeri = models.AutoField(primary_key=True)
     image = models.FileField( upload_to='media/images/galeri/',blank=True, null=True)
     desc = models.CharField(max_length=100)
@@ -49,6 +52,7 @@ class Galeri(models.Model):
     updated_at = models.DateField(auto_now=True)
 
 class Ekstrakulikuler(models.Model):
+    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='eksa')
     id_ekstra = models.AutoField(primary_key=True)
     nama_ekstra = models.CharField(max_length=100)
     desc = models.CharField(max_length=100)
@@ -56,6 +60,7 @@ class Ekstrakulikuler(models.Model):
     updated_at = models.DateField(auto_now=True)
 
 class Berita(models.Model):
+    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='berita')
     id_berita = models.AutoField(primary_key=True)
     nama_penulis = models.CharField(max_length=100)
     image = models.FileField(upload_to='media/images/berita/',blank=True, null=True)
@@ -64,12 +69,17 @@ class Berita(models.Model):
     updated_at = models.DateField(auto_now=True)
 
 class Prestasi(models.Model):
+    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='prestasi')
     id_prestasi = models.AutoField(primary_key=True)
+    nama = models.CharField(max_length=100)
+    lokasi = models.CharField(max_length=100)
     desc = models.CharField(max_length=100)
+    image = models.FileField(upload_to='media/images/prestasi/',blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
 
 class Pendaftaran(models.Model):
+    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='daftar')
     id_daftar = models.AutoField(primary_key=True)
     link_daftar = models.CharField(max_length=100)
     brosur = models.FileField( upload_to='media/images/daftar/',blank=True, null=True)

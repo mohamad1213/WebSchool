@@ -11,8 +11,33 @@ class LoginForm(UserCreationForm):
          fields = ['username', 'password1']
 
 
-class BeritaForm(ModelForm):
+class HomeForm(ModelForm):
     class Meta:
          model = Home
-         exclude = []
-    
+         exclude = ['owner']
+class BeritaForm(ModelForm):
+    class Meta:
+         model = Berita
+         exclude = ['owner']
+class PrestasiForm(ModelForm):
+    class Meta:
+         model = Prestasi
+         exclude = ['owner']
+
+class TentangForm(ModelForm):
+    class Meta:
+         model = TentangKami
+         exclude = ['owner']
+class GaleriForm(ModelForm):
+    class Meta:
+         model = Galeri
+         exclude = ['owner']
+class PpdbForm(ModelForm):
+    class Meta:
+         model = Pendaftaran
+         exclude = ['owner']
+
+class ProfileForm(ModelForm):
+    class Meta:
+         model = Profile
+         exclude = ['user']

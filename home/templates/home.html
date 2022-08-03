@@ -647,13 +647,14 @@
     <section id="hero" class="d-flex align-items-center"
         style="background-image: url('./static/frontend/assets/img/santri.jpeg');">
         <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+            {% for u in data %}
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
-                    <img src="{% static 'frontend/assets/img/logo1.png' %}" alt="" srcset="">
-                    <h1>SELAMAT DATANG</h1>
-                    <h3 class="text-white">Pondok Pesantren Luthful Ulum</h3>
-                    <p>Ds. Pasuncen RT.04/Rw. 08 Kec, Trangkil, Kab. Pati, Jawa Tengah</p>
-                    <p>(0821) 3666 1012</p>
+                    <img src="{{u.logo.url}}" alt="" srcset="">
+                    <h1>{{u.h1}}</h1>
+                    <h3 class="text-white">{{u.nama_pondok}}</h3>
+                    <p>{{u.alamat}}</p>
+                    <p>{{u.telpon}}</p>
                 </div>
             </div>
             <div class="text-center">
@@ -667,6 +668,8 @@
 
                 </div>
             </div>
+            {% endfor %}
+
     </section>
     <!-- ======= Tentang Kami Section ======= -->
     <section id="tentangkami" class="about-video">
@@ -970,8 +973,9 @@
     <!-- ======= Portfolio Section ======= -->
     <section id="berita" class="testimonials">
         <div class="container" data-aos="fade-up">
-            <a type="button" class="btn" href="#" style="float: right; background-color: #007854; color: #fff;">Lihat Selengkapnya</a>
-            
+            <a type="button" class="btn" href="#" style="float: right; background-color: #007854; color: #fff;">Lihat
+                Selengkapnya</a>
+
             <div class="section-title">
                 <h2 class="ml-2">Berita Terkini</h2>
             </div>
@@ -1021,7 +1025,7 @@
                             <h4>Store Owner</h4>
                         </div>
                     </div><!-- End testimonial item -->
-                    
+
                     <div class="swiper-slide">
                         <img src="{% static 'frontend/assets/img/testimonials/testimonials-4.jpg' %}"
                             class="testimonial-img" alt="">
@@ -1041,7 +1045,7 @@
                     <div class="swiper-slide">
                         <img src="{% static 'frontend/assets/img/testimonials/testimonials-5.jpg' %}"
                             class="testimonial-img" alt="">
-                            <div class="testimonial-item">
+                        <div class="testimonial-item">
                             <p>
                                 <i class="bx bxs-quote-alt-left quote-icon-left"></i>
                                 Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster

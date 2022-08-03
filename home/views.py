@@ -8,7 +8,7 @@ from django.contrib import messages
 
 
 def index(request):
-    data = Berita.objects.all()
+    data = Home.objects.all()
     return render(request,"home.html", {'data':data})
 
 def detail_view(request, id):
