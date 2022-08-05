@@ -2,13 +2,35 @@
 {% block content %}
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"> Edit Tentang</h4>
+        <h4 class="fw-bold py-3 mb-4"> Edit Data Berita </h4>
         <div class="card">
             <div class="card-header">
                 <form class="form form-vertical" method="post" enctype="multipart/form-data">
-                    {% load crispy_forms_tags %}
                     {% csrf_token %}
-                    {{ form|crispy }}
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label">Nama Pengasuh </label>
+                            <input class="form-control" type="text" name="nama_pengasuh" value="{{data.nama_pengasuh}}" />
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label">Deskripsi</label>
+                            <input class="form-control" type="text" name="desc" value="{{data.desc}}" />
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label">Tanggal</label>
+                            <input type="text" class="form-control"  readonly value="{{data.created_at}}" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% if data.image %}
+                        <div class="mb-12 col-md-6">
+                            <img src="{{data.image.url}}" alt="" srcset="" height="200px" width="200px">
+                        </div>
+                        {% endif %}
+                        <label for="firstName" class="form-label">Logo</label>
+                        <input class="form-control" type="file" name="image" value="{{data.image}}" />
+
+                    </div>
                     <br>
                     <div class="col-12 d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>

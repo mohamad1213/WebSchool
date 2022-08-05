@@ -5,7 +5,8 @@ app_name = 'administration'
 from . import views
 urlpatterns = [
     path('', views.index, name='admin'),
-    path('profile/', views.accountSettings, name="profile"),
+    path('profile/', views.profile, name="profile"),
+    path('profile/<pk>/edit', views.accountSettings, name="profile-edit"),
     path('home/', views.beranda, name='beranda'),
     path('home/<pk>/update/', views.update_beranda, name='update_beranda'),
     path('home/<pk>/delete/', views.delete_beranda, name='delete_beranda'),

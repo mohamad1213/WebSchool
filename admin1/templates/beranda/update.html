@@ -6,9 +6,35 @@
         <div class="card">
             <div class="card-header">
                 <form class="form form-vertical" method="post" enctype="multipart/form-data">
-                    {% load crispy_forms_tags %}
                     {% csrf_token %}
-                    {{ form|crispy }}
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">Header</label>
+                            <input class="form-control" type="text" name="h1" value="{{data.h1}}" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">Nama Pondok</label>
+                            <input class="form-control" type="text" name="nama_pondok" value="{{data.nama_pondok}}" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">Alamat</label>
+                            <input type="text" class="form-control" name="alamat" value="{{data.alamat}}" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">Telepon</label>
+                            <input type="text" class="form-control" name="telpon" value="{{data.telpon}}" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% if data.logo %}
+                        <div class="mb-12 col-md-6">
+                            <img src="{{data.logo.url}}" alt="" srcset="" height="200px" width="200px">
+                        </div>
+                        {% endif %}
+                        <label for="firstName" class="form-label">Logo</label>
+                        <input class="form-control" type="file" name="logo" value="{{data.logo}}" />
+
+                    </div>
                     <br>
                     <div class="col-12 d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary me-1 mb-1">Simpan</button>

@@ -6,7 +6,7 @@ from home.models import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+import os
 @login_required(login_url='/accounts/')
 def index(request):
     return render(request,"index.html")
@@ -33,13 +33,30 @@ def beranda(request):
     })
 @login_required(login_url='/accounts/')
 def update_beranda(req, pk):
-    instance = get_object_or_404(Home, id_home=pk)
-    form = HomeForm(req.POST or None, instance=instance)
-    if form.is_valid():
-        form.save()
+    instance = Home.objects.get(id_home=pk)
+    if req.POST:
+        if len(req.FILES) != 0:
+            if len(instance.logo) > 0:
+                os.remove(instance.logo.path)
+            instance.logo = req.FILES['logo']
+        instance.h1 = req.POST.get('h1')
+        instance.nama_pondok = req.POST.get('nama_pondok')
+        instance.alamat = req.POST.get('alamat')
+        instance.telpon = req.POST.get('telpon')
+        instance.save()
+        messages.success(req, "data Telah ditambahkan")
         return redirect('/administration/home/')
-    task = Home.objects.filter(id_home=pk).first()
-    return render(req, 'beranda/update.html', {'form': form, 'data':task}) 
+    context = {"data":instance}
+    return render(req, 'beranda/update.html', context) 
+
+
+
+    # form = HomeForm(req.POST,req.FILES, instance=instance)
+    # if form.is_valid():
+    #     form.save()
+    #     return redirect('/administration/home/')
+    # task = Home.objects.filter(id_home=pk)
+    # return render(req, 'beranda/update.html', {'form': form, 'data':task}) 
 @login_required(login_url='/accounts/')
 def delete_beranda(req, pk):
     Home.objects.get(id_home=pk).delete()
@@ -68,12 +85,20 @@ def berita(request):
     })
 @login_required(login_url='/accounts/')
 def update_berita(req, pk):
-    instance = get_object_or_404(Home, id_berita=pk)
-    form = BeritaForm(req.POST or None, instance=instance)
-    if form.is_valid():
-        form.save()
+    instance = Berita.objects.get(id_berita=pk)
+    if req.POST:
+        if len(req.FILES) != 0:
+            if len(instance.image) > 0:
+                os.remove(instance.image.path)
+            instance.image = req.FILES['image']
+        instance.nama_penulis = req.POST.get('nama_penulis')
+        instance.desc = req.POST.get('desc')
+        instance.save()
+        messages.success(req, "data Telah ditambahkan")
         return redirect('/administration/berita/')
-    return render(req, 'berita/update.html', {'form': form}) 
+    context = {"data":instance} 
+    return render(req, 'berita/update.html', context) 
+    
 @login_required(login_url='/accounts/')
 def delete_berita(req, pk):
     Berita.objects.get(id_berita=pk).delete()
@@ -102,12 +127,18 @@ def galeri(request):
     })
 @login_required(login_url='/accounts/')
 def update_galeri(req, pk):
-    instance = get_object_or_404(Galeri, id_galeri=pk)
-    form = GaleriForm(req.POST or None, instance=instance)
-    if form.is_valid():
-        form.save()
+    instance = Galeri.objects.get(id_galeri=pk)
+    if req.POST:
+        if len(req.FILES) != 0:
+            if len(instance.image) > 0:
+                os.remove(instance.image.path)
+            instance.image = req.FILES['image']
+        instance.desc = req.POST.get('desc')
+        instance.save()
+        messages.success(req, "data Telah ditambahkan")
         return redirect('/administration/galeri/')
-    return render(req, 'galeri/update.html', {'form': form}) 
+    context = {"data":instance}
+    return render(req, 'galeri/update.html', context) 
 @login_required(login_url='/accounts/')
 def delete_galeri(req, pk):
     Galeri.objects.get(id_galeri=pk).delete()
@@ -136,12 +167,19 @@ def tentang(request):
     })
 @login_required(login_url='/accounts/')
 def update_tentang(req, pk):
-    instance = get_object_or_404(TentangKami, id_tentangkami=pk)
-    form = TentangForm(req.POST or None, instance=instance)
-    if form.is_valid():
-        form.save()
+    instance = TentangKami.objects.get(id_tentangkami=pk)
+    if req.POST:
+        if len(req.FILES) != 0:
+            if len(instance.image) > 0:
+                os.remove(instance.image.path)
+            instance.image = req.FILES['image']
+        instance.nama_pengasuh = req.POST.get('nama_pengasuh')
+        instance.desc = req.POST.get('desc')
+        instance.save()
+        messages.success(req, "data Telah ditambahkan")
         return redirect('/administration/tentang/')
-    return render(req, 'tentang/update.html', {'form': form}) 
+    context = {"data":instance} 
+    return render(req, 'tentang/update.html', context) 
 @login_required(login_url='/accounts/')
 def delete_tentang(req, pk):
     TentangKami.objects.get(id_tentangkami=pk).delete()
@@ -170,12 +208,20 @@ def prestasi(request):
     })
 @login_required(login_url='/accounts/')
 def update_prestasi(req, pk):
-    instance = get_object_or_404(Prestasi, id_prestasi=pk)
-    form = PrestasiForm(req.POST or None, instance=instance)
-    if form.is_valid():
-        form.save()
+    instance = Prestasi.objects.get(id_prestasi=pk)
+    if req.POST:
+        if len(req.FILES) != 0:
+            if len(instance.image) > 0:
+                os.remove(instance.image.path)
+            instance.image = req.FILES['image']
+        instance.desc = req.POST.get('desc')
+        instance.nama = req.POST.get('nama')
+        instance.lokasi = req.POST.get('lokasi')
+        instance.save()
+        messages.success(req, "data Telah ditambahkan")
         return redirect('/administration/prestasi/')
-    return render(req, 'prestasi/update.html', {'form': form}) 
+    context = {"data":instance}
+    return render(req, 'prestasi/update.html', context) 
 @login_required(login_url='/accounts/')
 def delete_prestasi(req, pk):
     Prestasi.objects.get(id_prestasi=pk).delete()
@@ -204,12 +250,21 @@ def ppdb(request):
     })
 @login_required(login_url='/accounts/')
 def update_ppdb(req, pk):
-    instance = get_object_or_404(Pendaftaran, id_daftar=pk)
-    form = PpdbForm(req.POST or None, instance=instance)
-    if form.is_valid():
-        form.save()
+    instance = Pendaftaran.objects.get(id_daftar=pk)
+    if req.POST:
+        if len(req.FILES) != 0:
+            if len(instance.brosur) > 0:
+                os.remove(instance.brosur.path)
+            instance.brosur = req.FILES['brosur']
+        instance.email = req.POST.get('email')
+        instance.telpon = req.POST.get('telpon')
+        instance.lokasi = req.POST.get('lokasi')
+        instance.link_daftar = req.POST.get('link_daftar')
+        instance.save()
+        messages.success(req, "data Telah ditambahkan")
         return redirect('/administration/ppdb/')
-    return render(req, 'ppdb/update.html', {'form': form}) 
+    context = {"data":instance}
+    return render(req, 'ppdb/update.html', context) 
 @login_required(login_url='/accounts/')
 def delete_ppdb(req, pk):
     Pendaftaran.objects.get(id_daftar=pk).delete()
@@ -217,15 +272,24 @@ def delete_ppdb(req, pk):
     return redirect('/administration/ppdb/')
 
 @login_required(login_url='/accounts/')
-def accountSettings(request):
-	profile = request.user
-	form = ProfileForm(instance=profile)
-	if request.method == 'POST':
-		form = ProfileForm(request.POST, request.FILES,instance=profile)
-		if form.is_valid():
-			form.save()
-			return HttpResponseRedirect('/administration/profile/')
-	else:
-		form = ProfileForm(instance=profile)
-		context = {'form':form}
-		return render(request, 'profile/index.html', context)
+def accountSettings(req, pk):
+    instance = Profile.objects.get(id=pk)
+    if req.POST:
+        if len(req.FILES) != 0:
+            if len(instance.profile_pic) > 0:
+                os.remove(instance.profile_pic.path)
+            instance.profile_pic = req.FILES['profile_pic']
+        instance.name = req.POST.get('name')
+        instance.phone = req.POST.get('phone')
+        instance.email = req.POST.get('email')
+        instance.alamat = req.POST.get('alamat')
+        instance.save()
+        messages.success(req, "data Telah ditambahkan")
+        return redirect('/administration/profile/')
+    context = {"data":instance}
+    return render(req, 'profile/update.html', context)
+
+@login_required(login_url='/accounts/')
+def profile(req):
+    data = Profile.objects.all()
+    return render(req, 'profile/index.html', {'data': data})
