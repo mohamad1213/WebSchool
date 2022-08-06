@@ -26,8 +26,8 @@
                         </thead>
                         <tbody class="table-border-bottom-0">
                             {% for u in data %}
-                            <td>{{forloop.counter}}</td>
                             <tr>
+                                <td>{{forloop.counter}}</td>
                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{u.link_daftar}}</strong>
                                 </td>
                                 <td>
@@ -43,8 +43,8 @@
                                 </td>
                             </tr>
                         </tbody>
+                        {% endfor %}
                     </table>
-                    {% endfor %}
 
                     <!-- Modal Input -->
                     <div class="modal fade" id="input" tabindex="-1" aria-hidden="true">

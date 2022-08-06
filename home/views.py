@@ -8,12 +8,33 @@ from django.contrib import messages
 
 
 def index(request):
-    data = Home.objects.all()
-    return render(request,"home.html", {'data':data})
+    home = Home.objects.all()
+    berita =Berita.objects.all()
+    tentang = TentangKami.objects.all()
+    galeri = Galeri.objects.all()
+    prestasi = Prestasi.objects.all()
+    ppdb = Pendaftaran.objects.all()
+    visi = Visimisi.objects.all()
+    ukm = Ekstrakulikuler.objects.all()
+    context = {
+        'home':home,
+        'berita':berita,
+        'tentang':tentang,
+        'visi':visi,
+        'galeri':galeri,
+        'prestasi':prestasi,
+        'ppdb':ppdb,
+        'ukm':ukm,
+    }
+    return render(request,"home.html", context)
 
-def detail_view(request, id):
-    data = Berita.objects.filter(id_berita=id)
-    return render(request,"detail_berita.html", {'data':data})
+def detail_view(request, pk):
+    data = Berita.objects.filter(id_berita=pk)
+    return render(request,"detail_berita.html", {'berita':data})
+
+def list_berita(request):
+    data = Berita.objects.all()
+    return render(request,"list_berita.html", {'data':data})
 
 def mi(request):
     return render(request,"mi.html")

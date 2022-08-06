@@ -5,6 +5,7 @@ app_name = 'administration'
 from . import views
 urlpatterns = [
     path('', views.index, name='admin'),
+    path('box', views.box, name='box'),
     path('profile/', views.profile, name="profile"),
     path('profile/<pk>/edit', views.accountSettings, name="profile-edit"),
     path('home/', views.beranda, name='beranda'),
@@ -19,6 +20,9 @@ urlpatterns = [
     path('galeri/', views.galeri, name='galeri'),
     path('galeri/<pk>/update/', views.update_galeri, name='update_galeri'),
     path('galeri/<pk>/delete/', views.delete_galeri, name='delete_galeri'),
+    path('ukm/', views.ukm, name='ukm'),
+    path('ukm/<pk>/update/', views.update_ukm, name='update_ukm'),
+    path('ukm/<pk>/delete/', views.delete_ukm, name='delete_ukm'),
     path('prestasi/', views.prestasi, name='prestasi'),
     path('prestasi/<pk>/update/', views.update_prestasi, name='update_prestasi'),
     path('prestasi/<pk>/delete/', views.delete_prestasi, name='delete_prestasi'),

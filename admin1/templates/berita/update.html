@@ -8,28 +8,41 @@
                 <form class="form form-vertical" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
-                        <div class="mb-3 col-md-4">
+                        <div class="mb-3 col-md-6">
                             <label class="form-label">Nama Penulis </label>
                             <input class="form-control" type="text" name="nama_penulis" value="{{data.nama_penulis}}" />
                         </div>
-                        <div class="mb-3 col-md-4">
-                            <label class="form-label">Deskripsi</label>
-                            <input class="form-control" type="text" name="desc" value="{{data.desc}}" />
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">Nama Penerbit </label>
+                            <input class="form-control" type="text" name="penerbit" value="{{data.penerbit}}" />
                         </div>
-                        <div class="mb-3 col-md-4">
-                            <label class="form-label">Tanggal</label>
-                            <input type="text" class="form-control" name="created_at" readonly value="{{data.created_at}}" />
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Isi</label>
+                                <textarea class="form-control" name="isi" cols="28" rows="10">{{data.isi}}</textarea>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Tanggal</label>
+                                <input type="text" class="form-control" name="created_at" readonly value="{{data.created_at}}" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        {% if data.image %}
-                        <div class="mb-12 col-md-6">
-                            <img src="{{data.image.url}}" alt="" srcset="" height="200px" width="200px">
+                        <div class="row">
+                            {% if data.image %}
+                            <div class="mb-3 col-md-6">
+                                <img src="{{data.image.url}}" alt="" srcset="" height="200px" width="200px"> Foto saat ini
+                            </div>
+                            {% endif %}
                         </div>
-                        {% endif %}
-                        <label for="firstName" class="form-label">Logo</label>
-                        <input class="form-control" type="file" name="image" value="{{data.image}}" />
-
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label for="firstName" class="form-label">Logo</label>
+                                <input class="form-control" type="file" name="image" value="{{data.image}}" />
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Judul</label>
+                                <input type="text" class="form-control" name="judul"  value="{{data.judul}}" />
+                            </div>
+                        </div>
                     </div>
                     <br>
                     <div class="col-12 d-flex justify-content-end">

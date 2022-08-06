@@ -7,10 +7,15 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import os
+
 @login_required(login_url='/accounts/')
 def index(request):
-    return render(request,"index.html")
-
+    data = Profile.objects.all()
+    context ={'data':data}
+    return render(request,"index.html", context)
+@login_required(login_url='/accounts/')
+def box(request):
+    return render(request,"boxicon.html")
 #Beranda 
 @login_required(login_url='/accounts/')
 def beranda(request):
@@ -49,14 +54,6 @@ def update_beranda(req, pk):
     context = {"data":instance}
     return render(req, 'beranda/update.html', context) 
 
-
-
-    # form = HomeForm(req.POST,req.FILES, instance=instance)
-    # if form.is_valid():
-    #     form.save()
-    #     return redirect('/administration/home/')
-    # task = Home.objects.filter(id_home=pk)
-    # return render(req, 'beranda/update.html', {'form': form, 'data':task}) 
 @login_required(login_url='/accounts/')
 def delete_beranda(req, pk):
     Home.objects.get(id_home=pk).delete()
@@ -92,7 +89,9 @@ def update_berita(req, pk):
                 os.remove(instance.image.path)
             instance.image = req.FILES['image']
         instance.nama_penulis = req.POST.get('nama_penulis')
-        instance.desc = req.POST.get('desc')
+        instance.judul = req.POST.get('judul')
+        instance.isi = req.POST.get('isi')
+        instance.penerbit = req.POST.get('penerbit')
         instance.save()
         messages.success(req, "data Telah ditambahkan")
         return redirect('/administration/berita/')
@@ -264,12 +263,50 @@ def update_ppdb(req, pk):
         messages.success(req, "data Telah ditambahkan")
         return redirect('/administration/ppdb/')
     context = {"data":instance}
-    return render(req, 'ppdb/update.html', context) 
+    return render(req, 'ppdb/update.html', context)
 @login_required(login_url='/accounts/')
 def delete_ppdb(req, pk):
     Pendaftaran.objects.get(id_daftar=pk).delete()
     messages.success(req, 'data telah di hapus.')
     return redirect('/administration/ppdb/')
+
+##UKM
+@login_required(login_url='/accounts/')
+def ukm(request):
+    tasks = Ekstrakulikuler.objects.filter(owner=request.user)
+    form_input = EkstrakulikulerForm()
+    if request.POST:
+        form_input = EkstrakulikulerForm(request.POST)
+        if form_input.is_valid():
+            form_input.instance.owner = request.user
+            form_input.save()
+            messages.success(request, 'Data telah ditambahkan.')
+            return redirect('/administration/ukm/')
+        else:
+            messages.error(request, 'A problem has been occurred while submitting your data.')
+            print(form_input.errors)
+    return render(request, 'ukm/index.html',{
+        'form' : form_input,
+        'data': tasks,
+        
+    })
+@login_required(login_url='/accounts/')
+def update_ukm(req, pk):
+    instance = Ekstrakulikuler.objects.get(id_ekstra=pk)
+    if req.POST:
+        instance.nama_ekstra = req.POST.get('nama_ekstra')
+        instance.desc = req.POST.get('desc')
+        instance.icon = req.POST.get('icon')
+        instance.save()
+        messages.success(req, "data Telah ditambahkan")
+        return redirect('/administration/ukm/')
+    context = {"data":instance}
+    return render(req, 'ukm/update.html', context)
+@login_required(login_url='/accounts/')
+def delete_ukm(req, pk):
+    Ekstrakulikuler.objects.get(id_ekstra=pk).delete()
+    messages.success(req, 'data telah di hapus.')
+    return redirect('/administration/ukm/')
 
 @login_required(login_url='/accounts/')
 def accountSettings(req, pk):

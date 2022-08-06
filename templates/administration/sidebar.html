@@ -56,6 +56,12 @@
               <div data-i18n="Basic">PPDB</div>
             </a>
           </li>
+          <li class="menu-item {% if url_name == 'ukm' %}active{% endif %}">
+            <a href="{% url 'administration:ukm' %}" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-collection"></i>
+              <div data-i18n="Basic">Ekstrakulikuler</div>
+            </a>
+          </li>
         </ul>
         {% endwith %}
 
@@ -81,7 +87,7 @@
               <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                   <div class="avatar avatar-online">
-                    <img src="#" alt class="w-px-40 h-auto rounded-circle" />
+                    <img src="{{request.user.profile.profile_pic.url}}" alt class="rounded-circle" />
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
