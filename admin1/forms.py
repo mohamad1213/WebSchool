@@ -19,7 +19,7 @@ class HomeForm(ModelForm):
 class BeritaForm(ModelForm):
     class Meta:
          model = Berita
-         exclude = ['owner']
+         exclude = ['owner','desc']
 class PrestasiForm(ModelForm):
     class Meta:
          model = Prestasi
@@ -37,7 +37,10 @@ class PpdbForm(ModelForm):
     class Meta:
          model = Pendaftaran
          exclude = ['owner']
-
+class EkstrakulikulerForm(ModelForm):
+    class Meta:
+         model = Ekstrakulikuler
+         exclude = ['owner']
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile

@@ -1,0 +1,74 @@
+{% extends 'administration/base.html' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <button type="button" class="btn btn-primary rounded-pill" style="float: right;" data-bs-toggle="modal"
+            data-bs-target="#input">
+            Tambah Data
+        </button>
+        <h4 class="fw-bold py-3 mb-4"> Data Ekstrakulikuler</h4>
+        <h5 class="text-black">Dapatkan Code Icon di <a href="{% url 'administration:box' %}">sini</a></h5>
+        <div class="card">
+            <div class="card-header">
+
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Ekstra</th>
+                                <th>Code Icon</th>
+                                <th>Desc</th>
+                                <th>Tanggal</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        {% for u in data %}
+                        <tbody class="table-border-bottom-0">
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td><span class="text-center">{{u.nama_ekstra}}</span></td>
+                                <td><span class="text-center">{{u.icon}}</span></td>
+                                <td><span class="text-center">{{u.desc}}</span></td>
+                                <td><span class="text-center">{{u.created_at}}</span></td>
+                                <td>
+                                    <a type="button" class="btn btn-primary" href="/administration/ukm/{{u.pk}}/update/">Update</a>
+                                    <a type="button" class="btn btn-danger" href="/administration/ukm/{{u.pk}}/delete/">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+
+                    <!-- Modal Input -->
+                    <div class="modal fade" id="input" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel1">Tambah data Ekstrakulikuler</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="" method="post" class="mt-3" enctype="multipart/form-data">
+                                        {% load crispy_forms_tags %}
+                                        {% csrf_token %}
+                                        {{ form|crispy }}
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                data-bs-dismiss="modal">
+                                                Tutup
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

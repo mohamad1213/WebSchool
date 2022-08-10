@@ -576,6 +576,174 @@
         .berita .swiper-pagination .swiper-pagination-bullet-active {
             background-color: #2487ce;
         }
+        .portfolio .portfolio-item {
+            margin-bottom: 30px;
+        }
+
+        .portfolio #portfolio-flters {
+            padding: 0;
+            margin: 0 auto 35px auto;
+            list-style: none;
+            text-align: center;
+            border-radius: 50px;
+            padding: 2px 15px;
+        }
+
+        .portfolio #portfolio-flters li {
+            cursor: pointer;
+            display: inline-block;
+            padding: 10px 15px 8px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1;
+            text-transform: uppercase;
+            color: #444444;
+            margin-bottom: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .portfolio #portfolio-flters li:hover,
+        .portfolio #portfolio-flters li.filter-active {
+            color: #2487ce;
+        }
+
+        .portfolio #portfolio-flters li:last-child {
+            margin-right: 0;
+        }
+
+        .portfolio .portfolio-wrap {
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .portfolio .portfolio-wrap::after {
+            content: '';
+            display: block;
+            padding-top: 100%;
+        }
+
+        .portfolio img {
+            width: auto;
+            height: 100%;
+            max-width: none;
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+        }
+
+        .portfolio .portfolio-wrap::before {
+            content: "";
+            background: rgba(36, 135, 206, 0.6);
+            position: absolute;
+            left: 30px;
+            right: 30px;
+            top: 30px;
+            bottom: 30px;
+            transition: all ease-in-out 0.3s;
+            z-index: 2;
+            opacity: 0;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-info {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            text-align: center;
+            z-index: 3;
+            transition: all ease-in-out 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-info::before {
+            display: block;
+            content: "";
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            top: 35px;
+            left: 35px;
+            border-top: 3px solid #fff;
+            border-left: 3px solid #fff;
+            transition: all 0.5s ease 0s;
+            z-index: 9994;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-info::after {
+            display: block;
+            content: "";
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            bottom: 35px;
+            right: 35px;
+            border-bottom: 3px solid #fff;
+            border-right: 3px solid #fff;
+            transition: all 0.5s ease 0s;
+            z-index: 9994;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-info h4 {
+            font-size: 20px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-info p {
+            color: #ffffff;
+            font-size: 14px;
+            text-transform: uppercase;
+            padding: 0;
+            margin: 0;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-links {
+            text-align: center;
+            z-index: 4;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-links a {
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0 2px;
+            font-size: 28px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .portfolio .portfolio-wrap .portfolio-links a:hover {
+            color: #fff;
+        }
+
+        .portfolio .portfolio-wrap:hover::before {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 1;
+        }
+
+        .portfolio .portfolio-wrap:hover .portfolio-info {
+            opacity: 1;
+        }
+
+        .portfolio .portfolio-wrap:hover .portfolio-info::before {
+            top: 15px;
+            left: 15px;
+        }
+
+        .portfolio .portfolio-wrap:hover .portfolio-info::after {
+            bottom: 15px;
+            right: 15px;
+        }
+
 
 
         /*--------------------------------------------------------------
@@ -647,7 +815,7 @@
     <section id="hero" class="d-flex align-items-center"
         style="background-image: url('./static/frontend/assets/img/santri.jpeg');">
         <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
-            {% for u in data %}
+            {% for u in home %}
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
                     <img src="{{u.logo.url}}" alt="" srcset="">
@@ -678,32 +846,26 @@
             <div class="section-title">
                 <h2>Tentang Kami</h2>
             </div>
+            {% for u in tentang %}
             <div class="row">
                 <div class="col-lg-6 content align-self-baseline" data-aos="fade-right" data-aos-delay="100">
-                    <img src="{% static 'frontend/assets/img/pengasuh.jpg' %}" class="img-fluid" alt="">
+                    <img src="{{u.image.url}}" class="img-fluid" alt="">
                     <br><br>
                     <h4 class="text-center" style="font-size: 16px;"> <strong>Pengasuh Pondok Pesantren Luthful Ulum.
-                            KH. ISMA’EL, AG</strong></h4>
+                            {{u.nama_pengasuh}}</strong></h4>
                 </div>
 
                 <div class="col-lg-6 pt-3 pt-lg-0 content">
                     <p class="text-black"
                         style="line-height:2.5em; font-weight: 500;font-size: 16px; text-align: justify; margin-top: 0;">
-
-                        Pondok Pesantren Luthful Ulum didirikan oleh KH. ISMA’EL, AG, bertempat di Gandong, Pasucen,
-                        Trangkil, Pati, Jawa Tengah. PPM Luthful Ulum dengan
-                        kurikulum andalan menghafalkan al-qurán dengan urutan ayat secara
-                        acak beserta artinya siap mewarnai dunia pendidikan di Pati pada khususnya dan di
-                        Indonesia pada umumnya. Kami bertekad mewujudkan generasi Qur’ani yang berilmu dan berakhlak
-                        mulia dengan menyelenggarakan pendidikan Tahsin, Tahfidz, Tafsir dan Ulumul Qur’an.
-                        Mengintegrasikan pendidikan amaliyah dan diniyah dan mengembangkan serta mengamalkan Akhlak
-                        Qur’an yang diteladankan Salafunas Shaleh.
+                        {{u.desc}}
                     </p>
                 </div>
             </div>
+            {% endfor %}
+
         </div>
     </section>
-    <!-- End Tentang Kami Section -->
     <!-- Start Visi Section -->
     <section id="visi" class="about">
         <div class="container" data-aos="fade-up">
@@ -750,57 +912,12 @@
             </div>
         </div>
     </section>
-    <!-- End Visi Section -->
-    <!-- !-- ======= Tentang Kami Section ======= -->
-    <!-- <section id="tentangkami" class="about-video">
-        <div class="container" data-aos="fade-up">
-
-            <div class="row">
-
-                <div class="col-lg-6 video-box align-self-baseline" data-aos="fade-right" data-aos-delay="100">
-                    <img src="assets/img/about-video.jpg" class="img-fluid" alt="">
-                    <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox play-btn mb-4"
-                        data-vbtype="video" data-autoplay="true"></a>
-                </div>
-
-                <div class="col-lg-6 pt-3 pt-lg-0 content" data-aos="fade-left" data-aos-delay="100">
-                    <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
-                    <p class="fst-italic">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore
-                        magna aliqua.
-                    </p>
-                    <ul>
-                        <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        </li>
-                        <li><i class="bx bx-check-double"></i> Duis aute irure dolor in reprehenderit in voluptate
-                            velit.</li>
-                        <li><i class="bx bx-check-double"></i> Voluptate repellendus pariatur reprehenderit corporis
-                            sint.</li>
-                        <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
-                            fugiat nulla pariatur.</li>
-                    </ul>
-                    <p>
-                        Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                        in voluptate
-                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in
-                        culpa qui officia deserunt mollit anim id est laborum
-                    </p>
-                </div>
-
-            </div>
-
-        </div>
-    </section> -->
-    <!-- End About Video Section -->
 
     <!-- ======= Testimonials Section ======= -->
     <section id="galeri" class="testimonials">
         <div class="container" data-aos="fade-up">
             <div class="container" data-aos="fade-up">
-
+                
                 <div class="section-title">
                     <h2>Galeri</h2>
                     <p>Kumpulan kegiatan santriwan santriwati</p>
@@ -808,58 +925,17 @@
 
                 <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
                     <div class="swiper-wrapper">
+                        {% for u in galeri %}
 
                         <div class="swiper-slide">
                             <div class="testimonial-item">
                                 <p>
-                                    <img src="{% static 'frontend/assets/img/testimonials/testimonials-3.jpg' %}"
-                                        class="img-fluid" alt="">
+                                    <img src="{{u.image.url}}" height="200px" width="300px" class="img-fluid" alt="">
                                 </p>
-                                <h3>Lihat Anu</h3>
+                                <h3>{{u.desc}}</h3>
                             </div>
                         </div>
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <p>
-                                    <img src="{% static 'frontend/assets/img/testimonials/testimonials-3.jpg' %}"
-                                        class="img-fluid" alt="">
-                                </p>
-                                <h3>Lorem Epsum</h3>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <p>
-                                    <img src="{% static 'frontend/assets/img/testimonials/testimonials-3.jpg' %}"
-                                        class="img-fluid" alt="">
-                                </p>
-                                <h3>Jena Karlis</h3>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <p>
-                                    <img src="{% static 'frontend/assets/img/testimonials/testimonials-3.jpg' %}"
-                                        class="img-fluid" alt="">
-                                </p>
-                                <h3>Jena Karlis</h3>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <p>
-                                    <img src="{% static 'frontend/assets/img/testimonials/testimonials-3.jpg' %}"
-                                        class="img-fluid" alt="">
-                                </p>
-                                <h3>Makan Makan</h3>
-                            </div>
-                        </div>
-
-
+                        {% endfor %}
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -877,20 +953,22 @@
                 <p>Dalam menunjang pembelajaran santri serta mengembangkan lifeskill santri, kami menggelar beberapa
                     kegiatan ekstrakurikuler sebagai penyalur bakat minat santri.</p>
             </div>
-
+            
             <div class="row">
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                {% for u in ukm %}
+                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="200">
                     <div class="icon-box">
                         <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bxs-volume-full'></i>
+                            <button type="button" class="btn btn-circle btn-xl"> <i class='{{u.icon}}'></i>
                             </button>
                         </div>
-                        <h4>Hadrah</h4>
-                        <p>Para siswa ikut serta dalam menjaga tradisi budaya tetap terjaga.</p>
+                        <h4>{{u.nama_ekstra}}</h4>
+                        <p>{{u.desc}}</p>
                     </div>
                 </div>
+                {% endfor %}
 
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="200">
+                <!-- <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="200">
                     <div class="icon-box">
                         <div class="icon">
                             <button type="button" class="btn btn-circle btn-xl"> <i class='bx bxs-book-reader'></i>
@@ -963,7 +1041,7 @@
                         <h4>Sepak Bola</h4>
                         <p>Sebagai wadah bagi para santri yang ingin mengasah bakat tentang bermain sepak bola</p>
                     </div>
-                </div>
+                </div> -->
 
             </div>
 
@@ -973,91 +1051,29 @@
     <!-- ======= Portfolio Section ======= -->
     <section id="berita" class="testimonials">
         <div class="container" data-aos="fade-up">
-            <a type="button" class="btn" href="#" style="float: right; background-color: #007854; color: #fff;">Lihat
+            <a type="button" class="btn" href="{% url 'list-berita' %}"
+                style="float: right; background-color: #007854; color: #fff;">Lihat
                 Selengkapnya</a>
 
             <div class="section-title">
                 <h2 class="ml-2">Berita Terkini</h2>
             </div>
-
             <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
                 <div class="swiper-wrapper">
-
+                    
+                    {% for u in berita %}
                     <div class="swiper-slide">
-                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-1.jpg' %}"
-                            class="testimonial-img" alt="">
+                        <img src="{{u.image.url}}" class="img-fluid"  alt="">
                         <div class="testimonial-item">
                             <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                ajg lu
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                                {{u.desc}}
                             </p>
-                            <h3>Saul Goodman</h3>
-                            <h4>Ceo &amp; Founder</h4>
+                            <h3>{{u.nama_penulis}}</h3>
+                            <h4 class="text-black">{{u.created_at}}</h4>
+                            <a href="/berita/{{u.pk}}/">Selengkapnya....</a>
                         </div>
                     </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-2.jpg' %}"
-                            class="testimonial-img" alt="">
-                        <div class="testimonial-item">
-                            <p>
-                                Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid
-                                cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet
-                                legam anim culpa.
-                            </p>
-                            <h3>Sara Wilsson</h3>
-                            <h4>Designer</h4>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-3.jpg' %}"
-                            class="testimonial-img" alt="">
-                        <div class="testimonial-item">
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam
-                                duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            </p>
-                            <h3>Jena Karlis</h3>
-                            <h4>Store Owner</h4>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-4.jpg' %}"
-                            class="testimonial-img" alt="">
-                        <div class="testimonial-item">
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat
-                                minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore
-                                labore illum veniam.
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            </p>
-                            <h3>Matt Brandon</h3>
-                            <h4>Freelancer</h4>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <img src="{% static 'frontend/assets/img/testimonials/testimonials-5.jpg' %}"
-                            class="testimonial-img" alt="">
-                        <div class="testimonial-item">
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster
-                                veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam
-                                culpa fore nisi cillum quid.
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            </p>
-                            <h3>John Larson</h3>
-                            <h4>Entrepreneur</h4>
-                        </div>
-                    </div><!-- End testimonial item -->
-
+                    {% endfor %}
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -1069,6 +1085,7 @@
     <!-- ======= Prestasi Section ======= -->
     <section id="prestasi" class="faq section-bg">
         <div class="container" data-aos="fade-up">
+            {% for u in prestasi %}
 
             <div class="section-title">
                 <h2>Prestasi</h2>
@@ -1078,48 +1095,25 @@
 
             <div class="faq-list">
                 <ul>
-                    <li data-aos="fade-up">
-                        <p>
-                            1. Juara Harapan 2 Pidato tingkat Provinsi Jawa Timur dalam Pentas PAI tahun 2017
-                        </p>
-                    </li>
-                    <li data-aos="fade-up">
-                        <p>
-                            2. Juara 1 Bahasa Arab tingkat Kabupaten dalam Kompetisi Sains Madrasah (KSM) tahun
-                            2017/2018
-                        </p>
-                    </li>
-                    <li data-aos="fade-up">
-                        <p>
-                            3. Juara 1 Pidato tingkat kabupaten dalam pentas PAIS tahun 2016
-                        </p>
-                    </li>
-                    <li data-aos="fade-up">
-                        <p>
-                            4. Juara 1 Pidato tingkat Kabupaten dalam Olimpiade Sains & Agama (OSAMA) di Pondok
-                            Pesantren Darussalam Blok Agung tahun 2017
-                        </p>
-                    </li>
-                    <li data-aos="fade-up">
-                        <p>
-                            5. Juara 2 MHQ tingkat Kabupaten dalam Kompetisi Sains Madrasah (KSM) tahun 2016/2017
-                        </p>
-                    </li>
-
+                    <p>
+                        1. {{u.nama}} Berlokasi di {{u.lokasi}} {{u.desc}}
+                    </p>
 
                 </ul>
             </div>
+            {% endfor %}
 
         </div>
     </section><!-- End Prestasi Section -->
 
     <!-- ======= Cta Section ======= -->
     <section id="form" class="cta">
+        {% for u in ppdb %}
         <div class="container" data-aos="zoom-in">
             <div class="text-center">
                 <h3>FORMULIR PENDAFTARAN SANTRI BARU 2022 – 2023</h3>
                 <p>Untuk formulir pendaftaran silahkan klik link dibawah ini</p>
-                <a class="cta-btn" href="#">Daftar Sekarang</a>
+                <a class="cta-btn" target="_blank" href="{{u.link_daftar}}">Daftar Sekarang</a>
             </div>
         </div>
     </section><!-- End Cta Section -->
@@ -1162,8 +1156,7 @@
 
             <div class="row">
                 <div class="col-6">
-                    <img style="width: 100%; height: 100%;"
-                        src="http://alazharmuncar.org/wp-content/uploads/2021/01/Brosur-PPDB-2021-2022.jpg">
+                    <img style="width: 100%; height: 100%;" src="{{u.brosur.url}}">
                 </div>
                 <div class="col-6">
                     <div class="row">
@@ -1172,26 +1165,23 @@
                                 <div class="address">
                                     <i class="bi bi-geo-alt"></i>
                                     <h4>Lokasi:</h4>
-                                    <p>Ds. Pasuncen RT.04/Rw. 08 Kec, Trangkil, Kab. Pati, Jawa Tengah</p>
+                                    <p>{{u.lokasi}}</p>
                                 </div>
 
                                 <div class="email">
                                     <i class="bi bi-envelope"></i>
                                     <h4>Email:</h4>
-                                    <p>ponpes_luthfululum@yahoo.co.id</p>
+                                    <p>{{u.email}}</p>
                                 </div>
                                 <div class="phone">
                                     <i class="bi bi-phone"></i>
                                     <h4>Telpon:</h4>
-                                    <p>(0821) 3666 1012</p>
+                                    <p>{{u.telpon}}</p>
                                 </div>
                                 <div class="phone">
                                     <h4>
-                                        <a class="btn" style="color: #fff; background-color: #007854;" type="button"
-                                            href="https://drive.google.com/file/d/1BPkgtMmveNK7XLZJ8RuY1YCP4EfNUPwh/view">Unduh
-                                            Brosur</a>
-
-
+                                        <a class="btn" style="color: #fff; background-color: #007854;" type="text"
+                                            href="{{u.brosur.url}}" download>Unduh Brosur</a>
                                     </h4>
                                 </div>
                             </div>
@@ -1201,6 +1191,8 @@
             </div>
         </div>
     </section><!-- End Contact Section -->
+    {% endfor %}
+
 
 </main><!-- End #main -->
 

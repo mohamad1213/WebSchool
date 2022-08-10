@@ -6,6 +6,16 @@
             data-bs-target="#input">
             Tambah Data
         </button>
+        <style>
+            .el {
+                white-space: nowrap;
+                max-width: 450px;
+                padding: 0.5em 1em;
+                background: white;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        </style>
         <h4 class="fw-bold py-3 mb-4"> Data Berita</h4>
         <div class="card">
             <div class="card-header">
@@ -15,32 +25,43 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Penulis</th>
+                                <th>Judul</th>
+                                <th>Isi</th>
                                 <th>Gambar</th>
-                                <th>Deskripsi</th>
+                                <th>Nama Penulis</th>
+                                <th>Nama Penerbit</th>
                                 <th>Tanggal</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
+                        {% for u in data %}
                         <tbody class="table-border-bottom-0">
-                            {% for u in data %}
                             <tr>
                                 <td>{{forloop.counter}}</td>
-                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{u.nama_penulis}}</strong>
+                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{u.judul}}</strong>
+                                </td>
+                                <td class="el"><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{u.isi}}</strong>
                                 </td>
                                 <td>
                                     <img src="{{u.image.url}}" height="100px" alt="" srcset="">
                                 </td>
-                                <td><span class="d-inline-block text-truncate" style="max-width: 150px;">{{u.desc}}</span></td>
+                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                    <strong>{{u.nama_penulis}}</strong>
+                                </td>
+                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                    <strong>{{u.penerbit}}</strong>
+                                </td>
                                 <td><span class="text-center">{{u.created_at}}</span></td>
                                 <td>
-                                    <a type="button" class="btn btn-primary" href="/administration/berita/{{u.pk}}/update/">Update</a>
-                                    <a type="button" class="btn btn-danger" href="/administration/berita/{{u.pk}}/delete/">Delete</a>
+                                    <a type="button" class="btn btn-primary"
+                                        href="/administration/berita/{{u.pk}}/update/">Update</a>
+                                    <a type="button" class="btn btn-danger"
+                                        href="/administration/berita/{{u.pk}}/delete/">Delete</a>
                                 </td>
                             </tr>
                         </tbody>
+                        {% endfor %}
                     </table>
-                    {% endfor %}
 
                     <!-- Modal Input -->
                     <div class="modal fade" id="input" tabindex="-1" aria-hidden="true">
@@ -62,7 +83,7 @@
                                                 Tutup
                                             </button>
                                             <button type="submit" class="btn btn-primary">Simpan
-                                                </button>
+                                            </button>
                                         </div>
                                 </div>
                             </div>
@@ -72,6 +93,5 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 {% endblock %}
