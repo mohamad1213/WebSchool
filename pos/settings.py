@@ -37,8 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap_datepicker_plus',
-    'rest_framework',
     'crispy_forms',
     'home',
     'admin1',
@@ -79,9 +77,9 @@ WSGI_APPLICATION = 'pos.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'webinfo',
+        'NAME': 'web-info',
         'USER': 'postgres',
-        'PASSWORD': 'tatam123',
+        'PASSWORD': 'unuyogya18',
         'HOST': 'localhost',
         'PORT': '5432',
     }

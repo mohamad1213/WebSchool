@@ -1,4 +1,3 @@
-from aiohttp import request
 from django.shortcuts import render, redirect
 from .forms import *
 from .models import *
