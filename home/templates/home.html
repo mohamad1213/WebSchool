@@ -1014,23 +1014,23 @@
     <!-- ======= Prestasi Section ======= -->
     <section id="prestasi" class="faq section-bg">
         <div class="container" data-aos="fade-up">
-            {% for u in prestasi %}
-
+            
             <div class="section-title">
                 <h2>Prestasi</h2>
                 <p>Prestasi membanggakan senantiasa ditorehkan oleh para santriwan dan satriwati di setiap kejuaaraan
                     yang diikuti.</p>
-            </div>
-
-            <div class="faq-list">
+                </div>
+                
+                <div class="faq-list">
+                {% for u in prestasi %}
                 <ul>
                     <p>
                         1. {{u.nama}} Berlokasi di {{u.lokasi}} {{u.desc}}
                     </p>
 
                 </ul>
+                {% endfor %}
             </div>
-            {% endfor %}
 
         </div>
     </section><!-- End Prestasi Section -->
