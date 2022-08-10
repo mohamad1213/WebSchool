@@ -576,6 +576,7 @@
         .berita .swiper-pagination .swiper-pagination-bullet-active {
             background-color: #2487ce;
         }
+
         .portfolio .portfolio-item {
             margin-bottom: 30px;
         }
@@ -826,8 +827,11 @@
                 </div>
             </div>
             <div class="text-center">
+                {% for u in ppdb %}
                 <br><br><br>
-                <a href="#about" class="btn-get-started scrollto">Daftar Sekarang</a>
+                <a href="{{u.link_daftar}}" class="btn-get-started scrollto">Daftar Sekarang</a>
+                {% endfor %}
+
             </div>
 
             <div class="row icon-boxes">
@@ -917,7 +921,7 @@
     <section id="galeri" class="testimonials">
         <div class="container" data-aos="fade-up">
             <div class="container" data-aos="fade-up">
-                
+
                 <div class="section-title">
                     <h2>Galeri</h2>
                     <p>Kumpulan kegiatan santriwan santriwati</p>
@@ -953,7 +957,7 @@
                 <p>Dalam menunjang pembelajaran santri serta mengembangkan lifeskill santri, kami menggelar beberapa
                     kegiatan ekstrakurikuler sebagai penyalur bakat minat santri.</p>
             </div>
-            
+
             <div class="row">
                 {% for u in ukm %}
                 <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="200">
@@ -967,81 +971,6 @@
                     </div>
                 </div>
                 {% endfor %}
-
-                <!-- <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="icon-box">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bxs-book-reader'></i>
-                            </button>
-                        </div>
-                        <h4>Qira'atul Qur'an</h4>
-                        <p>Para siswa akan belajar bagaimana menjadi seorang Qari dan Qari’ah yang baik dan benar</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bxs-user'></i>
-                            </button>
-                        </div>
-                        <h4>Da'i</h4>
-                        <p>Para siswa akan belajar bagaimana menjadi seorang Qari dan Qari’ah yang baik dan benar</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="icon-box">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bxs-bar-chart-alt-2'></i>
-                            </button>
-                        </div>
-                        <h4>Entrepreneur</h4>
-                        <p>Para santri akan dibekali wawasan dan skill tentang enterpreanurship</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="icon-box">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bxs-pen'></i>
-                            </button>
-                        </div>
-                        <h4>Kaligrafi</h4>
-                        <p>Para siswa akan dibekali keterampilan dalam menulis arab dengan cantik dan baik</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box ">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bxs-network-chart'></i>
-                            </button>
-                        </div>
-                        <h4>Kepramukaan</h4>
-                        <p>Santri akan dibekali dasar-dasar kepramukaan hingga mahir</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box ">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bx-plus-medical'></i>
-                            </button>
-                        </div>
-                        <h4>Palang Merah Remaja (PMR)</h4>
-                        <p>Para santri akan dibekali wawasan dan skill untuk menjadi PMR yang tangguh</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon-box ">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='bx bx-football'></i>
-                            </button>
-                        </div>
-                        <h4>Sepak Bola</h4>
-                        <p>Sebagai wadah bagi para santri yang ingin mengasah bakat tentang bermain sepak bola</p>
-                    </div>
-                </div> -->
 
             </div>
 
@@ -1060,12 +989,12 @@
             </div>
             <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
                 <div class="swiper-wrapper">
-                    
+
                     {% for u in berita %}
                     <div class="swiper-slide">
-                        <img src="{{u.image.url}}" class="img-fluid"  alt="">
                         <div class="testimonial-item">
                             <p>
+                                <img src="{{u.image.url}}" class="img-fluid" alt="">
                                 {{u.desc}}
                             </p>
                             <h3>{{u.nama_penulis}}</h3>

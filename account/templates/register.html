@@ -1,86 +1,91 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light-style customizer-hide" dir="ltr" data-theme="theme-default"
+    data-assets-path="{% static 'admin/assets/" data-template="vertical-menu-template-free">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - ROSOK.ID</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'admin/assets/css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'admin/assets/vendors/simple-datatables/style.css' %}">
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <link rel="stylesheet" href="{% static 'admin/assets/vendors/iconly/bold.css' %}">
+    <title>Register Admin Yayasan Luthful Ulum</title>
 
-    <link rel="stylesheet" href="{% static 'admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.css' %}">
-    <link rel="stylesheet" href="{% static 'admin/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}">
-    <link rel="stylesheet" href="{% static 'admin/assets/css/app.css' %}">
-    <link rel="stylesheet" href="{% static 'admin/assets/css/pages/auth.css' %}">
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+
+    <!-- <title>Yayasan Luthful Ulum - Wonokerto</title> -->
+    <link rel="icon" type="image/x-icon" href="{% static 'frontend/assets/img/logo1.png' %}" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'admin/assets/vendor/fonts/boxicons.css' %}" />
+    <link rel="stylesheet" href="{% static 'admin/assets/vendor/css/core.css' %}"
+        class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{% static 'admin/assets/vendor/css/theme-default.css' %}"
+        class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{% static 'admin/assets/css/demo.css' %}" />
+    <link rel="stylesheet" href="{% static 'admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css' %}" />
+    <link rel="stylesheet" href="{% static 'admin/assets/vendor/css/pages/page-auth.css' %}" />
+    <script src="{% static 'admin/assets/vendor/js/helpers.js' %}"></script>
+    <script src="{% static 'admin/assets/js/config.js' %}"></script>
 </head>
 
 <body>
-    <div id="auth">
-        <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div id="auth-left" style="text-align: center;">
-                        <a href="/"><img src="{% static 'admin/assets/images/logo/logo2.png' %}" height="150px" width="150px" alt="Logo" ></a>
-                        <br>
-                        <br>
-                    <h4 class="text-center">Log in.</h4>
+    <div class="container-xxl">
+        <div class="authentication-wrapper authentication-basic container-p-y">
+            <div class="authentication-inner">
+                <!-- Register -->
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-2 text-center">Register</h4>
+                        <form class="mb-3" method="POST">
+                            {% load crispy_forms_tags %}  
+                            {% csrf_token %}
+                            {{ form|crispy }} 
+                            <div class="mb-3">
+                                <button class="btn btn-primary d-grid w-100" type="submit">Login</button>
+                            </div>
+                        </form>
+                        <p class="text-center">
+                            <span>Sudah Punya akun ?</span>
+                            <a href="{% url 'login' %}">
+                              <span>Login</span>
+                            </a>
+                          </p>
 
-                    <form method="POST">
-                        {% csrf_token %}
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" name="{{form.first_name}}" value="{{form.first_name.value}}"
-                                placeholder="first_name">
-                            <div class="form-control-icon">
-                                <i class="bi bi-person"></i>
-                            </div>
-                        </div>
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" name="{{form.first_name}}" value="{{form.first_name.value}}"
-                                placeholder="first_name">
-                            <div class="form-control-icon">
-                                <i class="bi bi-person"></i>
-                            </div>
-                        </div>
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" name="{{form.first_name}}" value="{{form.first_name.value}}"
-                                placeholder="first_name">
-                            <div class="form-control-icon">
-                                <i class="bi bi-person"></i>
-                            </div>
-                        </div>
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" name="{{form.first_name}}" value="{{form.first_name.value}}"
-                                placeholder="first_name">
-                            <div class="form-control-icon">
-                                <i class="bi bi-person"></i>
-                            </div>
-                        </div>
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" name="{{form.first_name}}" value="{{form.first_name.value}}"
-                                placeholder="first_name">
-                            <div class="form-control-icon">
-                                <i class="bi bi-person"></i>
-                            </div>
-                        </div>
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" name="{{form.first_name}}" value="{{form.first_name.value}}"
-                                placeholder="first_name">
-                            <div class="form-control-icon">
-                                <i class="bi bi-person"></i>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Log in</button>
-                    </form>
-                    <p class="text-center">Don't have an account? <a href="/register">Daftar Akun</a>.</p>
+                    </div>
                 </div>
+                <!-- /Register -->
             </div>
         </div>
-
     </div>
+
+    <!-- / Content -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="{% static 'admin/assets/vendor/libs/jquery/jquery.js' %}"></script>
+    <script src="{% static 'admin/assets/vendor/libs/popper/popper.js' %}"></script>
+    <script src="{% static 'admin/assets/vendor/js/bootstrap.js' %}"></script>
+    <script src="{% static 'admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+
+    <script src="{% static 'admin/assets/vendor/js/menu.js' %}"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+    <script src="{% static 'admin/assets/js/main.js' %}"></script>
+
+    <!-- Page JS -->
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js' %}"></script>
 </body>
 
 </html>
