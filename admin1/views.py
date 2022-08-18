@@ -6,6 +6,37 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import os
+from admin1.forms import ProfileForm, form_validation_error
+from django.views.generic import View
+from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
+@method_decorator(login_required(login_url='login'), name='dispatch')
+class ProfileView(View):
+    model = Profile
+
+    def dispatch(self, request, *args, **kwargs):
+        self.profile, __ = Profile.objects.get_or_create(user=request.user)
+        return super(ProfileView, self).dispatch(request, *args, **kwargs)
+    def get(self, request):
+        context = {'profile': self.profile, 'segment': 'profile'}
+        return render(request, 'profile/index.html', context)
+
+    def post(self, request):
+        form = ProfileForm(request.POST, request.FILES, instance=self.profile)
+        if form.is_valid():
+            form.instance.user=request.user
+            form.get_avatar = request.FILES['profile_pic']
+            profile = form.save()
+            img_object = form.instance  
+            profile.user.first_name = form.cleaned_data.get('first_name')
+            profile.user.last_name = form.cleaned_data.get('last_name')
+            profile.user.email = form.cleaned_data.get('email')
+            profile.user.save()
+
+            messages.success(request, 'Data berhasil ditambahkan')
+            messages.error(request, form_validation_error(form))
+        return redirect('/administration/profile/') 
+
 
 @login_required(login_url='/accounts/')
 def index(request):
@@ -326,6 +357,21 @@ def accountSettings(req, pk):
     return render(req, 'profile/update.html', context)
 
 @login_required(login_url='/accounts/')
-def profile(req):
-    data = Profile.objects.all()
-    return render(req, 'profile/index.html', {'data': data})
+def profile(request):
+    tasks = Profile.objects.filter(user=request.user)
+    form_input = ProfileForm()
+    if request.POST:
+        form_input = ProfileForm(request.POST, request.FILES)
+        if form_input.is_valid():
+            form_input.instance.user = request.user
+            form_input.save()
+            messages.success(request, 'Data telah ditambahkan.')
+            return redirect('/administration/profile/')
+        else:
+            messages.error(request, 'A problem has been occurred while submitting your data.')
+            print(form_input.errors)
+    return render(request, 'profile/index.html',{
+        'form' : form_input,
+        'data': tasks,
+        
+    })

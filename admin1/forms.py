@@ -11,7 +11,12 @@ class LoginForm(UserCreationForm):
          model = User
          fields = ['username', 'password1']
 
-
+def form_validation_error(form):
+    msg = ""
+    for field in form:
+        for error in field.errors:
+            msg += "%s: %s \\n" % (field.label if hasattr(field, 'label') else 'Error', error)
+    return msg
 class HomeForm(ModelForm):
     class Meta:
          model = Home
@@ -41,16 +46,16 @@ class EkstrakulikulerForm(ModelForm):
     class Meta:
          model = Ekstrakulikuler
          exclude = ['owner']
-class ProfileForm(ModelForm):
-    class Meta:
-        model = Profile
-        exclude = ['user']
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['email'].widget.attrs.update({ 'class': 'form-control', 'type': 'email' })
-        self.fields['alamat'].widget.attrs.update({ 'class': 'form-control', 'type': 'text' })
-        self.fields['name'].widget.attrs.update({ 'class': 'form-control', 'type': 'text' })
-        self.fields['profile_pic'].widget.attrs.update({ 'class': 'form-control', 'type': 'file' })
+
+class ProfileForm(forms.ModelForm):
+	first_name = forms.CharField(max_length=255)
+	last_name = forms.CharField(max_length=255)
+	email = forms.EmailField()	
+
+	class Meta:
+		model = Profile
+		fields = '__all__'
+		exclude = ['user']
 
 class EditProfileForm(ModelForm):
     profile_pic = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control'}))

@@ -3,51 +3,81 @@
 
 {% block content %}
 <div class="content-wrapper">
-    <!-- Content -->
-
-        <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"> Profile</h4>
-            <button class="fw-bold py-3 mb-4"">halo</button>
-
-            <div class="row">
-                <div class="col-md-12">
-                    {% for u in data %}
-                    <div class="card mb-4">
-                        <!-- Account -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <button type="button" class="btn btn-primary rounded-pill" style="float: right;" data-bs-toggle="modal"
+            data-bs-target="#input">
+            Tambah Data
+        </button>
+        {% for u in data %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-body">
                         <div class="card-body">
                             <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                <img src="{{u.profile_pic.url}}" alt="user-avatar" class="d-block rounded" height="100"
-                                    width="100" id="uploadedAvatar" />
-                                <a href="/administration/profile/{{u.pk}}/edit" class="btn btn-primary me-2">Update
-                                    data</a>
-
-                                <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-                            </div>
-                        </div>
-                        <hr class="my-0" />
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="mb-3 col-md-6">
-                                    <label class="form-label">Nama lengkap</label>
-                                    <input class="form-control" type="text" readonly value="{{u.name}}" autofocus />
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label for="lastName" class="form-label">Email</label>
-                                    <input class="form-control" type="text" readonly value="{{u.email}}" />
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label class="form-label">Telepon</label>
-                                    <input class="form-control" type="text" readonly value="{{u.phone}}" />
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label for="organization" class="form-label">Alamat</label>
-                                    <input type="text" class="form-control" readonly value="{{u.alamat}}" />
+                                <img src="{{ u.profile_pic.url }}" alt="user-avatar" class="d-block rounded"
+                                    height="100" width="100" id="uploadedAvatar" />
+                                <div class="button-wrapper">
+                                    <a href="/administration/{{u.pk}}/edit" for="upload"
+                                        class="btn btn-primary me-2 mb-4" tabindex="0">
+                                        <span class="d-none d-sm-block">Edit Data</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        {% endfor %}
+                    </div>
+                </div>
+                <hr class="my-0" />
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Nama Lengkap</label>
+                            <input class="form-control" type="text" name="last_name" id="lastName" value="{{ u.name }}"
+                                readonly />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input class="form-control" type="email" id="email" name="email" value="{{ u.email }}"
+                                readonly />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="organization" class="form-label">Nomor Telpon</label>
+                            <input type="number" class="form-control" id="phone" name="phone" value="{{ u.phone }}"
+                                readonly />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="address" class="form-label">Alamat</label>
+                            <textarea type="text" class="form-control" name="" id="" cols="30" rows="10"
+                                readonly>{{u.alamat}} </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="modal fade" id="input" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel1">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post" class="mt-3" enctype="multipart/form-data">
+                                {% load crispy_forms_tags %}
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                        Close
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        {% endblock %}
+    </div>
+</div>
+</div>
+{% endblock %}

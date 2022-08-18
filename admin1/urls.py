@@ -1,9 +1,10 @@
 from django.urls import path
-
+from admin1.views import ProfileView
 
 app_name = 'administration'
 from . import views
 urlpatterns = [
+    # path('profile/', ProfileView.as_view(), name='profile'),
     path('', views.index, name='admin'),
     path('box', views.box, name='box'),
     path('profile/', views.profile, name="profile"),
