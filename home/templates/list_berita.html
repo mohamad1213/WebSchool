@@ -1,112 +1,98 @@
-{% extends "frontend/base.html" %}
+{% extends 'frontend/base.html' %}
 {% load static %}
 
 {% block content %}
-<main id="main">
-    <style>
-        .portfolio-details {
-            padding-top: 40px;
-        }
-
-        .portfolio-details .portfolio-details-slider img {
-            width: 200px;
-        }
-
-        .portfolio-details .portfolio-details-slider .swiper-pagination {
-            margin-top: 20px;
-            position: relative;
-        }
-
-        .portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {
-            width: 12px;
-            height: 12px;
-            background-color: #fff;
-            opacity: 1;
-            border: 1px solid #2487ce;
-        }
-
-        .portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
-            background-color: #2487ce;
-        }
-
-        .portfolio-details .portfolio-info {
-            padding: 30px;
-            box-shadow: 0px 0 30px rgba(18, 66, 101, 0.08);
-        }
-
-        .portfolio-details .portfolio-info h3 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .portfolio-details .portfolio-info ul {
-            list-style: none;
-            padding: 0;
-            font-size: 15px;
-        }
-
-        .portfolio-details .portfolio-info ul li+li {
-            margin-top: 10px;
-        }
-
-        .portfolio-details .portfolio-description {
-            padding-top: 30px;
-        }
-
-        .portfolio-details .portfolio-description h2 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .portfolio-details .portfolio-description p {
-            padding: 0;
-        }
-    </style>
-
-    <!-- ======= Breadcrumbs ======= -->
-    <section id="breadcrumbs" class="breadcrumbs">
-        <div class="container">
-
-            <div class="d-flex justify-content-between align-items-center">
-                <h2>Daftar Berita</h2>
+<link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/components/blogs/blog-5/assets/css/blog-5.css">
+<!-- Blog 5 - Bootstrap Brain Component -->
+<style>
+    .fixed-image {
+        width: 400px;
+        height: 250px;
+        object-fit: cover;
+        /* Untuk memastikan gambar mengisi area tanpa distorsi */
+    }
+</style>
+<br><br><br>
+<section class="bsb-blog-5 py-3 py-md-5 py-xl-8">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
+                <h2 class="display-5 mb-4 mb-md-5 text-center">Latest Articles</h2>
+                <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
             </div>
-
         </div>
-    </section><!-- End Breadcrumbs -->
+    </div>
 
-    <!-- ======= Portfolio Details Section ======= -->
-    <section id="portfolio-details" class="portfolio-details">
-        <div class="container">
-
-            {% for u in data %}
-            <div class="row">
-
-                <div class="col-lg-2">
-                    <div class="portfolio-details-slider swiper">
-                        <div class="swiper-wrapper align-items-center">
-                            <img src="{{u.image.url}}" alt="">
+    <div class="container overflow-hidden">
+        <div class="row gy-4 gy-md-5 gx-xl-6 gy-xl-6 gx-xxl-9 gy-xxl-9">
+            {% for article in article %}
+            <div class="col-12 col-lg-4">
+                <article>
+                    <div class="card border-0 bg-transparent h-100">
+                        <figure class="card-img-top mb-4 overflow-hidden bsb-overlay-hover">
+                            <a href="{% url 'detail' pk=article.pk %}">
+                                {% if article.featured_image %}
+                                <img class="img-fluid bsb-scale bsb-hover-scale-up rounded" loading="lazy"
+                                    src="{{ article.featured_image.url }}" alt="{{ article.title }}"
+                                    style="width: 400px; height: 250px; object-fit: cover;">
+                                {% else %}
+                                <img class="img-fluid bsb-scale bsb-hover-scale-up rounded" loading="lazy"
+                                    src="./assets/img/placeholder.jpg" alt="Placeholder"
+                                    style="width: 400px; height: 250px; object-fit: cover;">
+                                {% endif %}
+                            </a>
+                            <figcaption>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                                    class="bi bi-eye text-white bsb-hover-fadeInLeft" viewBox="0 0 16 16">
+                                    <path
+                                        d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                                    <path
+                                        d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                </svg>
+                                <h4 class="h6 text-white bsb-hover-fadeInRight mt-2">Baca Selengkapnya</h4>
+                            </figcaption>
+                        </figure>
+                        <div class="card-body m-0 p-0">
+                            <div class="entry-header mb-3">
+                                <ul class="entry-meta list-unstyled d-flex mb-3">
+                                    {% for category in article.categories.all %}
+                                    <li class="me-2 mb-2">
+                                        <a class="btn btn-secondary" href="#">{{ category.name }}</a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                <h4 class="card-title entry-title h4 m-0">
+                                    <a class="link-dark text-decoration-none"
+                                        href="{% url 'detail' pk=article.pk %}">{{article.content|safe|slice:":150"|striptags}}...</a>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="card-footer border-0 bg-transparent p-0 m-0">
+                            <ul class="entry-meta list-unstyled d-flex align-items-center m-0">
+                                <li>
+                                    <a class="fs-7 link-secondary text-decoration-none d-flex align-items-center"
+                                        href="#">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                                            <path
+                                                d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" />
+                                            <path
+                                                d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                                        </svg>
+                                        <span class="ms-2 fs-7">Tanggal</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <span class="px-3">{{article.created_at}}</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-10">
-                    <div class="portfolio-description">
-                        <h2>{{u.judul}}</h2>
-                        <p>
-                           {{u.isi}} <a href="/berita/{{u.pk}}/">Selengkapnya..</a>
-                        </p>
-                    </div>
-                </div>
+                </article>
             </div>
             {% endfor %}
-
         </div>
-    </section><!-- End Portfolio Details Section -->
-
-</main><!-- End #main -->
-
+    </div>
+</section>
 {% endblock %}

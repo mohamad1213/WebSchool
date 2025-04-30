@@ -29,13 +29,19 @@
           <li class="menu-item {% if url_name == 'tentang' %}active{% endif %}">
             <a href="{% url 'administration:tentang' %}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-collection"></i>
-              <div data-i18n="Basic">Tentang Kami</div>
+              <div data-i18n="Basic">Sambutan</div>
             </a>
           </li>
-          <li class="menu-item {% if url_name == 'berita' %}active{% endif %}">
-            <a href="{% url 'administration:berita' %}" class="menu-link">
+          <li class="menu-item {% if url_name == 'article_list' %}active{% endif %}">
+            <a href="{% url 'administration:article_list' %}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-collection"></i>
-              <div data-i18n="Basic">Berita</div>
+              <div data-i18n="Basic">Generate Artikel Baru</div>
+            </a>
+          </li>
+          <li class="menu-item {% if url_name == 'tentang_list' %}active{% endif %}">
+            <a href="{% url 'administration:tentang_list' %}" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-collection"></i>
+              <div data-i18n="Basic">Sejarah</div>
             </a>
           </li>
           <li class="menu-item {% if url_name == 'galeri' %}active{% endif %}">
@@ -56,10 +62,10 @@
               <div data-i18n="Basic">PPDB</div>
             </a>
           </li>
-          <li class="menu-item {% if url_name == 'ukm' %}active{% endif %}">
-            <a href="{% url 'administration:ukm' %}" class="menu-link">
+          <li class="menu-item {% if url_name == 'visimisi_list' %}active{% endif %}">
+            <a href="{% url 'administration:visimisi_list' %}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-collection"></i>
-              <div data-i18n="Basic">Ekstrakulikuler</div>
+              <div data-i18n="Basic">Visi Misi</div>
             </a>
           </li>
         </ul>

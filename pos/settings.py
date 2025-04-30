@@ -38,11 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'crispy_bootstrap4',
     'home',
+    'ckeditor',
+    'ckeditor_uploader',
     'admin1',
     'account'
 ]
-
+OPENAI_API_KEY = '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'
+DEEPSEEK_API_KEY = "sk-b65cee49e25a4902b2a26f52b145f934"
+OPENROUTER_API_KEY = "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"
+GEMINI_API_KEY='AIzaSyAigKPjOa_ahTeRtKHFHLV2qUIBNhEd1lI'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -66,6 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'home.context_processors.ppdb_context'
             ],
         },
     },
@@ -76,12 +83,12 @@ WSGI_APPLICATION = 'pos.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'webinfo',
-        'USER': 'postgres',
-        'PASSWORD': 'tatam123',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        # 'USER': 'postgres',
+        # 'PASSWORD': 'tatam123',
+        # 'HOST': 'localhost',
+        # 'PORT': '5432',
     }
 }
 
@@ -138,10 +145,34 @@ STATICFILES_DIRS =[
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media') 
 STATIC_ROOT =  os.path.join(BASE_DIR, 'stati') 
 MEDIA_URL = '/media/'
+import os
+
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+FORM_RENDERER = 'django.forms.renderers.DjangoTemplates'
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 400,
+        'width': 'auto',  # kita atur lebar lewat CSS agar responsif
+        'extraPlugins': ','.join([
+            'uploadimage', 'image2', 'autogrow'
+        ]),
+        # 'autoGrow_minHeight': 400,
+        # 'autoGrow_maxHeight': 800,
+        # 'autoGrow_onStartup': True,
+        # 'removePlugins': 'resize',
+    },
+}
 
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS ={

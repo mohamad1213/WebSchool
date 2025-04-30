@@ -1,10 +1,10 @@
 from django.forms import ModelForm
 from .models import *
+from django import forms
 from home.forms import *
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-
-
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 class LoginForm(UserCreationForm):
     class Meta:
          model = User

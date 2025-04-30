@@ -1,4 +1,5 @@
 {% extends 'administration/base.html' %}
+{% load static %}
 {% block content %}
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
@@ -10,26 +11,24 @@
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <label class="form-label">Nama Pengasuh </label>
-                            <input class="form-control" type="text" name="nama_pengasuh" value="{{data.nama_pengasuh}}" />
-                        </div>
-                        <div class="mb-3 col-md-4">
-                            <label class="form-label">Deskripsi</label>
-                            <input class="form-control" type="text" name="desc" value="{{data.desc}}" />
+                            <input class="form-control" type="text" name="nama_pengasuh"
+                                value="{{data.nama_pengasuh}}" />
                         </div>
                         <div class="mb-3 col-md-4">
                             <label class="form-label">Tanggal</label>
-                            <input type="text" class="form-control"  readonly value="{{data.created_at}}" />
+                            <input type="text" class="form-control" readonly value="{{data.created_at}}" />
                         </div>
-                    </div>
-                    <div class="row">
                         {% if data.image %}
-                        <div class="mb-12 col-md-6">
+                        <div class="mb-3 col-md-4">
                             <img src="{{data.image.url}}" alt="" srcset="" height="200px" width="200px">
                         </div>
                         {% endif %}
                         <label for="firstName" class="form-label">Logo</label>
                         <input class="form-control" type="file" name="image" value="{{data.image}}" />
-
+                    </div>
+                    <div class="row">
+                        <label class="form-label">Deskripsi</label>
+                        <textarea class="form-control" name="desc" id="id_desc" style="width: 800px;">{{ data.desc }}</textarea>
                     </div>
                     <br>
                     <div class="col-12 d-flex justify-content-end">
@@ -41,4 +40,17 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- CKEditor JS -->
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#id_desc'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 {% endblock %}

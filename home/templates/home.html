@@ -2,19 +2,46 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/components/blogs/blog-5/assets/css/blog-5.css">
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+<!-- Blog 5 - Bootstrap Brain Component -->cd
 <main id="main">
+
     <style>
+        .galeri-img-wrapper {
+            width: 100%;
+            height: 200px;
+            /* Atur tinggi yang kamu mau */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
+            /* Sedikit background abu */
+            border-radius: 8px;
+            /* Biar ada sudut membulat */
+        }
+
+        .galeri-img-wrapper img {
+            height: 100%;
+            width: auto;
+            object-fit: cover;
+            /* Gambar dipotong rapi */
+        }
+
         #hero {
             width: 100%;
             height: 100vh;
             position: relative;
-            background: url("../img/santri.jpeg") top center;
             background-size: cover;
         }
 
         #hero:before {
             content: "";
-            background: linear-gradient(180deg, rgba(89, 178, 30, 0.93) 0%, rgba(196, 191, 41, 0.62) 100%);
+            background: linear-gradient(180deg, rgba(30, 136, 178, 0.93) 0%, rgba(196, 191, 41, 0.62) 100%);
             position: absolute;
             bottom: 0;
             top: 0;
@@ -154,285 +181,6 @@
 
         /* # Services */
         /* --------------------------------------------------------------*/
-        .btn-circle.btn-xl {
-            width: 88px;
-            height: 88px;
-            padding: 10px 16px;
-            font-size: 32px;
-            line-height: 1.33;
-            border-radius: 50px;
-            background-color: #fff;
-            color: #007854;
-            border-color: #007854;
-
-        }
-
-        .btn-circle.btn-xl:hover {
-            background: #007854;
-            color: #fff
-        }
-
-        */ .services .icon-box {
-            text-align: center;
-            padding: 70px 20px 80px 20px;
-            transition: all ease-in-out 0.3s;
-            background: #fff;
-            box-shadow: 0px 5px 90px 0px rgba(110, 123, 131, 0.05);
-        }
-
-        .services .icon-box .icon {
-            margin: 0 auto;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: ease-in-out 0.3s;
-            position: relative;
-        }
-
-        .services .icon-box .icon i {
-            font-size: 36px;
-            transition: 0.5s;
-            position: relative;
-        }
-
-        .services .icon-box .icon svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .services .icon-box .icon svg path {
-            transition: 0.5s;
-            fill: #f5f5f5;
-        }
-
-        .services .icon-box h4 {
-            font-weight: 600;
-            margin: 10px 0 15px 0;
-            font-size: 22px;
-        }
-
-        .services .icon-box h4 a {
-            color: #124265;
-            transition: ease-in-out 0.3s;
-        }
-
-        .services .icon-box p {
-            line-height: 24px;
-            font-size: 14px;
-            margin-bottom: 0;
-        }
-
-        .services .icon-box:hover {
-            border-color: #fff;
-            box-shadow: 0px 0 35px 0 rgba(0, 0, 0, 0.08);
-        }
-
-        .services .iconbox-blue i {
-            color: #47aeff;
-        }
-
-        .services .iconbox-blue:hover .icon i {
-            color: #fff;
-        }
-
-        .services .iconbox-blue:hover .icon path {
-            fill: #47aeff;
-        }
-
-        .services .iconbox-orange i {
-            color: #ffa76e;
-        }
-
-        .services .iconbox-orange:hover .icon i {
-            color: #fff;
-        }
-
-        .services .iconbox-orange:hover .icon path {
-            fill: #ffa76e;
-        }
-
-        .services .iconbox-pink i {
-            color: #e80368;
-        }
-
-        .services .iconbox-pink:hover .icon i {
-            color: #fff;
-        }
-
-        .services .iconbox-pink:hover .icon path {
-            fill: #e80368;
-        }
-
-        .services .iconbox-yellow i {
-            color: #ffbb2c;
-        }
-
-        .services .iconbox-yellow:hover .icon i {
-            color: #fff;
-        }
-
-        .services .iconbox-yellow:hover .icon path {
-            fill: #ffbb2c;
-        }
-
-        .services .iconbox-red i {
-            color: #ff5828;
-        }
-
-        .services .iconbox-red:hover .icon i {
-            color: #fff;
-        }
-
-        .services .iconbox-red:hover .icon path {
-            fill: #ff5828;
-        }
-
-        .services .iconbox-teal i {
-            color: #11dbcf;
-        }
-
-        .services .iconbox-teal:hover .icon i {
-            color: #fff;
-        }
-
-        .services .iconbox-teal:hover .icon path {
-            fill: #11dbcf;
-        }
-
-        */ .contact .info {
-            width: 100%;
-            background: #fff;
-        }
-
-        .contact .info i {
-            font-size: 20px;
-            color: #2487ce;
-            float: right;
-            width: 44px;
-            text-align: right;
-            height: 44px;
-            background: #e3f0fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 5px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .contact .info h4 {
-            padding: 0 0 0 60px;
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #124265;
-        }
-
-        .contact .info p {
-            padding: 0 0 0 60px;
-            margin-bottom: 0;
-            font-size: 14px;
-            color: #217bbc;
-        }
-
-        .contact .info .email,
-        .contact .info .phone {
-            margin-top: 40px;
-        }
-
-        .contact .info .email:hover i,
-        .contact .info .address:hover i,
-        .contact .info .phone:hover i {
-            background: #2487ce;
-            color: #fff;
-        }
-
-        .contact .php-email-form {
-            width: 100%;
-            background: #fff;
-        }
-
-        .contact .php-email-form .form-group {
-            padding-bottom: 8px;
-        }
-
-        .contact .php-email-form .error-message {
-            display: none;
-            color: #fff;
-            background: #ed3c0d;
-            text-align: left;
-            padding: 15px;
-            font-weight: 600;
-        }
-
-        .contact .php-email-form .error-message br+br {
-            margin-top: 25px;
-        }
-
-        .contact .php-email-form .sent-message {
-            display: none;
-            color: #fff;
-            background: #18d26e;
-            text-align: center;
-            padding: 15px;
-            font-weight: 600;
-        }
-
-        .contact .php-email-form .loading {
-            display: none;
-            background: #fff;
-            text-align: center;
-            padding: 15px;
-        }
-
-        .contact .php-email-form .loading:before {
-            content: "";
-            display: inline-block;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            margin: 0 10px -6px 0;
-            border: 3px solid #18d26e;
-            border-top-color: #eee;
-            -webkit-animation: animate-loading 1s linear infinite;
-            animation: animate-loading 1s linear infinite;
-        }
-
-        .contact .php-email-form input,
-        .contact .php-email-form textarea {
-            border-radius: 0;
-            box-shadow: none;
-            font-size: 14px;
-            border-radius: 4px;
-        }
-
-        .contact .php-email-form input:focus,
-        .contact .php-email-form textarea:focus {
-            border-color: #2487ce;
-        }
-
-        .contact .php-email-form input {
-            height: 44px;
-        }
-
-        .contact .php-email-form textarea {
-            padding: 10px 12px;
-        }
-
-        .contact .php-email-form button[type=submit] {
-            background: #2487ce;
-            border: 0;
-            padding: 10px 30px;
-            color: #fff;
-            transition: 0.4s;
-            border-radius: 4px;
-        }
-
-        .contact .php-email-form button[type=submit]:hover {
-            background: #3194db;
-        }
 
         @-webkit-keyframes animate-loading {
             0% {
@@ -488,338 +236,14 @@
             background: #fff;
             color: #007854;
         }
-
-        .berita .testimonials-carousel,
-        .berita .testimonials-slider {
-            overflow: hidden;
-        }
-
-        .berita .testimonial-item {
-            box-sizing: content-box;
-            text-align: center;
-            min-height: 320px;
-        }
-
-        .berita .testimonial-img {
-            width: 300px;
-            height: 300px;
-            margin: 0 auto;
-        }
-
-        .berita .testimonial-item h3 {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 10px 0 5px 0;
-            color: #111;
-        }
-
-        .berita .testimonial-item h4 {
-            font-size: 14px;
-            color: #999;
-            margin: 0;
-        }
-
-        .berita .testimonial-item .quote-icon-left,
-        .berita .testimonial-item .quote-icon-right {
-            color: #c9e3f5;
-            font-size: 26px;
-        }
-
-        .berita .testimonial-item .quote-icon-left {
-            display: inline-block;
-            left: -5px;
-            position: relative;
-        }
-
-        .berita .testimonial-item .quote-icon-right {
-            display: inline-block;
-            right: -5px;
-            position: relative;
-            top: 10px;
-        }
-
-        .berita .testimonial-item p {
-            font-style: italic;
-            margin: 0 15px 15px 15px;
-            padding: 20px;
-            background: #f3f9fd;
-            position: relative;
-            margin-bottom: 35px;
-            border-radius: 6px;
-        }
-
-        .berita .testimonial-item p::after {
-            content: "";
-            width: 0;
-            height: 0;
-            border-top: 20px solid #f3f9fd;
-            border-right: 20px solid transparent;
-            border-left: 20px solid transparent;
-            position: absolute;
-            bottom: -20px;
-            left: calc(50% - 20px);
-        }
-
-        .berita .swiper-pagination {
-            margin-top: 20px;
-            position: relative;
-        }
-
-        .berita .swiper-pagination .swiper-pagination-bullet {
-            width: 12px;
-            height: 12px;
-            background-color: #fff;
-            opacity: 1;
-            border: 1px solid #2487ce;
-        }
-
-        .berita .swiper-pagination .swiper-pagination-bullet-active {
-            background-color: #2487ce;
-        }
-
-        .portfolio .portfolio-item {
-            margin-bottom: 30px;
-        }
-
-        .portfolio #portfolio-flters {
-            padding: 0;
-            margin: 0 auto 35px auto;
-            list-style: none;
-            text-align: center;
-            border-radius: 50px;
-            padding: 2px 15px;
-        }
-
-        .portfolio #portfolio-flters li {
-            cursor: pointer;
-            display: inline-block;
-            padding: 10px 15px 8px 15px;
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 1;
-            text-transform: uppercase;
-            color: #444444;
-            margin-bottom: 5px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .portfolio #portfolio-flters li:hover,
-        .portfolio #portfolio-flters li.filter-active {
-            color: #2487ce;
-        }
-
-        .portfolio #portfolio-flters li:last-child {
-            margin-right: 0;
-        }
-
-        .portfolio .portfolio-wrap {
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .portfolio .portfolio-wrap::after {
-            content: '';
-            display: block;
-            padding-top: 100%;
-        }
-
-        .portfolio img {
-            width: auto;
-            height: 100%;
-            max-width: none;
-            position: absolute;
-            left: 50%;
-            top: 0;
-            transform: translateX(-50%);
-        }
-
-        .portfolio .portfolio-wrap::before {
-            content: "";
-            background: rgba(36, 135, 206, 0.6);
-            position: absolute;
-            left: 30px;
-            right: 30px;
-            top: 30px;
-            bottom: 30px;
-            transition: all ease-in-out 0.3s;
-            z-index: 2;
-            opacity: 0;
-        }
-
-        .portfolio .portfolio-wrap .portfolio-info {
-            opacity: 0;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            text-align: center;
-            z-index: 3;
-            transition: all ease-in-out 0.3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .portfolio .portfolio-wrap .portfolio-info::before {
-            display: block;
-            content: "";
-            width: 20px;
-            height: 20px;
-            position: absolute;
-            top: 35px;
-            left: 35px;
-            border-top: 3px solid #fff;
-            border-left: 3px solid #fff;
-            transition: all 0.5s ease 0s;
-            z-index: 9994;
-        }
-
-        .portfolio .portfolio-wrap .portfolio-info::after {
-            display: block;
-            content: "";
-            width: 20px;
-            height: 20px;
-            position: absolute;
-            bottom: 35px;
-            right: 35px;
-            border-bottom: 3px solid #fff;
-            border-right: 3px solid #fff;
-            transition: all 0.5s ease 0s;
-            z-index: 9994;
-        }
-
-        .portfolio .portfolio-wrap .portfolio-info h4 {
-            font-size: 20px;
-            color: #fff;
-            font-weight: 600;
-        }
-
-        .portfolio .portfolio-wrap .portfolio-info p {
-            color: #ffffff;
-            font-size: 14px;
-            text-transform: uppercase;
-            padding: 0;
-            margin: 0;
-        }
-
-        .portfolio .portfolio-wrap .portfolio-links {
-            text-align: center;
-            z-index: 4;
-        }
-
-        .portfolio .portfolio-wrap .portfolio-links a {
-            color: rgba(255, 255, 255, 0.6);
-            margin: 0 2px;
-            font-size: 28px;
-            display: inline-block;
-            transition: 0.3s;
-        }
-
-        .portfolio .portfolio-wrap .portfolio-links a:hover {
-            color: #fff;
-        }
-
-        .portfolio .portfolio-wrap:hover::before {
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 1;
-        }
-
-        .portfolio .portfolio-wrap:hover .portfolio-info {
-            opacity: 1;
-        }
-
-        .portfolio .portfolio-wrap:hover .portfolio-info::before {
-            top: 15px;
-            left: 15px;
-        }
-
-        .portfolio .portfolio-wrap:hover .portfolio-info::after {
-            bottom: 15px;
-            right: 15px;
-        }
-
-
-
-        /*--------------------------------------------------------------
-# Portfolio Details
---------------------------------------------------------------*/
-        .portfolio-details {
-            padding-top: 40px;
-        }
-
-        .portfolio-details .portfolio-details-slider img {
-            width: 100%;
-        }
-
-        .portfolio-details .portfolio-details-slider .swiper-pagination {
-            margin-top: 20px;
-            position: relative;
-        }
-
-        .portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {
-            width: 12px;
-            height: 12px;
-            background-color: #fff;
-            opacity: 1;
-            border: 1px solid #2487ce;
-        }
-
-        .portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
-            background-color: #2487ce;
-        }
-
-        .portfolio-details .portfolio-info {
-            padding: 30px;
-            box-shadow: 0px 0 30px rgba(18, 66, 101, 0.08);
-        }
-
-        .portfolio-details .portfolio-info h3 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .portfolio-details .portfolio-info ul {
-            list-style: none;
-            padding: 0;
-            font-size: 15px;
-        }
-
-        .portfolio-details .portfolio-info ul li+li {
-            margin-top: 10px;
-        }
-
-        .portfolio-details .portfolio-description {
-            padding-top: 30px;
-        }
-
-        .portfolio-details .portfolio-description h2 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .portfolio-details .portfolio-description p {
-            padding: 0;
-        }
     </style>
     <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex align-items-center"
-        style="background-image: url('./static/frontend/assets/img/santri.jpeg');">
+    {% for u in home %}
+    <section id="hero" class="d-flex align-items-center" style="background-image: url('{{ u.logo.url }}');">
         <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
-            {% for u in home %}
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-9 text-center">
-                    <img src="{{u.logo.url}}" alt="" srcset="">
+                    <!-- <img src="{{u.logo.url}}" alt="" srcset=""> -->
                     <h1>{{u.h1}}</h1>
                     <h3 class="text-white">{{u.nama_pondok}}</h3>
                     <p>{{u.alamat}}</p>
@@ -829,7 +253,7 @@
             <div class="text-center">
                 {% for u in ppdb %}
                 <br><br><br>
-                <a href="{{u.link_daftar}}" class="btn-get-started scrollto">Daftar Sekarang</a>
+                <a href="{{u.link_daftar}}" class="btn-get-started scrollto text-decoration-none">Daftar Sekarang</a>
                 {% endfor %}
 
             </div>
@@ -840,15 +264,15 @@
 
                 </div>
             </div>
-            {% endfor %}
 
     </section>
+    {% endfor %}
     <!-- ======= Tentang Kami Section ======= -->
     <section id="tentangkami" class="about-video">
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
-                <h2>Tentang Kami</h2>
+                <h2>Sambutan Kepala Sekolah</h2>
             </div>
             {% for u in tentang %}
             <div class="row">
@@ -862,7 +286,7 @@
                 <div class="col-lg-6 pt-3 pt-lg-0 content">
                     <p class="text-black"
                         style="line-height:2.5em; font-weight: 500;font-size: 16px; text-align: justify; margin-top: 0;">
-                        {{u.desc}}
+                        {{u.desc|safe}}
                     </p>
                 </div>
             </div>
@@ -917,123 +341,188 @@
         </div>
     </section>
 
-    <!-- ======= Testimonials Section ======= -->
     <section id="galeri" class="testimonials">
         <div class="container" data-aos="fade-up">
-            <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h2>Galeri</h2>
+                <p>Kumpulan kegiatan santriwan santriwati</p>
+            </div>
+            <div class="container">
 
-                <div class="section-title">
-                    <h2>Galeri</h2>
-                    <p>Kumpulan kegiatan santriwan santriwati</p>
-                </div>
-
-                <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+                <div class="swiper testimonials-slider" data-aos="fade-up">
                     <div class="swiper-wrapper">
                         {% for u in galeri %}
-
+                        <div class="swiper-slide" style="margin-left: 15px">
+                            <article>
+                                <div class="card border-0 bg-transparent">
+                                    <figure class="card-img-top overflow-hidden bsb-overlay-hover"
+                                        style="width: 300px; height: 200px;">
+                                        <a href="#">
+                                            {% if u.image %}
+                                            <img class="img-fluid rounded w-100 h-100" loading="lazy"
+                                                src="{{ u.image.url }}" alt="{{ u.title }}" style="object-fit: cover;">
+                                            {% else %}
+                                            <img class="img-fluid rounded w-100 h-100" loading="lazy"
+                                                src="./assets/img/placeholder.jpg" alt="Placeholder"
+                                                style="object-fit: cover;">
+                                            {% endif %}
+                                        </a>
+                                    </figure>
+    
+                                    <div class="card-body m-0 p-0">
+                                        <div class="entry-header mb-3">
+                                            <h3 class="card-title entry-title h3 m-0">
+                                                {{ u.desc }}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        {% empty %}
                         <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <p>
-                                    <img src="{{u.image.url}}" height="200px" width="300px" class="img-fluid" alt="">
-                                </p>
-                                <h3>{{u.desc}}</h3>
+                            <div class="testimonial-item text-center">
+                                <p>Belum ada galeri.</p>
                             </div>
                         </div>
                         {% endfor %}
                     </div>
+    
+                    <!-- Navigation and Pagination -->
                     <div class="swiper-pagination"></div>
                 </div>
-
             </div>
-    </section>
-    <!-- End Testimonials Section -->
-
-    <!-- ======= ukm Section ======= -->
-    <section id="ukm" class="services section-bg">
-        <div class="container" data-aos="fade-up">
-
-            <div class="section-title">
-                <h2>Ekstrakulikuler</h2>
-                <p>Dalam menunjang pembelajaran santri serta mengembangkan lifeskill santri, kami menggelar beberapa
-                    kegiatan ekstrakurikuler sebagai penyalur bakat minat santri.</p>
-            </div>
-            
-            <div class="row">
-                {% for u in ukm %}
-                <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="icon-box">
-                        <div class="icon">
-                            <button type="button" class="btn btn-circle btn-xl"> <i class='{{u.icon}}'></i>
-                            </button>
-                        </div>
-                        <h4>{{u.nama_ekstra}}</h4>
-                        <p>{{u.desc}}</p>
-                    </div>
-                </div>
-                {% endfor %}
-                
-            </div>
-
         </div>
-    </section><!-- End Sevices Section -->
+    </section>
 
-    <!-- ======= Portfolio Section ======= -->
-    <section id="berita" class="testimonials">
+
+    <!-- ======= Berita Swiper Section ======= -->
+    <section id="berita" class="berita">
         <div class="container" data-aos="fade-up">
-            <a type="button" class="btn" href="{% url 'list-berita' %}"
-                style="float: right; background-color: #007854; color: #fff;">Lihat
-                Selengkapnya</a>
 
             <div class="section-title">
                 <h2 class="ml-2">Berita Terkini</h2>
+                <p>Update Terkini berita para santri</p>
             </div>
-            <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-                <div class="swiper-wrapper">
 
-                    {% for u in berita %}
+            <div class="swiper berita-swiper" data-aos="fade-up">
+                <div class="swiper-wrapper">
+                    {% for article in article %}
                     <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <p>
-                                <img src="{{u.image.url}}" class="img-fluid" alt="">
-                                {{u.desc}}
-                            </p>
-                            <h3>{{u.nama_penulis}}</h3>
-                            <h4 class="text-black">{{u.created_at}}</h4>
-                            <a href="/berita/{{u.pk}}/">Selengkapnya....</a>
+                        <article>
+                            <div class="card border-0 bg-transparent h-100">
+                                <figure class="card-img-top overflow-hidden bsb-overlay-hover">
+                                    <a href="{% url 'detail' pk=article.pk %}">
+                                        {% if article.featured_image %}
+                                        <img class="img-fluid bsb-scale bsb-hover-scale-up rounded" loading="lazy"
+                                            src="{{ article.featured_image.url }}" alt="{{ article.title }}"
+                                            style="width: 400px; height: 200px; object-fit: cover;">
+                                        {% else %}
+                                        <img class="img-fluid bsb-scale bsb-hover-scale-up rounded" loading="lazy"
+                                            src="./assets/img/placeholder.jpg" alt="Placeholder"
+                                            style="width: 400px; height: 200px; object-fit: cover;">
+                                        {% endif %}
+                                    </a>
+                                    <figcaption>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                            fill="currentColor" class="bi bi-eye text-white bsb-hover-fadeInLeft"
+                                            viewBox="0 0 16 16">
+                                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 
+                      1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 
+                      3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 
+                      14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 
+                      1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 
+                      12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 
+                      13.134 0 0 1 1.172 8z" />
+                                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 
+                      2.5 2.5 0 0 0 0-5zM4.5 8a3.5 
+                      3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                        </svg>
+                                        <h4 class="h6 text-white bsb-hover-fadeInRight mt-2">Baca Selengkapnya</h4>
+                                    </figcaption>
+                                </figure>
+
+                                <div class="card-body m-0 p-0">
+                                    <div class="entry-header mb-3">
+                                        <ul class="entry-meta list-unstyled d-flex mb-3">
+                                            {% for category in article.categories.all %}
+                                            <li class="me-2 mb-2">
+                                                <a class="btn btn-secondary" href="#">{{ category.name }}</a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        <h4 class="card-title entry-title h4 m-0">
+                                            <a class="link-dark text-decoration-none"
+                                                href="{% url 'detail' pk=article.pk %}">{{article.content|safe|slice:":150"|striptags }}...</a>
+                                        </h4>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer border-0 bg-transparent p-0 m-0">
+                                    <ul class="entry-meta list-unstyled d-flex align-items-center m-0">
+                                        <li>
+                                            <a class="fs-7 link-secondary text-decoration-none d-flex align-items-center"
+                                                href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                    fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                                                    <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 
+                            0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 
+                            0 0 0-2-2zM1 3.857C1 3.384 1.448 
+                            3 2 3h12c.552 0 1 .384 1 
+                            .857v10.286c0 .473-.448.857-1 
+                            .857H2c-.552 0-1-.384-1-.857V3.857z" />
+                                                    <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 
+                            0 0 0 2zm3 0a1 1 0 1 0 0-2 1 
+                            1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 
+                            1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 
+                            0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 
+                            0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 
+                            1 0 0-2 1 1 0 0 0 0 2zm3 
+                            0a1 1 0 1 0 0-2 1 1 0 0 0 0 
+                            2zm-9 3a1 1 0 1 0 0-2 1 1 0 
+                            0 0 0 2zm3 0a1 1 0 1 0 0-2 
+                            1 1 0 0 0 0 2zm3 0a1 1 0 1 0 
+                            0-2 1 1 0 0 0 0 2z" />
+                                                </svg>
+                                                <span class="ms-2 fs-7">Tanggal</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span class="px-3">{{ article.created_at }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </article>
+                    </div>
+                    {% empty %}
+                    <div class="swiper-slide">
+                        <div class="testimonial-item text-center">
+                            <p>Belum ada Berita.</p>
                         </div>
-                    </div><!-- End testimonial item -->
+                    </div>
                     {% endfor %}
                 </div>
                 <div class="swiper-pagination"></div>
-            </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center">
+                            <a style="background-color: #007854; color: #fff;" href="{% url 'list-berita' %}"
+                                class="btn bsb-btn-2xl btn-primary rounded-pill mt-5 mt-xl-10">Lihat Selengkapnya</a>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Navigation -->
+
+            </div>
+            
         </div>
     </section>
 
 
     <!-- ======= Prestasi Section ======= -->
-    <section id="prestasi" class="faq section-bg">
-        <div class="container" data-aos="fade-up">
-            
-            <div class="section-title">
-                <h2>Prestasi</h2>
-                <p>Prestasi membanggakan senantiasa ditorehkan oleh para santriwan dan satriwati di setiap kejuaaraan
-                    yang diikuti.</p>
-                </div>
-                
-                <div class="faq-list">
-                {% for u in prestasi %}
-                <ul>
-                    <p>
-                        1. {{u.nama}} Berlokasi di {{u.lokasi}} {{u.desc}}
-                    </p>
-
-                </ul>
-                {% endfor %}
-            </div>
-
-        </div>
-    </section><!-- End Prestasi Section -->
 
     <!-- ======= Cta Section ======= -->
     <section id="form" class="cta">
@@ -1124,5 +613,57 @@
 
 
 </main><!-- End #main -->
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script>
+    var swiper = new Swiper(".berita-swiper", {
+        loop: false, // Tetap looping
+        autoplay: false, // Matikan autoplay
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        slidesPerView: 3,
+        spaceBetween: 20,
+        breakpoints: {
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            },
+        },
+    });
+</script>
+<script>
+    var swiper = new Swiper(".testimonials-slider", {
+        loop: false, // Tetap looping
+        autoplay: false, // Matikan autoplay
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        slidesPerView: 3,
+        spaceBetween: 20,
+        breakpoints: {
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            },
+        },
+    });
+</script>
+
+
 
 {% endblock %}

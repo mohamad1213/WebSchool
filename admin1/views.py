@@ -1,4 +1,5 @@
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from home.models import *
@@ -10,6 +11,148 @@ from admin1.forms import ProfileForm, form_validation_error
 from django.views.generic import View
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
+from .forms import GeneratePromptForm, ArticleForm
+from .models import Article
+import requests
+from django.http import HttpResponse
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import FAQ
+import requests
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .forms import GeneratePromptForm
+from .models import *
+from django.conf import settings
+from django.shortcuts import render, redirect, get_object_or_404
+import json
+import markdown
+from .utils import *
+
+def visimisi_list(request):
+    visimisi = VisiMisi.objects.all().order_by('-created_at')
+    return render(request, 'visimisi/index.html', {'visimisi': visimisi})
+
+def visimisiCreate(request):
+    instance = VisiMisi.objects.first()  # Ambil data pertama
+    if request.method == 'POST':
+        form = VisiMisiForms(request.POST, instance=instance)
+        if form.is_valid():
+            visimisi = form.save(commit=False)
+            visimisi.owner = request.user
+            visimisi.save()
+            form.save()
+            return redirect('administration:visimisi_list')  # Ubah ke nama URL yang sesuai
+    else:
+        form = VisiMisiForms(instance=instance)
+
+    return render(request, 'visimisi/create.html', {'form': form})
+def tentang_list(request):
+    tentang_kami = TentangKami2.objects.all().order_by('-created_at')
+    return render(request, 'tentangkami/index.html', {'tentang_kami': tentang_kami})
+
+def TentangKamiCreate(request):
+    instance = TentangKami2.objects.first()  # Ambil data pertama
+    if request.method == 'POST':
+        form = TentangKamiForms(request.POST, instance=instance)
+        if form.is_valid():
+            tentang_kami = form.save(commit=False)
+            tentang_kami.owner = request.user
+            tentang_kami.save()
+            form.save()
+            return redirect('administration:tentang_list')  # Ubah ke nama URL yang sesuai
+    else:
+        form = TentangKamiForms(instance=instance)
+
+    return render(request, 'tentangkami/create.html', {'form': form})
+def chatbot_view(request):
+    if request.method == "POST":
+        # Ambil pertanyaan dari request POST
+        user_question = request.POST.get("pertanyaan")
+
+        # Cari kecocokan terbaik di FAQ
+        best_match = get_best_match(user_question)
+        
+        # Jika ada kecocokan, beri respon dengan jawaban dari FAQ
+        if best_match:
+            response = best_match.answer
+        else:
+            response = "Maaf, saya tidak dapat menemukan jawaban untuk pertanyaan Anda."
+
+        # Kembalikan respons dalam format JSON untuk AJAX
+        return JsonResponse({"response": response})
+    else:
+        return JsonResponse({"error": "Invalid request"}, status=400)
+@csrf_exempt
+def generate_keywords(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        topic = data.get('topic', '')
+        if topic:
+            # Di sini kamu bisa pakai fungsi AI atau rule-based untuk generate keyword
+            keywords = ai_generate_keywords(topic)  # Buat fungsi ini
+            return JsonResponse({'keywords': ', '.join(keywords)})
+    return JsonResponse({'keywords': ''})
+def generate_article(request):
+    if request.method == 'POST':
+        form = SEOArticleForm(request.POST)
+        if form.is_valid():
+            topic = form.cleaned_data['topic']
+            keywords = form.cleaned_data['keywords']
+            language = form.cleaned_data['language']
+            length = form.cleaned_data['length']
+
+            keyword_str = ', '.join(keywords.split(','))
+            prompt = (
+                f"Tulis artikel SEO lengkap dalam bahasa {language} tentang '{topic}'.\n"
+                f"Jumlah paragraf: {length}.\n"
+                f"Sisipkan kata kunci: {keyword_str}.\n"
+                f"Gunakan struktur SEO: Judul (H1), Meta Description, subjudul (H2), bullet point, dan kesimpulan.\n"
+                f"Tulis dengan gaya profesional dan mudah dipahami."
+            )
+
+            content = gemini_generate_content(prompt)
+            content = markdown.markdown(content)
+
+            artikel = Article.objects.create(title=topic, content=content)
+            return redirect('administration:article_editor', artikel.id)
+    else:
+        form = SEOArticleForm()
+
+    return render(request, 'artikel/generate_artikel.html', {'form': form})
+def edit_artikel(request, pk):
+    artikel = get_object_or_404(Article, id=pk)
+    if request.method == 'POST':
+        form = ArticleEditForm(request.POST or None, request.FILES, instance=artikel)
+        if form.is_valid():
+            form.save()
+            return redirect('administration:article_list')
+    else:
+        form = ArticleForm(instance=artikel)
+
+    return render(request, 'artikel/edit_artikel.html', {
+        'form': form,
+        'artikel': artikel
+    })
+
+def preview_article(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    return render(request, 'artikel/preview_article.html', {'article': article})
+
+def save_article(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, request.FILES, instance=article)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Artikel berhasil dipublikasikan!")
+            return redirect('administration:article_list')
+    # Tambahkan ini untuk kasus jika bukan POST atau form tidak valid
+    return redirect('administration:article_editor', pk=article.pk)
+
+def article_list(request):
+    articles = Article.objects.all().order_by('-created_at')
+    return render(request, 'artikel/artikel_list.html', {'articles': articles})
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class ProfileView(View):
     model = Profile
@@ -216,34 +359,37 @@ def delete_tentang(req, pk):
     return redirect('/administration/tentang/')
 
 ##Prestasi
+def prestasiCreate(request):
+    if request.method == 'POST':
+        form = PrestasiForm(request.POST, request.FILES)
+        if form.is_valid():
+            prestasi = form.save(commit=False)
+            prestasi.owner = request.user
+            prestasi.save()
+            form.save()
+            messages.success(request, 'Data telah ditambahkan.')
+            return redirect('administration:prestasi')  # Ubah ke nama URL yang sesuai
+        else:
+            messages.error(request, 'A problem has been occurred while submitting your data.')
+            print(form.errors)
+    else:
+        form = PrestasiForm()
+
+    return render(request, 'prestasi/create.html', {'form': form})
 @login_required(login_url='/accounts/')
 def prestasi(request):
     tasks = Prestasi.objects.filter(owner=request.user)
-    form_input = PrestasiForm()
-    if request.POST:
-        form_input = PrestasiForm(request.POST, request.FILES)
-        if form_input.is_valid():
-            form_input.instance.owner = request.user
-            form_input.save()
-            messages.success(request, 'Data telah ditambahkan.')
-            return redirect('/administration/prestasi/')
-        else:
-            messages.error(request, 'A problem has been occurred while submitting your data.')
-            print(form_input.errors)
     return render(request, 'prestasi/index.html',{
-        'form' : form_input,
         'data': tasks,
         
     })
 @login_required(login_url='/accounts/')
 def update_prestasi(req, pk):
-    instance = Prestasi.objects.get(id_prestasi=pk)
+    instance = Prestasi.objects.get(id=pk)
     if req.POST:
-        if len(req.FILES) != 0:
-            if len(instance.image) > 0:
-                os.remove(instance.image.path)
-            instance.image = req.FILES['image']
-        instance.desc = req.POST.get('desc')
+        instance.image = req.FILES['image']
+        instance.content = req.POST.get('content')
+        instance.slug = req.POST.get('slug')
         instance.nama = req.POST.get('nama')
         instance.lokasi = req.POST.get('lokasi')
         instance.save()
@@ -299,44 +445,6 @@ def delete_ppdb(req, pk):
     Pendaftaran.objects.get(id_daftar=pk).delete()
     messages.success(req, 'data telah di hapus.')
     return redirect('/administration/ppdb/')
-
-##UKM
-@login_required(login_url='/accounts/')
-def ukm(request):
-    tasks = Ekstrakulikuler.objects.filter(owner=request.user)
-    form_input = EkstrakulikulerForm()
-    if request.POST:
-        form_input = EkstrakulikulerForm(request.POST)
-        if form_input.is_valid():
-            form_input.instance.owner = request.user
-            form_input.save()
-            messages.success(request, 'Data telah ditambahkan.')
-            return redirect('/administration/ukm/')
-        else:
-            messages.error(request, 'A problem has been occurred while submitting your data.')
-            print(form_input.errors)
-    return render(request, 'ukm/index.html',{
-        'form' : form_input,
-        'data': tasks,
-        
-    })
-@login_required(login_url='/accounts/')
-def update_ukm(req, pk):
-    instance = Ekstrakulikuler.objects.get(id_ekstra=pk)
-    if req.POST:
-        instance.nama_ekstra = req.POST.get('nama_ekstra')
-        instance.desc = req.POST.get('desc')
-        instance.icon = req.POST.get('icon')
-        instance.save()
-        messages.success(req, "data Telah ditambahkan")
-        return redirect('/administration/ukm/')
-    context = {"data":instance}
-    return render(req, 'ukm/update.html', context)
-@login_required(login_url='/accounts/')
-def delete_ukm(req, pk):
-    Ekstrakulikuler.objects.get(id_ekstra=pk).delete()
-    messages.success(req, 'data telah di hapus.')
-    return redirect('/administration/ukm/')
 
 @login_required(login_url='/accounts/')
 def accountSettings(req, pk):

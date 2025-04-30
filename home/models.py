@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-
+from ckeditor_uploader.fields import RichTextUploadingField
+from django.core.exceptions import ValidationError
+from django.utils.text import slugify
 class Header(models.Model):
     id_header = models.AutoField(primary_key=True)
     logo = models.FileField( upload_to='media/images/',blank=True, null=True)
@@ -35,28 +37,11 @@ class TentangKami(models.Model):
     nama_pengasuh = models.CharField(max_length=100)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-
-class Visimisi(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='visi')
-    id_visimisi = models.AutoField(primary_key=True)
-    desc = models.CharField(max_length=100)
-    visimisi = models.CharField(max_length=100)
-    created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
-
+    
 class Galeri(models.Model):
     owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='galeri')
     id_galeri = models.AutoField(primary_key=True)
     image = models.FileField( upload_to='media/images/galeri/',blank=True, null=True)
-    desc = models.CharField(max_length=100)
-    created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
-
-class Ekstrakulikuler(models.Model):
-    owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='eksa')
-    id_ekstra = models.AutoField(primary_key=True)
-    nama_ekstra = models.CharField(max_length=100)
-    icon = models.CharField(default='',max_length=100)
     desc = models.CharField(max_length=100)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
@@ -72,16 +57,21 @@ class Berita(models.Model):
     desc = models.CharField(max_length=100)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-
 class Prestasi(models.Model):
     owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='prestasi')
-    id_prestasi = models.AutoField(primary_key=True)
-    nama = models.CharField(max_length=100)
-    lokasi = models.CharField(max_length=100)
-    desc = models.CharField(max_length=100)
+    nama = models.CharField(max_length=255)
+    slug = models.CharField(max_length=255)
+    lokasi = models.CharField(max_length=255)
+    content = RichTextUploadingField()
     image = models.FileField(upload_to='media/images/prestasi/',blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.nama
 
 class Pendaftaran(models.Model):
     owner = models.ForeignKey(User, on_delete = models.DO_NOTHING,related_name='daftar')
@@ -93,3 +83,5 @@ class Pendaftaran(models.Model):
     lokasi = models.CharField(max_length=100)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
+
+    

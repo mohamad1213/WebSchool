@@ -1,0 +1,46 @@
+{% extends 'administration/base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <h2 class="fw-bold">Daftar Artikel</h2>
+    <a style="float: right;" href="{% url 'administration:generate_article' %}" class="btn btn-primary">
+      <i class="fas fa-plus me-2"></i>Tambah Artikel
+    </a>
+    <br>
+    <br><br>
+    <div class="row">
+      {% for article in articles %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          {% if article.featured_image %}
+          <img src="{{ article.featured_image.url }}" class="card-img-top" alt="{{ article.title }}">
+          {% else %}
+          <img src="{% static 'images/default-thumbnail.jpg' %}" class="card-img-top" alt="Default Image">
+          {% endif %}
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ article.title }}</h5>
+            <p class="card-text text-muted mb-2">
+              Ditulis oleh <strong>{{ article.author.username }}</strong><br>
+              <small>{{ article.created_at|date:"d M Y" }}</small>
+            </p>
+
+            <div class="mt-auto d-flex justify-content-between">
+              <a href="{% url 'administration:article_editor' pk=article.pk %}" class="btn btn-sm btn-outline-primary">
+                <i class="fas fa-edit me-1"></i>Edit
+              </a>
+              <a href="{% url 'administration:preview_article' pk=article.pk %}"
+                class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-eye me-1"></i>Preview
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-muted">Belum ada artikel yang tersedia.</p>
+      {% endfor %}
+    </div>
+  </div>
+  {% endblock %}

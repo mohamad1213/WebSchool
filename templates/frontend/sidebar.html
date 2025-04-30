@@ -249,29 +249,32 @@
         <li class="dropdown"><a class="nav-link scrollto" href="#"><span>Tentang Kami</span> <i
               class="bi bi-chevron-down"></i></a>
           <ul>
-            <li><a class="nav-link scrollto" href="#tentangkami">Tentang Kami</a></li>
+            <li><a class="nav-link scrollto" href="#tentangkami">Sambutan</a></li>
             <li><a class="nav-link scrollto" href="#visi">Visi dan Misi</a></li>
-            <li><a class="nav-link scrollto" href="#prestasi">Prestasi</a></li>
+            <li><a class="nav-link scrollto" href="{% url 'list_prestasi' %}">Prestasi</a></li>
             <li><a class="nav-link scrollto" href="#ukm">Ekstrakulikuler</a></li>
           </ul>
         </li>
-        <li class="dropdown"><a class="nav-link scrollto" href="#"><span>Lembaga Pendidikan Formal</span> <i
+        <!-- <li class="dropdown"><a class="nav-link scrollto" href="#"><span>Lembaga Pendidikan Formal</span> <i
               class="bi bi-chevron-down"></i></a>
           <ul>
             <li><a class="nav-link scrollto" href="/mi-luthful-ulum">MI Luthful Ulum</a></li>
             <li><a class="nav-link scrollto" href="/mts-luthful-ulum">MTs Luthful Ulum</a></li>
             <li><a class="nav-link scrollto" href="/ma-luthful-ulum">MA Luthful Ulum</a></li>
           </ul>
-        </li>
-        <li><a class="nav-link scrollto" href="/#berita">Berita</a></li>
-        <li><a class="nav-link scrollto" href="/#galeri">Galeri</a></li>
-        <li class="dropdown"><a class="nav-link scrollto" href="#"><span>PPDB 2022/2023</span> <i
-              class="bi bi-chevron-down"></i></a>
+        </li> -->
+        <li><a class="nav-link scrollto" href="/berita">Berita</a></li>
+        <li><a class="nav-link scrollto" href="/galeri">Galeri</a></li>
+        {% if has_ppdb %}
+        <li class="dropdown">
+          <a class="nav-link scrollto" href="#"><span>PPDB 2025/2026</span> <i class="bi bi-chevron-down"></i></a>
           <ul>
             <li><a class="nav-link scrollto" href="#form">Formulir Pendaftaran</a></li>
             <li><a class="nav-link scrollto" href="#inf">Informasi & Brosur PPDB</a></li>
           </ul>
         </li>
+        {% endif %}
+
         <!-- <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
           <li><a class="getstarted scrollto" href="#about">Get Started</a></li> -->
         <li><a class="nav-link scrollto" href="https://drive.google.com/file/d/1EXvbWGGMoZnuw5l7OH8NowreXhIQ_ckO/view"

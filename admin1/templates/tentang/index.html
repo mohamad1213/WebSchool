@@ -2,10 +2,13 @@
 {% block content %}
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
+        {% if data %}
+        {% else %}
         <button type="button" class="btn btn-primary rounded-pill" style="float: right;" data-bs-toggle="modal"
             data-bs-target="#input">
-            Tambah Data
+            Tambah Sambutan
         </button>
+        {% endif %}
         <h4 class="fw-bold py-3 mb-4"> Data Tentang</h4>
         <div class="card">
             <div class="card-header">
@@ -29,11 +32,10 @@
                                 <td>
                                     <img src="{{u.image.url}}" height="100px" alt="" srcset="">
                                 </td>
-                                <td><span class="d-inline-block text-truncate" style="max-width: 150px;">{{u.desc}}</span></td>
+                                <td><span class="d-inline-block text-truncate" style="max-width: 150px;"><strong>{{u.desc|safe|slice:":50"|striptags }}...</strong></span></td>
                                 <td><span class="text-center">{{u.created_at}}</span></td>
                                 <td>
                                     <a type="button" class="btn btn-primary" href="/administration/tentang/{{u.pk}}/update/">Update</a>
-                                    <a type="button" class="btn btn-danger" href="/administration/tentang/{{u.pk}}/delete/">Delete</a>
                                 </td>
                             </tr>
                         </tbody>

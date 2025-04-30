@@ -1,0 +1,74 @@
+{% extends 'administration/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h2>Generate Artikel SEO</h2>
+        <div class="card">
+            <div class="card-header">
+                <form method="post">
+                    {% csrf_token %}
+                    {% load crispy_forms_tags %}
+                
+                    <div class="form-group mb-4">
+                        <label class="form-label fw-bold mb-2">Topik Artikel</label>
+                        {{ form.topic }}
+                    </div>
+                
+                    <div class="form-group mb-4">
+                        <label class="form-label fw-bold mb-2">Kata Kunci (pisahkan dengan koma)</label>
+                        {{ form.keywords }}
+                        <button type="button" class="btn btn-secondary mt-2" id="generate-keywords-btn">
+                            <i class="fas fa-magic me-2"></i>Generate Kata Kunci
+                        </button>
+                    </div>
+                
+                    <div class="form-group mb-4">
+                        <label class="form-label fw-bold mb-2">Pilih Bahasa</label>
+                        {{ form.language }}
+                    </div>
+                
+                    <div class="form-group mb-4">
+                        <label class="form-label fw-bold mb-2">Jumlah Paragraf</label>
+                        {{ form.length }}
+                    </div>
+                
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>Generate Article
+                    </button>
+                </form>                
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('generate-keywords-btn').addEventListener('click', function () {
+            const topic = document.getElementById('id_topic').value;
+
+            if (!topic) {
+                alert('Silakan isi topik terlebih dahulu.');
+                return;
+            }
+
+            fetch('/administration/generate-keywords/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: JSON.stringify({ topic: topic })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('id_keywords').value = data.keywords;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Gagal generate kata kunci.');
+                });
+        });
+    });
+</script>
+{% endblock %}

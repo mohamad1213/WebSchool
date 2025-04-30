@@ -1,0 +1,77 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92hDvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-KY4c8SgA6GZjqNvZczEQq0UkJZksFKUqWZ1E5zp0BJ3+eGzSx3LkYECW5jZjOrx+RuRkB6hE2tV/34Ml0rkL0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<br>
+<br><br>
+<style>
+    #id_title {
+        font-family: 'Manrope', sans-serif;
+        /* Pastikan font Manrope sudah tersedia atau di-import */
+        font-size: 40px;
+    }
+
+    /* Untuk Konten Artikel (CKEditor biasanya memiliki struktur HTML sendiri di dalamnya) */
+    .ck-editor__editable {
+        font-size: 16px;
+        font-family: sans-serif;
+        /* Fallback jika Manrope tidak tersedia di editor */
+    }
+</style>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="mb-4">
+                <a href="javascript:history.back()" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a>
+            </div>
+            <article>
+                <!-- Post header-->
+                <header class="mb-4">
+                    <!-- Post title-->
+                    <h1 class="fw-bolder mb-1" style="font-family: 'Manrope', sans-serif; text-transform: capitalize;">
+                        {{ article.title }}
+                    </h1>
+                    <!-- Post meta content-->
+                    <div class="text-muted fst-italic mb-2">
+                        Ditulis pada {{ article.created_at|date:"F d, Y" }} oleh Admin
+                    </div>
+                    <!-- Post categories-->
+                    {% for category in article.categories.all %}
+                    <a class="badge bg-secondary text-decoration-none link-light me-1" href="#!">
+                        {{ category.name }}
+                    </a>
+                    {% endfor %}
+                </header>
+
+                <!-- Preview image figure-->
+                {% if article.featured_image %}
+                <figure>
+                    <img class="img-fluid rounded" width="1000" height="800" src="{{ article.featured_image.url }}"
+                        alt="{{ article.title }}" />
+                </figure>
+                {% endif %}
+
+                <!-- Post content-->
+                <section class="mb-5" style="text-align: justify; font-family: 'Manrope', sans-serif; font-size: 16px;">
+                    {{ article.content|safe }}
+                </section>
+            </article>
+            <div class="d-flex justify-content-between mb-5">
+                <a href="{% url 'administration:article_editor' pk=article.pk %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-edit me-2"></i>Edit Kembali
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
