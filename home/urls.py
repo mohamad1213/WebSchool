@@ -12,5 +12,7 @@ urlpatterns = [
     path('galeri/', views.galeri, name='list_galeri'),
     path('prestasi/', views.prestasi, name='list_prestasi'),
     path('prestasi/<pk>/', views.detail_prestasi, name='detail_prestasi'),
+    path('chat/', views.chatbot, name='chatbot'),
+
     
 ]

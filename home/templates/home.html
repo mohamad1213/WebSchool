@@ -341,59 +341,57 @@
         </div>
     </section>
 
-    <section id="galeri" class="testimonials">
+    <section id="galeri" class="testimonials py-5">
         <div class="container" data-aos="fade-up">
-            <div class="section-title">
-                <h2>Galeri</h2>
-                <p>Kumpulan kegiatan santriwan santriwati</p>
-            </div>
-            <div class="container">
-
-                <div class="swiper testimonials-slider" data-aos="fade-up">
-                    <div class="swiper-wrapper">
-                        {% for u in galeri %}
-                        <div class="swiper-slide" style="margin-left: 15px">
-                            <article>
-                                <div class="card border-0 bg-transparent">
-                                    <figure class="card-img-top overflow-hidden bsb-overlay-hover"
-                                        style="width: 300px; height: 200px;">
-                                        <a href="#">
-                                            {% if u.image %}
-                                            <img class="img-fluid rounded w-100 h-100" loading="lazy"
-                                                src="{{ u.image.url }}" alt="{{ u.title }}" style="object-fit: cover;">
-                                            {% else %}
-                                            <img class="img-fluid rounded w-100 h-100" loading="lazy"
-                                                src="./assets/img/placeholder.jpg" alt="Placeholder"
-                                                style="object-fit: cover;">
-                                            {% endif %}
-                                        </a>
-                                    </figure>
-    
-                                    <div class="card-body m-0 p-0">
-                                        <div class="entry-header mb-3">
-                                            <h3 class="card-title entry-title h3 m-0">
-                                                {{ u.desc }}
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        {% empty %}
-                        <div class="swiper-slide">
-                            <div class="testimonial-item text-center">
-                                <p>Belum ada galeri.</p>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-    
-                    <!-- Navigation and Pagination -->
-                    <div class="swiper-pagination"></div>
-                </div>
+          <div class="section-title">
+            <h2 class="ml-2">Galeri</h2>
+            <div class="d-flex justify-content-between align-items-center">
+                <h6 style="margin-left: 40%;">Kumpulan Dokumentasi Kegiatan Siswa </h6>
+                <a href="{% url 'list-berita' %}"
+                   class="btn bsb-btn-2xl btn-primary rounded-pill"
+                   style="background-color: #007854; color: #fff;">
+                    Lihat Selengkapnya
+                </a>
             </div>
         </div>
-    </section>
+      
+          <!-- Swiper Container -->
+          <div class="swiper galeri-swiper" data-aos="fade-up">
+            <div class="swiper-wrapper">
+              {% for u in galeri %}
+              <div class="swiper-slide">
+                <article class="d-flex justify-content-center">
+                  <div class="card border-0 bg-transparent shadow-sm" style="width: 300px;">
+                    <figure class="card-img-top overflow-hidden rounded" style="height: 200px;">
+                      {% if u.image %}
+                      <img src="{{ u.image.url }}" alt="{{ u.title }}"
+                           class="img-fluid w-100 h-100" style="object-fit: cover;">
+                      {% else %}
+                      <img src="/static/assets/img/placeholder.jpg" alt="Placeholder"
+                           class="img-fluid w-100 h-100" style="object-fit: cover;">
+                      {% endif %}
+                    </figure>
+                    <div class="card-body text-center p-2">
+                      <h5 class="card-title mb-1">{{ u.desc }}</h5>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              {% empty %}
+              <div class="swiper-slide text-center">
+                <p>Belum ada galeri.</p>
+              </div>
+              {% endfor %}
+            </div>
+      
+            <!-- Swiper Navigation and Pagination -->
+            <div class="swiper-pagination mt-3"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+      </section>
+      
 
 
     <!-- ======= Berita Swiper Section ======= -->
@@ -402,7 +400,14 @@
 
             <div class="section-title">
                 <h2 class="ml-2">Berita Terkini</h2>
-                <p>Update Terkini berita para santri</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 style="margin-left: 40%;">Update Terkini berita para santri</h6>
+                    <a href="{% url 'list-berita' %}"
+                       class="btn bsb-btn-2xl btn-primary rounded-pill"
+                       style="background-color: #007854; color: #fff;">
+                        Lihat Selengkapnya
+                    </a>
+                </div>
             </div>
 
             <div class="swiper berita-swiper" data-aos="fade-up">
@@ -498,22 +503,15 @@
                     </div>
                     {% empty %}
                     <div class="swiper-slide">
-                        <div class="testimonial-item text-center">
+                        <div class="text-center">
                             <p>Belum ada Berita.</p>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
-                <div class="swiper-pagination"></div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col text-center">
-                            <a style="background-color: #007854; color: #fff;" href="{% url 'list-berita' %}"
-                                class="btn bsb-btn-2xl btn-primary rounded-pill mt-5 mt-xl-10">Lihat Selengkapnya</a>
-                        </div>
-                    </div>
-                </div>
-
+                <div class="swiper-pagination mt-3"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
                 <!-- Navigation -->
 
             </div>
@@ -529,9 +527,9 @@
         {% for u in ppdb %}
         <div class="container" data-aos="zoom-in">
             <div class="text-center">
-                <h3>FORMULIR PENDAFTARAN SANTRI BARU 2022 – 2023</h3>
+                <h3>FORMULIR PENDAFTARAN SANTRI BARU 2022 - 2023</h3>
                 <p>Untuk formulir pendaftaran silahkan klik link dibawah ini</p>
-                <a class="cta-btn" target="_blank" href="{{u.link_daftar}}">Daftar Sekarang</a>
+                <a class="cta-btn text-decoration-none" target="_blank" href="{{u.link_daftar}}">Daftar Sekarang</a>
             </div>
         </div>
     </section><!-- End Cta Section -->
@@ -640,7 +638,7 @@
     });
 </script>
 <script>
-    var swiper = new Swiper(".testimonials-slider", {
+    var swiper = new Swiper(".galeri-swiper", {
         loop: false, // Tetap looping
         autoplay: false, // Matikan autoplay
         pagination: {

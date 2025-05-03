@@ -6,8 +6,65 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from admin1.models import *
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .utils import detect_intent_texts  # Fungsi yang Anda buat sebelumnya
+import uuid
+import json
+import uuid
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from google.cloud import dialogflow_v2 as dialogflow
+from django.http import JsonResponse
+from google.cloud import dialogflow_v2 as dialogflow
+from google.oauth2 import service_account
+# Ganti dengan project ID Anda
+PROJECT_ID = "newagent-ilgg"
+LANGUAGE_CODE = "id"
+CREDENTIAL_PATH = r"C:\Users\LENOVO X1\Downloads\Websekolah\pos\credentials.json"
+credentials = service_account.Credentials.from_service_account_file(CREDENTIAL_PATH)
 
+@csrf_exempt
+def chatbot(request):
+    if request.method == 'POST':
+        import json
+        data = json.loads(request.body)
+        user_message = data.get('message')
 
+        # Konfigurasi Session Client
+        session_client = dialogflow.SessionsClient(credentials=credentials)
+
+        PROJECT_ID = 'newagent-ilgg'  # Ganti dengan ID agent kamu
+        SESSION_ID = str(uuid.uuid4())
+        session = session_client.session_path(PROJECT_ID, SESSION_ID)
+
+        text_input = dialogflow.TextInput(text=user_message, language_code='id')
+        query_input = dialogflow.QueryInput(text=text_input)
+
+        response = session_client.detect_intent(
+            request={"session": session, "query_input": query_input}
+        )
+
+        reply = response.query_result.fulfillment_text
+        return JsonResponse({'reply': reply})
+
+def detect_intent_text(text, session_id):
+    session_client = dialogflow.SessionsClient()
+    session = session_client.session_path(PROJECT_ID, session_id)
+
+    text_input = dialogflow.TextInput(text=text, language_code=LANGUAGE_CODE)
+    query_input = dialogflow.QueryInput(text=text_input)
+
+    try:
+        response = session_client.detect_intent(
+            request={"session": session, "query_input": query_input}
+        )
+        return response.query_result.fulfillment_text
+    except Exception as e:
+        return f"Terjadi kesalahan: {str(e)}"
+    
+    
 def Tentang(request):
     context = {
         'tentang':'tentang',

@@ -1,0 +1,100 @@
+[
+    {
+        "displayName": "InformasiKurikulumSMA",
+        "questions": [
+            "apa saja mata pelajaran di sma",
+            "bagaimana kurikulum sma",
+            "ada jurusan apa saja di sma"
+        ],
+        "answer": "Kurikulum SMA [Nama Sekolah] mencakup mata pelajaran wajib seperti Matematika, Bahasa Indonesia, Bahasa Inggris, IPA, IPS, dan Pendidikan Agama. Selain itu, terdapat juga pilihan jurusan seperti IPA dan IPS dengan mata pelajaran peminatan masing-masing."
+    },
+    {
+        "displayName": "Welcome",
+        "questions": [
+            "haloo",
+            "haii"
+        ],
+        "answer": "halo, adakah yang bisa kami bantu ?"
+    },
+    {
+        "displayName": "KegiatanEkstrakurikuler",
+        "questions": [
+            "ekskul apa saja yang ada di sekolah",
+            "daftar kegiatan ekstrakurikuler",
+            "cara ikut ekskul"
+        ],
+        "answer": "Kami memiliki berbagai kegiatan ekstrakurikuler seperti basket, futsal, voli, marching band, teater, klub sains, dan роботика. Pendaftaran ekskul biasanya dilakukan pada awal semester melalui formulir yang dapat diambil di bagian kesiswaan."
+    },
+    {
+        "displayName": "FasilitasSekolah",
+        "questions": [
+            "apa saja fasilitas sekolah",
+            "apakah sekolah punya perpustakaan",
+            "ada lab komputer tidak"
+        ],
+        "answer": "Sekolah kami dilengkapi dengan fasilitas seperti ruang kelas ber-AC, perpustakaan dengan koleksi buku yang lengkap, laboratorium komputer dan IPA, lapangan olahraga, aula serbaguna, dan kantin sekolah."
+    },
+    {
+        "displayName": "KontakTataUsaha",
+        "questions": [
+            "nomor telepon tata usaha",
+            "email sekolah",
+            "alamat sekolah"
+        ],
+        "answer": "Anda dapat menghubungi bagian tata usaha di nomor telepon [nomor telepon] atau melalui email di [alamat email]. Alamat sekolah kami adalah [alamat lengkap sekolah]."
+    },
+    {
+        "displayName": "JadwalUjian",
+        "questions": [
+            "kapan ujian semester",
+            "jadwal ulangan harian",
+            "tanggal ujian akhir"
+        ],
+        "answer": "Jadwal ujian semester biasanya akan diumumkan dua minggu sebelum pelaksanaan melalui website sekolah dan papan pengumuman. Untuk jadwal ulangan harian, silakan tanyakan kepada guru mata pelajaran masing-masing."
+    },
+    {
+        "displayName": "BiayaPendidikan",
+        "questions": [
+            "berapa biaya sekolah",
+            "rincian spp",
+            "cara pembayaran biaya sekolah"
+        ],
+        "answer": "Informasi mengenai biaya pendidikan dan rincian SPP dapat Anda lihat di brosur pendaftaran atau menghubungi bagian keuangan sekolah di nomor [nomor telepon bagian keuangan]."
+    },
+    {
+        "displayName": "Beasiswa",
+        "questions": [
+            "apakah ada beasiswa",
+            "syarat mendapatkan beasiswa",
+            "cara mendaftar beasiswa"
+        ],
+        "answer": "Ya, [Nama Sekolah] menyediakan beberapa program beasiswa untuk siswa berprestasi dan siswa dari keluarga kurang mampu. Informasi mengenai persyaratan dan cara pendaftaran beasiswa dapat Anda lihat di website sekolah pada bagian beasiswa."
+    },
+    {
+        "displayName": "PeraturanSekolah",
+        "questions": [
+            "apa saja peraturan sekolah",
+            "aturan berpakaian sekolah",
+            "sanksi pelanggaran peraturan"
+        ],
+        "answer": "Peraturan sekolah bertujuan untuk menciptakan lingkungan belajar yang kondusif. Beberapa peraturan umum meliputi kewajiban mengenakan seragam sesuai ketentuan, menjaga kebersihan, dan menghormati guru serta staf sekolah. Rincian lengkap peraturan dapat dilihat di buku panduan siswa."
+    },
+    {
+        "displayName": "PendaftaranSiswaBaru",
+        "questions": [
+            "kapan pendaftaran siswa baru dibuka",
+            "syarat pendaftaran smp",
+            "cara daftar smp online"
+        ],
+        "answer": "Pendaftaran siswa baru untuk tahun ajaran [tahun] biasanya dibuka pada bulan September. Informasi mengenai persyaratan pendaftaran SMP dan cara pendaftaran online dapat Anda lihat di website sekolah pada bagian pendaftaran."
+    },
+    {
+        "displayName": "Alumni",
+        "questions": [
+            "informasi tentang alumni",
+            "acara alumni",
+            "cara bergabung dengan ikatan alumni"
+        ],
+        "answer": "Ikatan alumni [Nama Sekolah] merupakan wadah bagi para lulusan untuk tetap terhubung dan berkontribusi kepada sekolah. Informasi mengenai kegiatan alumni dan cara bergabung dapat Anda lihat di website sekolah pada bagian alumni atau menghubungi sekretariat ikatan alumni."
+    }
+]
