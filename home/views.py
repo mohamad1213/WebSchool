@@ -22,7 +22,7 @@ from google.oauth2 import service_account
 # Ganti dengan project ID Anda
 PROJECT_ID = "newagent-ilgg"
 LANGUAGE_CODE = "id"
-CREDENTIAL_PATH = r"C:\Users\LENOVO X1\Downloads\Websekolah\pos\credentials.json"
+CREDENTIAL_PATH = r"C:\Users\LENOVO X1\Downloads\Websekolah\pos\credentials3.json"
 credentials = service_account.Credentials.from_service_account_file(CREDENTIAL_PATH)
 
 @csrf_exempt

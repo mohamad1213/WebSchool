@@ -1,5 +1,10 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+# views.py
+from django.http import JsonResponse
+from django.db.models.functions import TruncDate
+from django.db.models import Count
+from .models import SiteVisit
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from home.models import *
@@ -65,24 +70,6 @@ def TentangKamiCreate(request):
         form = TentangKamiForms(instance=instance)
 
     return render(request, 'tentangkami/create.html', {'form': form})
-def chatbot_view(request):
-    if request.method == "POST":
-        # Ambil pertanyaan dari request POST
-        user_question = request.POST.get("pertanyaan")
-
-        # Cari kecocokan terbaik di FAQ
-        best_match = get_best_match(user_question)
-        
-        # Jika ada kecocokan, beri respon dengan jawaban dari FAQ
-        if best_match:
-            response = best_match.answer
-        else:
-            response = "Maaf, saya tidak dapat menemukan jawaban untuk pertanyaan Anda."
-
-        # Kembalikan respons dalam format JSON untuk AJAX
-        return JsonResponse({"response": response})
-    else:
-        return JsonResponse({"error": "Invalid request"}, status=400)
 @csrf_exempt
 def generate_keywords(request):
     if request.method == 'POST':
@@ -180,12 +167,36 @@ class ProfileView(View):
             messages.error(request, form_validation_error(form))
         return redirect('/administration/profile/') 
 
+def chart_data(request):
+    visits = (
+        SiteVisit.objects
+        .annotate(date=TruncDate('timestamp'))
+        .values('date')
+        .annotate(total=Count('id'))
+        .order_by('date')
+    )
+    data = {
+        'labels': [v['date'].strftime('%Y-%m-%d') for v in visits],
+        'totals': [v['total'] for v in visits]
+    }
+    return JsonResponse(data)
+
 
 @login_required(login_url='/accounts/')
 def index(request):
     data = Profile.objects.all()
-    context ={'data':data}
+    artikel = Article.objects.all()
+    galeri = Galeri.objects.all()
+    data = Profile.objects.all()
+    data = Profile.objects.all()
+    context ={
+        'galeri':galeri,
+        'artikel':artikel,
+        'data':data,
+              
+              }
     return render(request,"index.html", context)
+
 @login_required(login_url='/accounts/')
 def box(request):
     return render(request,"boxicon.html")

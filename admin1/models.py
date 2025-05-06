@@ -5,7 +5,9 @@ from django.conf.urls.static import static
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from ckeditor_uploader.fields import RichTextUploadingField
-
+class SiteVisit(models.Model):
+    timestamp = models.DateTimeField(auto_now_add=True)
+    ip_address = models.GenericIPAddressField()
 class Profile(models.Model):
 	user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
 	name = models.CharField(max_length=200, null=True)

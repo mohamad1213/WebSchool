@@ -8,67 +8,76 @@
         <br>
         <div class="app-brand justify-content-center">
           <a href="/" class="app-brand-link gap-2">
-              <span class="app-brand-logo demo">
-                  <img src="{% static 'frontend/assets/img/logo1.png' %}" height="150px" width="150px" alt="" srcset="">
-              </span>
-            </a>
-          </div>
-          <h6 class="text-center mt-3">Pondok Pesantren Luthful Ulum</h6>
-      <br>
-      {% with request.resolver_match.url_name as url_name %}
+            <span class="app-brand-logo demo">
+              <img src="{% static 'frontend/assets/img/logo1.png' %}" height="150px" width="150px" alt="" srcset="">
+            </span>
+          </a>
+        </div>
+        <h6 class="text-center mt-3">Pondok Pesantren Luthful Ulum</h6>
+        <br>
+        {% with request.resolver_match.url_name as url_name %}
 
         <div class="menu-inner-shadow"></div>
 
         <ul class="menu-inner py-1">
           <li class="menu-item {% if url_name == 'beranda' %}active{% endif %}">
-            <a href="/administration/home/" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-collection"></i>
+            <a href="{% url 'administration:beranda' %}" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-home"></i> <!-- Home Icon -->
               <div data-i18n="Basic">Home</div>
             </a>
           </li>
+
           <li class="menu-item {% if url_name == 'tentang' %}active{% endif %}">
             <a href="{% url 'administration:tentang' %}" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-collection"></i>
+              <i class="menu-icon tf-icons bx bx-user"></i>
               <div data-i18n="Basic">Sambutan</div>
             </a>
           </li>
+          
+
           <li class="menu-item {% if url_name == 'article_list' %}active{% endif %}">
             <a href="{% url 'administration:article_list' %}" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-collection"></i>
+              <i class="menu-icon tf-icons bx bx-pencil"></i> <!-- Pencil Icon for Generate Artikel Baru -->
               <div data-i18n="Basic">Generate Artikel Baru</div>
             </a>
           </li>
+
           <li class="menu-item {% if url_name == 'tentang_list' %}active{% endif %}">
             <a href="{% url 'administration:tentang_list' %}" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-collection"></i>
+              <i class="menu-icon tf-icons bx bx-book"></i> <!-- Book Icon for Sejarah -->
               <div data-i18n="Basic">Sejarah</div>
             </a>
           </li>
+
           <li class="menu-item {% if url_name == 'galeri' %}active{% endif %}">
             <a href="{% url 'administration:galeri' %}" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-collection"></i>
+              <i class="menu-icon tf-icons bx bx-image"></i> <!-- Image Icon for Galeri -->
               <div data-i18n="Basic">Galeri</div>
             </a>
           </li>
+
           <li class="menu-item {% if url_name == 'prestasi' %}active{% endif %}">
             <a href="{% url 'administration:prestasi' %}" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-collection"></i>
+              <i class="menu-icon tf-icons bx bx-trophy"></i> <!-- Trophy Icon for Prestasi -->
               <div data-i18n="Basic">Prestasi</div>
             </a>
           </li>
+
           <li class="menu-item {% if url_name == 'ppdb' %}active{% endif %}">
             <a href="{% url 'administration:ppdb' %}" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-collection"></i>
+              <i class="menu-icon tf-icons bx bx-bookmark"></i> <!-- Bookmark Icon for PPDB -->
               <div data-i18n="Basic">PPDB</div>
             </a>
           </li>
+
           <li class="menu-item {% if url_name == 'visimisi_list' %}active{% endif %}">
             <a href="{% url 'administration:visimisi_list' %}" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-collection"></i>
+              <i class="menu-icon tf-icons bx bx-target-lock"></i> <!-- Target Icon for Visi Misi -->
               <div data-i18n="Basic">Visi Misi</div>
             </a>
           </li>
         </ul>
+
         {% endwith %}
 
       </aside>

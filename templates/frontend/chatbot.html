@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <title>Chatbot Sekolah</title>
@@ -20,6 +21,7 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       cursor: pointer;
     }
+
     .card-chat {
       position: fixed;
       bottom: 90px;
@@ -29,76 +31,174 @@
       z-index: 999;
       display: none;
     }
+
     .chat-body {
       overflow-y: auto;
       max-height: 300px;
     }
+
+    #chatCard .form-outline .form-control~.form-notch div {
+      pointer-events: none;
+      border: 1px solid;
+      border-color: #eee;
+      box-sizing: border-box;
+      background: transparent;
+    }
+
+    #chatCard .form-outline .form-control~.form-notch .form-notch-leading {
+      left: 0;
+      top: 0;
+      height: 100%;
+      border-right: none;
+      border-radius: .65rem 0 0 .65rem;
+    }
+
+    #chatCard .form-outline .form-control~.form-notch .form-notch-middle {
+      flex: 0 0 auto;
+      max-width: calc(100% - 1rem);
+      height: 100%;
+      border-right: none;
+      border-left: none;
+    }
+
+    #chatCard .form-outline .form-control~.form-notch .form-notch-trailing {
+      flex-grow: 1;
+      height: 100%;
+      border-left: none;
+      border-radius: 0 .65rem .65rem 0;
+    }
+
+    #chatCard .form-outline .form-control:focus~.form-notch .form-notch-leading {
+      border-top: 0.125rem solid #39c0ed;
+      border-bottom: 0.125rem solid #39c0ed;
+      border-left: 0.125rem solid #39c0ed;
+    }
+
+    #chatCard .form-outline .form-control:focus~.form-notch .form-notch-leading,
+    #chatCard .form-outline .form-control.active~.form-notch .form-notch-leading {
+      border-right: none;
+      transition: all 0.2s linear;
+    }
+
+    #chatCard .form-outline .form-control:focus~.form-notch .form-notch-middle {
+      border-bottom: 0.125rem solid;
+      border-color: #39c0ed;
+    }
+
+    #chatCard .form-outline .form-control:focus~.form-notch .form-notch-middle,
+    #chatCard .form-outline .form-control.active~.form-notch .form-notch-middle {
+      border-top: none;
+      border-right: none;
+      border-left: none;
+      transition: all 0.2s linear;
+    }
+
+    #chatCard .form-outline .form-control:focus~.form-notch .form-notch-trailing {
+      border-top: 0.125rem solid #39c0ed;
+      border-bottom: 0.125rem solid #39c0ed;
+      border-right: 0.125rem solid #39c0ed;
+    }
+
+    #chatCard .form-outline .form-control:focus~.form-notch .form-notch-trailing,
+    #chatCard .form-outline .form-control.active~.form-notch .form-notch-trailing {
+      border-left: none;
+      transition: all 0.2s linear;
+    }
+
+    #chatCard .form-outline .form-control:focus~.form-label {
+      color: #39c0ed;
+    }
+
+    #chatCard .form-outline .form-control~.form-label {
+      color: #bfbfbf;
+    }
   </style>
 </head>
+
 <body>
 
-<!-- Tombol Chat Mengambang -->
-<div id="openChat" class="whatsapp-float">
-  <i class="bi bi-chat-dots-fill"></i>
-</div>
-
-<!-- Kotak Chat -->
-<div id="chatCard" class="card shadow card-chat">
-  <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-    <strong>Chat Sekolah</strong>
-    <button id="closeChat" class="btn-close btn-close-white"></button>
+  <!-- Tombol Chat Mengambang -->
+  <div id="openChat"
+    class="whatsapp-float position-fixed bottom-0 end-0 m-4 bg-primary text-white p-3 rounded-circle shadow"
+    style="cursor:pointer; z-index: 1000;">
+    <i class="bi bi-chat-dots-fill fs-4"></i>
   </div>
-  <div class="card-body chat-body" id="chatBox">
-    <div class="text-muted small">Halo! Ada yang bisa kami bantu?</div>
+  <!-- Kotak Chat -->
+  <div id="chatCard" class="card shadow card-chat position-fixed bottom-0 end-0 m-4"
+    style="width: 350px; display: none; z-index: 1001;">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <strong>CS SDI NUR JANNAH</strong>
+      <button id="closeChat" class="btn-close btn-close-white"></button>
+    </div>
+    <div class="card-body chat-body" id="chatBox"
+      style="height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">
+      <div class="text-muted small">Halo! Ada yang bisa kami bantu?</div>
+    </div>
+    <div class="card-footer">
+      <form id="chat-form">
+        <textarea id="messageInput" class="form-control" rows="2" placeholder="Tulis pesan..."></textarea>
+      </form>
+    </div>
   </div>
-  <div class="card-footer">
-    <form id="chat-form">
-      <textarea id="messageInput" class="form-control" rows="2" placeholder="Tulis pesan..."></textarea>
-      <button type="submit" class="btn btn-sm btn-primary mt-2 w-100">Kirim</button>
-    </form>
-  </div>
-</div>
+  <script>
+    const openChat = document.getElementById("openChat");
+    const closeChat = document.getElementById("closeChat");
+    const chatCard = document.getElementById("chatCard");
+    const chatBox = document.getElementById("chatBox");
+    const messageInput = document.getElementById("messageInput");
 
-<script>
-  const openChat = document.getElementById("openChat");
-  const closeChat = document.getElementById("closeChat");
-  const chatCard = document.getElementById("chatCard");
-  const form = document.getElementById("chat-form");
-  const chatBox = document.getElementById("chatBox");
+    openChat.onclick = () => chatCard.style.display = "block";
+    closeChat.onclick = () => chatCard.style.display = "none";
 
-  openChat.onclick = () => chatCard.style.display = "block";
-  closeChat.onclick = () => chatCard.style.display = "none";
+    messageInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        const message = messageInput.value.trim();
+        if (!message) return;
 
-  form.onsubmit = function(e) {
-    e.preventDefault();
-    const message = document.getElementById("messageInput").value;
-    if (!message) return;
+        // Tampilkan pesan pengguna
+        chatBox.innerHTML += `
+          <div class="d-flex flex-column align-items-end mb-2">
+            <div class="small text-muted">Anda:</div>
+            <div class="border border-primary rounded p-2 bg-primary text-white" style="max-width: 75%;">
+              ${message}
+            </div>
+          </div>
+        `;
 
-    // Tampilkan pesan pengguna
-    chatBox.innerHTML += `<div class="text-end"><b>Anda:</b> ${message}</div>`;
-    document.getElementById("messageInput").value = "";
-    chatBox.scrollTop = chatBox.scrollHeight;
+        messageInput.value = "";
+        chatBox.scrollTop = chatBox.scrollHeight;
 
-    // Kirim ke Django (Dialogflow)
-    fetch("{% url 'chatbot' %}", {
-      method: "POST",
-      headers: {
-        "X-CSRFToken": "{{ csrf_token }}",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message })
-    })
-    .then(res => res.json())
-    .then(data => {
-      chatBox.innerHTML += `<div class="text-start"><b>Bot:</b> ${data.reply}</div>`;
-      chatBox.scrollTop = chatBox.scrollHeight;
-    })
-    .catch(error => {
-      chatBox.innerHTML += `<div class="text-danger small">Terjadi kesalahan.</div>`;
+        // Kirim ke Django (Dialogflow)
+        fetch("{% url 'chatbot' %}", {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message })
+        })
+          .then(res => res.json())
+          .then(data => {
+            chatBox.innerHTML += `
+              <div class="d-flex flex-column align-items-start mb-2">
+                <div class="small text-muted">Admin Sekolah:</div>
+                <div class="border border-success rounded p-2 bg-success text-white" style="max-width: 75%;">
+                  ${data.reply}
+                </div>
+              </div>
+            `;
+            chatBox.scrollTop = chatBox.scrollHeight;
+          })
+          .catch(error => {
+            chatBox.innerHTML += `<div class="text-danger small">Terjadi kesalahan.</div>`;
+          });
+      }
     });
-  }
-</script>
+  </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
