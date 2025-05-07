@@ -64,7 +64,12 @@ def detect_intent_text(text, session_id):
     except Exception as e:
         return f"Terjadi kesalahan: {str(e)}"
     
-    
+def visimisi(request):
+    visimisi = VisiMisi.objects.all()
+    context = {
+        'visimisi':visimisi,
+    }
+    return render(request,"visimisi.html", context)
 def Tentang(request):
     context = {
         'tentang':'tentang',

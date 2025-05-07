@@ -7,13 +7,13 @@
       <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
         <br>
         <div class="app-brand justify-content-center">
-          <a href="/" class="app-brand-link gap-2">
+          <a href="{% url 'administration:admin' %}" class="app-brand-link gap-2">
             <span class="app-brand-logo demo">
-              <img src="{% static 'frontend/assets/img/logo1.png' %}" height="150px" width="150px" alt="" srcset="">
+              <img src="{% static 'frontend/assets/img/logo3.png' %}" height="200px" width="200px" alt="" srcset="">
             </span>
           </a>
         </div>
-        <h6 class="text-center mt-3">Pondok Pesantren Luthful Ulum</h6>
+        <h6 class="text-center mt-3">SD Islam Nur Jannah</h6>
         <br>
         {% with request.resolver_match.url_name as url_name %}
 

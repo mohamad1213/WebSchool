@@ -1,4 +1,3 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 # views.py
 from django.http import JsonResponse
@@ -19,14 +18,11 @@ from django.utils.decorators import method_decorator
 from .forms import GeneratePromptForm, ArticleForm
 from .models import Article
 import requests
-from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import FAQ
 import requests
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .forms import GeneratePromptForm
 from .models import *
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
@@ -187,11 +183,12 @@ def index(request):
     data = Profile.objects.all()
     artikel = Article.objects.all()
     galeri = Galeri.objects.all()
-    data = Profile.objects.all()
+    prestasi = Prestasi.objects.all()
     data = Profile.objects.all()
     context ={
         'galeri':galeri,
         'artikel':artikel,
+        'prestasi':prestasi,
         'data':data,
               
               }

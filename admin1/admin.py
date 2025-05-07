@@ -4,3 +4,4 @@ from admin1.models import *
 admin.site.register(Article)
 admin.site.register(Category)
 admin.site.register(FAQ)
+admin.site.register(VisiMisi)

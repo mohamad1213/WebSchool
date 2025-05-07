@@ -6,7 +6,7 @@
 
     <!-- <h1 class="logo"><a href="index.html">OnePage</a></h1> -->
     <!-- Uncomment below if you prefer to use an image logo -->
-    <a href="/" class="logo"><img src="{% static 'frontend/assets/img/ponpes.png' %}" alt="" class="img-fluid"></a>
+    <a href="/" class="logo"><img src="{% static 'frontend/assets/img/logo_nur_fix.png' %}" height="250px" width="250px" alt="" class="img-fluid"></a>
     <style>
       .navbar {
         padding: 0;
@@ -249,8 +249,7 @@
         <li class="dropdown"><a class="nav-link scrollto" href="#"><span>Tentang Kami</span> <i
               class="bi bi-chevron-down"></i></a>
           <ul>
-            <li><a class="nav-link scrollto" href="#tentangkami">Sambutan</a></li>
-            <li><a class="nav-link scrollto" href="#visi">Visi dan Misi</a></li>
+            <li><a class="nav-link scrollto" href="{% url 'visimisi' %}">Visi dan Misi</a></li>
             <li><a class="nav-link scrollto" href="{% url 'list_prestasi' %}">Prestasi</a></li>
             <!-- <li><a class="nav-link scrollto" href="#ukm">Ekstrakulikuler</a></li> -->
           </ul>
@@ -269,16 +268,14 @@
         <li class="dropdown">
           <a class="nav-link scrollto" href="#"><span>PPDB 2025/2026</span> <i class="bi bi-chevron-down"></i></a>
           <ul>
-            <li><a class="nav-link scrollto" href="#form">Formulir Pendaftaran</a></li>
+            {% for u in ppdb_list %}
+            <li><a class="nav-link scrollto" target="_blank" href="{{ u.link_daftar }}">Formulir Pendaftaran</a></li>
+            {% endfor %}
             <li><a class="nav-link scrollto" href="#inf">Informasi & Brosur PPDB</a></li>
           </ul>
         </li>
         {% endif %}
 
-        <!-- <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="getstarted scrollto" href="#about">Get Started</a></li> -->
-        <li><a class="nav-link scrollto" href="https://drive.google.com/file/d/1EXvbWGGMoZnuw5l7OH8NowreXhIQ_ckO/view"
-            target="_blank">Pengumuman PPDB</a></li>
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->

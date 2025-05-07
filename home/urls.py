@@ -11,6 +11,7 @@ urlpatterns = [
     path('tentang-kami/', views.Tentang, name='tentang'),
     path('galeri/', views.galeri, name='list_galeri'),
     path('prestasi/', views.prestasi, name='list_prestasi'),
+    path('visimisi/', views.visimisi, name='visimisi'),
     path('prestasi/<pk>/', views.detail_prestasi, name='detail_prestasi'),
     path('chat/', views.chatbot, name='chatbot'),
 
