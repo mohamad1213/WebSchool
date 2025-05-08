@@ -1,10 +1,8 @@
-from django.shortcuts import get_object_or_404
-# views.py
+from django.contrib.auth.models import User, Group
 from django.http import JsonResponse
 from django.db.models.functions import TruncDate
 from django.db.models import Count
 from .models import SiteVisit
-from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from home.models import *
 from django.contrib import messages
@@ -15,21 +13,130 @@ from admin1.forms import ProfileForm, form_validation_error
 from django.views.generic import View
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
-from .forms import GeneratePromptForm, ArticleForm
+from .forms import ArticleForm
 from .models import Article
-import requests
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import FAQ
-import requests
-from django.shortcuts import render, redirect
 from .models import *
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 import json
 import markdown
 from .utils import *
+from django.core.mail import send_mail
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
+from home.models import SantriPendaftar
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+import textwrap
+@login_required
+def edit_data_lengkap_santri(request, pk):
+    # Mengambil data berdasarkan pk
+    santri = get_object_or_404(DataLengkapSantri, pk=pk)
 
+    if request.method == 'POST':
+        form = DataLengkapSantriForm(request.POST, request.FILES, instance=santri)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Data berhasil diperbarui!')
+            return redirect('administration:daftar_lengkap_santri')
+    else:
+        form = DataLengkapSantriForm(instance=santri)
+    
+    return render(request, 'siswa/edit_data_lengkap_santri.html', {'form': form, 'santri': santri})
+@login_required
+def daftar_lengkap_santri(request):
+    # Mengambil semua data lengkap santri dari database
+    data_santri = DataLengkapSantri.objects.all()
+    return render(request, 'siswa/daftar_lengkap_santri.html', {'data_santri': data_santri})
+
+@login_required
+def lengkapi_data(request):
+    try:
+        # Ambil data pendaftar berdasarkan user yang login
+        pendaftar = SantriPendaftar.objects.get(nisn=request.user.username)
+    except SantriPendaftar.DoesNotExist:
+        return redirect('error_page')  # Buat halaman error jika perlu
+
+    # Cek apakah sudah ada data lengkap
+    try:
+        data_lengkap = DataLengkapSantri.objects.get(pendaftar=pendaftar)
+        is_update = True
+    except DataLengkapSantri.DoesNotExist:
+        data_lengkap = None
+        is_update = False
+
+    if request.method == 'POST':
+        form = DataLengkapSantriForm(request.POST, request.FILES, instance=data_lengkap)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.pendaftar = pendaftar
+            instance.save()
+            return redirect('administration:admin')  # Ganti dengan nama halaman siswa
+    else:
+        form = DataLengkapSantriForm(instance=data_lengkap)
+
+    return render(request, 'siswa/lengkapi_data.html', {
+        'form': form,
+        'is_update': is_update,
+    })
+def is_admin(user):
+    return user.is_authenticated and user.is_staff  # Atau pakai group
+@user_passes_test(is_admin)
+def verifikasi_pendaftar(request, pk):
+    pendaftar = get_object_or_404(SantriPendaftar, pk=pk)
+    pendaftar.status_verifikasi = True
+    pendaftar.save()
+
+    # # Buat akun user tanpa password
+    if not User.objects.filter(username=pendaftar.nisn).exists():
+        user = User.objects.create_user(
+            username=pendaftar.nisn,
+            email=pendaftar.email,
+            first_name=pendaftar.nama,
+        )
+        user.set_unusable_password()
+        user.save()
+         # Tambahkan user ke grup "Siswa"
+        group = Group.objects.get(name='siswa')  # Pastikan grup "Siswa" sudah ada di admin panel
+        user.groups.add(group)
+        user.save()
+
+
+        # Generate token reset password
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        token = default_token_generator.make_token(user)
+        reset_link = f"http://{settings.SITE_DOMAIN}/reset/{uid}/{token}/"
+
+
+        # Buat isi pesan email
+        message = textwrap.dedent(f"""
+            Assalamu'alaikum {pendaftar.nama},
+
+            Pendaftaran Anda telah diverifikasi. Akun Anda di SDI NUR JANNAH telah dibuat.
+            dengan username {pendaftar.nisn}
+            Silakan klik link di bawah ini untuk membuat password akun Anda:
+            {reset_link}
+            Terima kasih.
+        """)
+        # Kirim email
+        send_mail(
+            subject='Akun Anda Telah Dibuat - Atur Password Anda',
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[pendaftar.email],
+            fail_silently=False,
+        )
+    messages.success(request, 'Pendaftaran berhasil diverifikasi. Link pengaturan password telah dikirim ke email.')
+    return redirect('administration:daftar_list')  # Sesuaikan dengan nama URL kamu
+
+def daftar_list(request):
+    data = SantriPendaftar.objects.all().order_by('-id')
+    return render (request, 'pendaftar/index.html', {'pendaftar':data})
 def visimisi_list(request):
     visimisi = VisiMisi.objects.all().order_by('-created_at')
     return render(request, 'visimisi/index.html', {'visimisi': visimisi})
@@ -180,19 +287,26 @@ def chart_data(request):
 
 @login_required(login_url='/accounts/')
 def index(request):
-    data = Profile.objects.all()
-    artikel = Article.objects.all()
-    galeri = Galeri.objects.all()
-    prestasi = Prestasi.objects.all()
-    data = Profile.objects.all()
-    context ={
-        'galeri':galeri,
-        'artikel':artikel,
-        'prestasi':prestasi,
-        'data':data,
-              
-              }
-    return render(request,"index.html", context)
+    user = request.user
+    if user.groups.filter(name='admin').exists():
+        data = Profile.objects.all()
+        artikel = Article.objects.all()
+        galeri = Galeri.objects.all()
+        prestasi = Prestasi.objects.all()
+        data = Profile.objects.all()
+        context ={
+            'galeri':galeri,
+            'artikel':artikel,
+            'prestasi':prestasi,
+            'data':data,
+                
+                }
+        return render(request,"index.html", context)
+    elif user.groups.filter(name='siswa').exists():
+        return render(request, 'index_siswa.html')
+    else:
+        return render(request, 'home.html')
+    
 
 @login_required(login_url='/accounts/')
 def box(request):

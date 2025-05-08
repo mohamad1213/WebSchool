@@ -9,7 +9,6 @@ urlpatterns = [
     path('administration/', include('admin1.urls')),
     # path('barang/', include('barang.urls')),
     # path('category/', include('barang.urls_cat')),
-    # path('transaksi/', include('transaksi.urls')),
     path('accounts/', include('account.urls')),
     path('ckeditor/upload/', ckeditor_views.upload, name='ckeditor_upload'),
     path('ckeditor/browse/', ckeditor_views.browse, name='ckeditor_browse'),

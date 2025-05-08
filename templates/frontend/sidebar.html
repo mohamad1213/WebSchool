@@ -268,9 +268,10 @@
         <li class="dropdown">
           <a class="nav-link scrollto" href="#"><span>PPDB 2025/2026</span> <i class="bi bi-chevron-down"></i></a>
           <ul>
-            {% for u in ppdb_list %}
+            <!-- {% for u in ppdb_list %}
             <li><a class="nav-link scrollto" target="_blank" href="{{ u.link_daftar }}">Formulir Pendaftaran</a></li>
-            {% endfor %}
+            {% endfor %} -->
+            <li><a class="nav-link scrollto" target="_blank" href="{% url 'pendaftaran' %}">Formulir Pendaftaran</a></li>
             <li><a class="nav-link scrollto" href="#inf">Informasi & Brosur PPDB</a></li>
           </ul>
         </li>

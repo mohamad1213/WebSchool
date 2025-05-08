@@ -10,4 +10,4 @@ admin.site.register(Berita)
 admin.site.register(Prestasi)
 admin.site.register(Pendaftaran)
 admin.site.register(Profile)
-# Register your models here.
+admin.site.register(SantriPendaftar)

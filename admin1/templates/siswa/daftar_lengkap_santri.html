@@ -1,0 +1,51 @@
+{% extends 'administration/base.html' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <a class="btn btn-primary" style="float: right;" href="{% url 'administration:lengkapi_data' %}">Lengkapi Data</a>
+        <h4 class="fw-bold py-3 mb-4"> Data Pendaftaran</h4>
+        <div class="card">
+            <div class="card-header">
+
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Asal Sekolah</th>
+                                <th>Golongan Darah</th>
+                                <th>Berat Badan</th>
+                                <th>Tinggi Badan</th>
+                                <th>Nama Wali</th>
+                                <th>Hubungan Wali</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for santri in data_santri %}
+                            <tr>
+                                <td>{{ santri.nama }}</td>
+                                <td>{{ santri.asal_sekolah }}</td>
+                                <td>{{ santri.golongan_darah }}</td>
+                                <td>{{ santri.berat_badan }}</td>
+                                <td>{{ santri.tinggi_badan }}</td>
+                                <td>{{ santri.nama_wali }}</td>
+                                <td>{{ santri.hubungan_wali }}</td>
+                                <td>
+                                    <a href="{% url 'administration:edit_data_lengkap_santri' santri.pk %}"
+                                        class="btn btn-warning">Edit</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="8" class="text-center">Tidak ada data yang tersedia.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,11 +1,16 @@
 from django.urls import path
 from admin1.views import ProfileView
-
 app_name = 'administration'
 from . import views
 urlpatterns = [
     # path('profile/', ProfileView.as_view(), name='profile'),
+    path('verifikasi/<int:pk>/', views.verifikasi_pendaftar, name='verifikasi_pendaftar'),
+    path('pendaftar/', views.daftar_list, name='daftar_list'),
     path('', views.index, name='admin'),
+    path('data-lengkap/', views.daftar_lengkap_santri, name='daftar_lengkap_santri'),
+    # URL untuk mengedit data lengkap santri
+    path('edit-data-lengkap/<int:pk>/', views.edit_data_lengkap_santri, name='edit_data_lengkap_santri'),
+    path('lengkapi-data/', views.lengkapi_data, name='lengkapi_data'),
     path('chart-data/', views.chart_data, name='chart_data'),
     # path("chatbot/", views.chatbot_view, name="chatbot_api"),
     path('generate-keywords/', views.generate_keywords, name='generate_keywords'),

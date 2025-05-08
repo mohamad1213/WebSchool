@@ -135,3 +135,42 @@ class EditProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ['profile_pic', 'bio','phone','alamat']
+        
+from django import forms
+from home.models import DataLengkapSantri
+
+class DataLengkapSantriForm(forms.ModelForm):
+    class Meta:
+        model = DataLengkapSantri
+        fields = [
+            'asal_sekolah',
+            'no_ijazah',
+            'golongan_darah',
+            'riwayat_penyakit',
+            'berat_badan',
+            'tinggi_badan',
+            'kebutuhan_khusus',
+            'nama_wali',
+            'hubungan_wali',
+            'no_hp_wali',
+            'penerima_kps',
+            'no_kps',
+            'upload_kk',
+            'upload_akte'
+        ]
+        widgets = {
+            'asal_sekolah': forms.TextInput(attrs={'class': 'form-control'}),
+            'no_ijazah': forms.TextInput(attrs={'class': 'form-control'}),
+            'golongan_darah': forms.Select(attrs={'class': 'form-control'}),
+            'riwayat_penyakit': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'berat_badan': forms.NumberInput(attrs={'class': 'form-control'}),
+            'tinggi_badan': forms.NumberInput(attrs={'class': 'form-control'}),
+            'kebutuhan_khusus': forms.TextInput(attrs={'class': 'form-control'}),
+            'nama_wali': forms.TextInput(attrs={'class': 'form-control'}),
+            'hubungan_wali': forms.TextInput(attrs={'class': 'form-control'}),
+            'no_hp_wali': forms.TextInput(attrs={'class': 'form-control'}),
+            'penerima_kps': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'no_kps': forms.TextInput(attrs={'class': 'form-control'}),
+            'upload_kk': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'upload_akte': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }

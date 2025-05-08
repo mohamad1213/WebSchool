@@ -83,5 +83,58 @@ class Pendaftaran(models.Model):
     lokasi = models.CharField(max_length=100)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
+class SantriPendaftar(models.Model):
+    nama = models.CharField(max_length=100)
+    nisn = models.CharField(max_length=10, unique=True)
+    tempat_lahir = models.CharField(max_length=100)
+    tanggal_lahir = models.DateField()
+    jenis_kelamin = models.CharField(max_length=10, choices=[('L', 'Laki-laki'), ('P', 'Perempuan')])
+    alamat = models.TextField()
+    nama_ayah = models.CharField(max_length=100)
+    nama_ibu = models.CharField(max_length=100)
+    no_hp = models.CharField(max_length=15)
+    email = models.EmailField()
+    foto = models.ImageField(upload_to='media/images/pendaftar/', blank=True, null=True)
+    tanggal_daftar = models.DateTimeField(auto_now_add=True)
+    status_verifikasi = models.BooleanField(default=False)
+    catatan_admin = models.TextField(blank=True, null=True)
 
-    
+    def __str__(self):
+        return self.nama
+
+
+class DataLengkapSantri(models.Model):
+    pendaftar = models.OneToOneField('SantriPendaftar', on_delete=models.CASCADE, related_name='data_lengkap')
+
+    # Data akademik sebelumnya
+    asal_sekolah = models.CharField(max_length=150, blank=True, null=True)
+    no_ijazah = models.CharField(max_length=50, blank=True, null=True)
+
+    # Data kesehatan
+    golongan_darah = models.CharField(max_length=3, blank=True, null=True)
+    riwayat_penyakit = models.TextField(blank=True, null=True)
+    berat_badan = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    tinggi_badan = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+    # Kebutuhan khusus
+    kebutuhan_khusus = models.CharField(max_length=100, blank=True, null=True)
+
+    # Data wali (opsional)
+    nama_wali = models.CharField(max_length=100, blank=True, null=True)
+    hubungan_wali = models.CharField(max_length=50, blank=True, null=True)
+    no_hp_wali = models.CharField(max_length=15, blank=True, null=True)
+
+    # Status bantuan / ekonomi
+    penerima_kps = models.BooleanField(default=False)
+    no_kps = models.CharField(max_length=50, blank=True, null=True)
+
+    # Upload berkas
+    upload_kk = models.FileField(upload_to='media/berkas/kk/', blank=True, null=True)
+    upload_akte = models.FileField(upload_to='media/berkas/akte/', blank=True, null=True)
+
+    # Tanggal input/update
+    tanggal_dibuat = models.DateTimeField(auto_now_add=True)
+    tanggal_diupdate = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'Data lengkap {self.pendaftar.nama}'

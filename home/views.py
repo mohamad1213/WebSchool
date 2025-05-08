@@ -19,6 +19,17 @@ from google.cloud import dialogflow_v2 as dialogflow
 from django.http import JsonResponse
 from google.cloud import dialogflow_v2 as dialogflow
 from google.oauth2 import service_account
+
+
+def daftar_santri(request):
+    if request.method == 'POST':
+        form = SantriPendaftarForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('daftar_berhasil')
+    else:
+        form = SantriPendaftarForm()
+    return render(request, 'pendaftaran/formulir.html', {'form': form})
 # Ganti dengan project ID Anda
 PROJECT_ID = "newagent-ilgg"
 LANGUAGE_CODE = "id"

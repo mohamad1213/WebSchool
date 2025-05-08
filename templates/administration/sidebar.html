@@ -20,10 +20,18 @@
         <div class="menu-inner-shadow"></div>
 
         <ul class="menu-inner py-1">
+          {% if request.user.groups.first.name == 'admin' %}
           <li class="menu-item {% if url_name == 'beranda' %}active{% endif %}">
             <a href="{% url 'administration:beranda' %}" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home"></i> <!-- Home Icon -->
               <div data-i18n="Basic">Home</div>
+            </a>
+          </li>
+
+          <li class="menu-item {% if url_name == 'daftar_list' %}active{% endif %}">
+            <a href="{% url 'administration:daftar_list' %}" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-home"></i> <!-- Home Icon -->
+              <div data-i18n="Basic">Pendaftaran</div>
             </a>
           </li>
 
@@ -76,6 +84,35 @@
               <div data-i18n="Basic">Visi Misi</div>
             </a>
           </li>
+          {% elif request.user.groups.first.name == 'siswa' %}
+          <li class="menu-item {% if url_name == 'siswa_dashboard' %}active{% endif %}">
+            <a href="#" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-home"></i>
+              <div data-i18n="Basic">Dashboard</div>
+            </a>
+          </li>
+      
+          <li class="menu-item {% if url_name == 'daftar_lengkap_santri' %}active{% endif %}">
+            <a href="{% url 'administration:daftar_lengkap_santri' %}" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-user-check"></i>
+              <div data-i18n="Basic">Lengkapi Data</div>
+            </a>
+          </li>
+      
+          <li class="menu-item {% if url_name == 'upload_berkas' %}active{% endif %}">
+            <a href="#" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-upload"></i>
+              <div data-i18n="Basic">Upload Berkas</div>
+            </a>
+          </li>
+      
+          <li class="menu-item {% if url_name == 'status_pendaftaran' %}active{% endif %}">
+            <a href="#" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-check-circle"></i>
+              <div data-i18n="Basic">Status Pendaftaran</div>
+            </a>
+          </li>
+        {% endif %}
         </ul>
 
         {% endwith %}

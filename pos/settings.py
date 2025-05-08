@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_DOMAIN = '127.0.0.1:8000'  # Atau domain kamu di production nanti
 
 # Application definition
 
@@ -43,7 +44,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'admin1',
-    'account'
+    'account',
 ]
 OPENAI_API_KEY = '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'
 DEEPSEEK_API_KEY = "sk-b65cee49e25a4902b2a26f52b145f934"
@@ -184,4 +185,12 @@ MESSAGE_TAGS ={
     messages.SUCCESS : 'alert-success',
     messages.WARNING : 'alert-warning',
 }
+
+# EMAIL_BACKEND = 'admin1.backends.email_backend.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'eclassroom463@gmail.com'
+EMAIL_HOST_PASSWORD = 'tgudxpphammubcyg'
 
